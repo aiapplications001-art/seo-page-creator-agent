@@ -11,6 +11,7 @@ The agent produces publish-ready page packets for guide/blog pages, comparison p
 - Google Search Console OAuth read-only integration
 - Google Ads Keyword Planner data access through a read-only application policy
 - CSV/XLSX fallback imports
+- Sitemap fetch and URL metadata extraction
 - Cluster strategy and page packet workflows
 - Image generation workflow specs and prompt fallback
 - TypeScript CLI helpers
@@ -38,6 +39,13 @@ For local development before publishing/installing the CLI:
 ```bash
 npm run dev -- init
 npm run dev -- help
+```
+
+Useful CLI helpers:
+
+```bash
+seo-agent sitemap fetch https://example.com/sitemap.xml
+seo-agent metadata extract --limit 500
 ```
 
 ## Workspace
