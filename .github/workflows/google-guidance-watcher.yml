@@ -1,0 +1,48 @@
+name: Google Guidance Watcher
+
+on:
+  schedule:
+    # Tuesday 03:30 UTC, Tuesday morning in India.
+    - cron: "30 3 * * 2"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  google-guidance-watcher:
+    name: Run Google guidance watcher
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build CLI
+        run: npm run build
+
+      - name: Initialize SEO agent workspace
+        run: node dist/cli/index.js init
+
+      - name: Run Google guidance watcher
+        run: node dist/cli/index.js watcher google-guidance
+
+      - name: Upload watcher report artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: google-guidance-watcher
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            .seo-agent-workspace/watcher-reports/
+            .seo-agent-workspace/watcher-state/
