@@ -30,6 +30,7 @@ Company onboarding
 
 - Google OAuth read-only data access: see `workflows/10-google-oauth-readonly.md`
 - Image generation and fallback: see `workflows/11-image-generation.md`
+- Site inventory: see `workflows/12-site-inventory.md`
 - Google data policy: see `policies/google-data-access-policy.md`
 - Image policy: see `policies/image-generation-policy.md`
 

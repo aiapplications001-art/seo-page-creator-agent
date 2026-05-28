@@ -2,6 +2,8 @@
 
 import { runGoogleAuth } from "./auth-google.js";
 import { runInitWorkspace } from "./init-workspace.js";
+import { runMetadataCommand } from "./metadata.js";
+import { runSitemapCommand } from "./sitemap.js";
 
 function printHelp(): void {
   console.log(`SEO Page Creator Agent CLI
@@ -10,6 +12,8 @@ Usage:
   seo-agent init
   seo-agent auth google
   seo-agent auth google --code <AUTH_CODE>
+  seo-agent sitemap fetch <sitemap-url>
+  seo-agent metadata extract [--limit <number>]
   seo-agent help
 
 V1 CLI scope:
@@ -37,6 +41,16 @@ async function main(): Promise<void> {
 
   if (command === "auth" && subcommand === "google") {
     await runGoogleAuth(args);
+    return;
+  }
+
+  if (command === "sitemap") {
+    await runSitemapCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
+    return;
+  }
+
+  if (command === "metadata") {
+    await runMetadataCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
     return;
   }
 

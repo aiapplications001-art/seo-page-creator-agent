@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seo-page-creator-agent.dev/schemas/site-inventory.schema.json",
+  "title": "Site Inventory URL",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["url", "pageType", "priority"],
+    "properties": {
+      "url": {
+        "type": "string",
+        "format": "uri"
+      },
+      "lastmod": {
+        "type": "string"
+      },
+      "pageType": {
+        "type": "string",
+        "enum": [
+          "guide_blog",
+          "comparison",
+          "product",
+          "product_category",
+          "landing",
+          "faq_support",
+          "policy",
+          "pricing_trust",
+          "unknown"
+        ]
+      },
+      "priority": {
+        "type": "integer"
+      }
+    },
+    "additionalProperties": false
+  }
+}

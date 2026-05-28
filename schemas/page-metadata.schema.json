@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seo-page-creator-agent.dev/schemas/page-metadata.schema.json",
+  "title": "Page Metadata",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["url", "h2s", "schemaTypes", "pageType", "classificationReason"],
+    "properties": {
+      "url": {
+        "type": "string",
+        "format": "uri"
+      },
+      "title": {
+        "type": "string"
+      },
+      "metaDescription": {
+        "type": "string"
+      },
+      "canonical": {
+        "type": "string"
+      },
+      "h1": {
+        "type": "string"
+      },
+      "h2s": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "schemaTypes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "pageType": {
+        "type": "string"
+      },
+      "classificationReason": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false
+  }
+}
