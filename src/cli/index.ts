@@ -4,6 +4,7 @@ import { runGoogleAuth } from "./auth-google.js";
 import { runClusterCommand } from "./cluster.js";
 import { runInitWorkspace } from "./init-workspace.js";
 import { runMetadataCommand } from "./metadata.js";
+import { runPreWritingCommand } from "./prewriting.js";
 import { runSitemapCommand } from "./sitemap.js";
 
 function printHelp(): void {
@@ -16,6 +17,7 @@ Usage:
   seo-agent sitemap fetch <sitemap-url>
   seo-agent metadata extract [--limit <number>]
   seo-agent cluster plan --category <name> --company <name> [--market India] [--keywords <comma-separated>]
+  seo-agent prewriting plan --cluster <slug> --page-id <P1> --audience <cohort> [--tone <tone>]
   seo-agent help
 
 V1 CLI scope:
@@ -59,6 +61,11 @@ async function main(): Promise<void> {
 
   if (command === "cluster") {
     await runClusterCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
+    return;
+  }
+
+  if (command === "prewriting") {
+    await runPreWritingCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
     return;
   }
 

@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seo-page-creator-agent.dev/schemas/prewriting-strategy.schema.json",
+  "title": "Pre-Writing Strategy",
+  "type": "object",
+  "required": [
+    "companyName",
+    "market",
+    "category",
+    "selectedPage",
+    "audience",
+    "tone",
+    "keywords",
+    "contentDepth",
+    "cta",
+    "pageStructure",
+    "referenceRequirements",
+    "imageRequirements",
+    "approvalQueues",
+    "evidenceNotes",
+    "machineMetadata"
+  ],
+  "properties": {
+    "companyName": { "type": "string" },
+    "market": { "type": "string" },
+    "category": {
+      "type": "object",
+      "required": ["name", "slug"],
+      "properties": {
+        "name": { "type": "string" },
+        "slug": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "selectedPage": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "pageType",
+        "strategyCategory",
+        "targetIntent",
+        "primaryCtaGoal",
+        "suggestedUrlSlug",
+        "evidenceStrength"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^P[0-9]+$" },
+        "title": { "type": "string" },
+        "pageType": { "type": "string", "enum": ["product_category", "guide_blog", "comparison"] },
+        "strategyCategory": {
+          "type": "string",
+          "enum": [
+            "first_organic_wins",
+            "highest_conversion",
+            "startup_conversion",
+            "low_competition",
+            "high_competition",
+            "competitor_category"
+          ]
+        },
+        "targetIntent": { "type": "string" },
+        "primaryCtaGoal": { "type": "string" },
+        "suggestedUrlSlug": { "type": "string" },
+        "sourceUrl": { "type": "string", "format": "uri" },
+        "evidenceStrength": { "$ref": "#/$defs/evidenceStrength" }
+      },
+      "additionalProperties": false
+    },
+    "audience": {
+      "type": "object",
+      "required": ["cohort", "market"],
+      "properties": {
+        "cohort": { "type": "string" },
+        "market": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "tone": {
+      "type": "object",
+      "required": ["requiresUserSelection", "options"],
+      "properties": {
+        "selected": { "type": "string" },
+        "requiresUserSelection": { "type": "boolean" },
+        "options": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 3,
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "keywords": {
+      "type": "object",
+      "required": ["secondary", "clusterSeeds"],
+      "properties": {
+        "primary": { "type": "string" },
+        "secondary": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "clusterSeeds": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "contentDepth": {
+      "type": "object",
+      "required": ["targetRange", "strict"],
+      "properties": {
+        "targetRange": { "type": "string" },
+        "strict": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "cta": {
+      "type": "object",
+      "required": ["primaryGoal", "firstFoldRequired", "mobileSticky"],
+      "properties": {
+        "primaryGoal": { "type": "string" },
+        "recommendedDestination": { "type": "string", "format": "uri" },
+        "firstFoldRequired": { "const": true },
+        "mobileSticky": {
+          "type": "object",
+          "required": ["recommended", "shortenedLabelRequired"],
+          "properties": {
+            "recommended": { "type": "boolean" },
+            "shortenedLabelRequired": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "pageStructure": {
+      "type": "object",
+      "required": ["h1Rule", "sections"],
+      "properties": {
+        "h1Rule": { "const": "exactly_one" },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "purpose", "contentRole", "notes"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^S[0-9]+_[a-z0-9_]+$" },
+              "purpose": { "type": "string" },
+              "contentRole": { "type": "string", "enum": ["conversion", "seo", "trust", "ux", "reference"] },
+              "notes": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "referenceRequirements": {
+      "type": "object",
+      "required": ["liveSerpReviewRequired", "quoteReferenceUrlsRequired", "externalLinksOpenInNewTab", "notes"],
+      "properties": {
+        "liveSerpReviewRequired": { "const": true },
+        "quoteReferenceUrlsRequired": { "const": true },
+        "externalLinksOpenInNewTab": { "const": true },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "imageRequirements": {
+      "type": "object",
+      "required": ["defaultGeneratedImageCount", "ogImageRequired", "brandGuidelineRequired", "notes"],
+      "properties": {
+        "defaultGeneratedImageCount": { "const": "3-5" },
+        "ogImageRequired": { "type": "boolean" },
+        "brandGuidelineRequired": { "type": "boolean" },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "approvalQueues": {
+      "type": "object",
+      "required": ["structure", "content", "images", "critical"],
+      "properties": {
+        "structure": { "$ref": "#/$defs/approvalItems" },
+        "content": { "$ref": "#/$defs/approvalItems" },
+        "images": { "$ref": "#/$defs/approvalItems" },
+        "critical": { "$ref": "#/$defs/approvalItems" }
+      },
+      "additionalProperties": false
+    },
+    "evidenceNotes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["pointer", "evidenceStrength", "source"],
+        "properties": {
+          "pointer": { "type": "string" },
+          "evidenceStrength": { "$ref": "#/$defs/evidenceStrength" },
+          "source": { "type": "string", "enum": ["cluster_strategy", "user_input", "agent_inference"] }
+        },
+        "additionalProperties": false
+      }
+    },
+    "machineMetadata": {
+      "type": "object",
+      "required": ["schemaVersion", "generatedFrom", "selectedPageId"],
+      "properties": {
+        "schemaVersion": { "const": "prewriting-strategy.v1" },
+        "generatedFrom": { "const": "cluster-strategy.v1" },
+        "selectedPageId": { "type": "string", "pattern": "^P[0-9]+$" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "evidenceStrength": { "type": "string", "enum": ["low", "medium", "high"] },
+    "approvalItems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item", "reason", "risk"],
+        "properties": {
+          "item": { "type": "string" },
+          "reason": { "type": "string" },
+          "risk": { "type": "string", "enum": ["low", "medium", "high", "critical"] }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -47,6 +47,7 @@ Useful CLI helpers:
 seo-agent sitemap fetch https://example.com/sitemap.xml
 seo-agent metadata extract --limit 500
 seo-agent cluster plan --category "Acne Treatment" --company "ClearNest" --market India --keywords "acne treatment,acne marks treatment"
+seo-agent prewriting plan --cluster acne-treatment --page-id P1 --audience "Indian adults with visible acne" --tone "professional compact"
 ```
 
 Cluster strategy outputs are written to:
@@ -54,6 +55,8 @@ Cluster strategy outputs are written to:
 ```text
 .seo-agent-workspace/clusters/<category-slug>/strategy.json
 .seo-agent-workspace/clusters/<category-slug>/strategy.md
+.seo-agent-workspace/clusters/<category-slug>/prewriting/<page-id>/strategy.json
+.seo-agent-workspace/clusters/<category-slug>/prewriting/<page-id>/strategy.md
 ```
 
 ## Workspace

@@ -32,6 +32,7 @@ Company onboarding
 - Image generation and fallback: see `workflows/11-image-generation.md`
 - Site inventory: see `workflows/12-site-inventory.md`
 - Cluster strategy: see `workflows/13-cluster-strategy.md`
+- Pre-writing strategy: see `workflows/14-prewriting-strategy.md`
 - Google data policy: see `policies/google-data-access-policy.md`
 - Image policy: see `policies/image-generation-policy.md`
 
@@ -53,4 +54,6 @@ Cluster strategies should produce:
 ```text
 clusters/<category-slug>/strategy.md
 clusters/<category-slug>/strategy.json
+clusters/<category-slug>/prewriting/<page-id>/strategy.md
+clusters/<category-slug>/prewriting/<page-id>/strategy.json
 ```
