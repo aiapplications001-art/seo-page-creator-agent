@@ -48,6 +48,7 @@ seo-agent sitemap fetch https://example.com/sitemap.xml
 seo-agent metadata extract --limit 500
 seo-agent cluster plan --category "Acne Treatment" --company "ClearNest" --market India --keywords "acne treatment,acne marks treatment"
 seo-agent prewriting plan --cluster acne-treatment --page-id P1 --audience "Indian adults with visible acne" --tone "professional compact"
+seo-agent page-packet build --cluster acne-treatment --page-id P1 --author "ClearNest Editorial Team"
 ```
 
 Cluster strategy outputs are written to:
@@ -57,6 +58,8 @@ Cluster strategy outputs are written to:
 .seo-agent-workspace/clusters/<category-slug>/strategy.md
 .seo-agent-workspace/clusters/<category-slug>/prewriting/<page-id>/strategy.json
 .seo-agent-workspace/clusters/<category-slug>/prewriting/<page-id>/strategy.md
+.seo-agent-workspace/page-packets/<category-slug>/<page-id>/page-packet.json
+.seo-agent-workspace/page-packets/<category-slug>/<page-id>/page-packet.md
 ```
 
 ## Workspace

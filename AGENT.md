@@ -33,6 +33,7 @@ Company onboarding
 - Site inventory: see `workflows/12-site-inventory.md`
 - Cluster strategy: see `workflows/13-cluster-strategy.md`
 - Pre-writing strategy: see `workflows/14-prewriting-strategy.md`
+- Page packet: see `workflows/15-page-packet.md`
 - Google data policy: see `policies/google-data-access-policy.md`
 - Image policy: see `policies/image-generation-policy.md`
 
@@ -56,4 +57,6 @@ clusters/<category-slug>/strategy.md
 clusters/<category-slug>/strategy.json
 clusters/<category-slug>/prewriting/<page-id>/strategy.md
 clusters/<category-slug>/prewriting/<page-id>/strategy.json
+page-packets/<category-slug>/<page-id>/page-packet.md
+page-packets/<category-slug>/<page-id>/page-packet.json
 ```
