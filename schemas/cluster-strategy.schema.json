@@ -1,0 +1,273 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seo-page-creator-agent.dev/schemas/cluster-strategy.schema.json",
+  "title": "Cluster Strategy",
+  "type": "object",
+  "required": [
+    "companyName",
+    "market",
+    "category",
+    "sourceMetadata",
+    "existingUrlCandidates",
+    "pageOpportunities",
+    "internalLinkSuggestions",
+    "qualityScore",
+    "assumptions",
+    "nextPageSelection"
+  ],
+  "properties": {
+    "companyName": {
+      "type": "string"
+    },
+    "market": {
+      "type": "string"
+    },
+    "category": {
+      "type": "object",
+      "required": ["name", "slug"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "sourceMetadata": {
+      "type": "object",
+      "required": ["urlsConsidered", "urlsMatched", "seedKeywords"],
+      "properties": {
+        "urlsConsidered": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "urlsMatched": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "seedKeywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "existingUrlCandidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["url", "pageType", "evidenceStrength", "matchReason"],
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "pageType": {
+            "$ref": "#/$defs/pageType"
+          },
+          "title": {
+            "type": "string"
+          },
+          "h1": {
+            "type": "string"
+          },
+          "evidenceStrength": {
+            "$ref": "#/$defs/evidenceStrength"
+          },
+          "matchReason": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "pageOpportunities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "pageType",
+          "strategyCategory",
+          "targetIntent",
+          "primaryCtaGoal",
+          "suggestedUrlSlug",
+          "evidenceStrength"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^P[0-9]+$"
+          },
+          "title": {
+            "type": "string"
+          },
+          "pageType": {
+            "type": "string",
+            "enum": ["product_category", "guide_blog", "comparison"]
+          },
+          "strategyCategory": {
+            "$ref": "#/$defs/strategyCategory"
+          },
+          "targetIntent": {
+            "type": "string"
+          },
+          "primaryCtaGoal": {
+            "type": "string"
+          },
+          "suggestedUrlSlug": {
+            "type": "string"
+          },
+          "sourceUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "evidenceStrength": {
+            "$ref": "#/$defs/evidenceStrength"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "internalLinkSuggestions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sourceUrl", "destinationUrl", "placement", "anchorText", "reason"],
+        "properties": {
+          "sourceUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "destinationUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "placement": {
+            "type": "string",
+            "enum": ["header", "body", "breadcrumb", "faq"]
+          },
+          "anchorText": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "qualityScore": {
+      "type": "object",
+      "required": ["score", "advisoryOnly", "topIssues"],
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "advisoryOnly": {
+          "const": true
+        },
+        "topIssues": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "type": "object",
+            "required": ["area", "issue", "likelyImpact", "priority"],
+            "properties": {
+              "area": {
+                "type": "string"
+              },
+              "issue": {
+                "type": "string"
+              },
+              "likelyImpact": {
+                "type": "string",
+                "enum": ["seo", "conversion", "seo_and_conversion"]
+              },
+              "priority": {
+                "type": "string",
+                "enum": ["low", "medium", "high"]
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["statement", "evidenceStrength", "source"],
+        "properties": {
+          "statement": {
+            "type": "string"
+          },
+          "evidenceStrength": {
+            "$ref": "#/$defs/evidenceStrength"
+          },
+          "source": {
+            "type": "string",
+            "enum": ["metadata", "seed_keywords", "agent_inference"]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "nextPageSelection": {
+      "type": "object",
+      "required": ["instruction", "recommendedPageId"],
+      "properties": {
+        "instruction": {
+          "type": "string"
+        },
+        "recommendedPageId": {
+          "type": "string",
+          "pattern": "^P[0-9]+$"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "evidenceStrength": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "strategyCategory": {
+      "type": "string",
+      "enum": [
+        "first_organic_wins",
+        "highest_conversion",
+        "startup_conversion",
+        "low_competition",
+        "high_competition",
+        "competitor_category"
+      ]
+    },
+    "pageType": {
+      "type": "string",
+      "enum": [
+        "guide_blog",
+        "comparison",
+        "product",
+        "product_category",
+        "landing",
+        "faq_support",
+        "policy",
+        "pricing_trust",
+        "unknown"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

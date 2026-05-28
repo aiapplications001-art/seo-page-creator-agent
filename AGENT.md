@@ -31,6 +31,7 @@ Company onboarding
 - Google OAuth read-only data access: see `workflows/10-google-oauth-readonly.md`
 - Image generation and fallback: see `workflows/11-image-generation.md`
 - Site inventory: see `workflows/12-site-inventory.md`
+- Cluster strategy: see `workflows/13-cluster-strategy.md`
 - Google data policy: see `policies/google-data-access-policy.md`
 - Image policy: see `policies/image-generation-policy.md`
 
@@ -50,6 +51,6 @@ image-prompts.md, only when ungenerated image prompts are needed
 Cluster strategies should produce:
 
 ```text
-cluster-strategy.md
-cluster-strategy.json
+clusters/<category-slug>/strategy.md
+clusters/<category-slug>/strategy.json
 ```
