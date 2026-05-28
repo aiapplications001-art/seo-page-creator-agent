@@ -4,6 +4,7 @@ import { runGoogleAuth } from "./auth-google.js";
 import { runClusterCommand } from "./cluster.js";
 import { runInitWorkspace } from "./init-workspace.js";
 import { runMetadataCommand } from "./metadata.js";
+import { runPagePacketCommand } from "./page-packet.js";
 import { runPreWritingCommand } from "./prewriting.js";
 import { runSitemapCommand } from "./sitemap.js";
 
@@ -18,6 +19,7 @@ Usage:
   seo-agent metadata extract [--limit <number>]
   seo-agent cluster plan --category <name> --company <name> [--market India] [--keywords <comma-separated>]
   seo-agent prewriting plan --cluster <slug> --page-id <P1> --audience <cohort> [--tone <tone>]
+  seo-agent page-packet build --cluster <slug> --page-id <P1> [--author <name>]
   seo-agent help
 
 V1 CLI scope:
@@ -66,6 +68,11 @@ async function main(): Promise<void> {
 
   if (command === "prewriting") {
     await runPreWritingCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
+    return;
+  }
+
+  if (command === "page-packet") {
+    await runPagePacketCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
     return;
   }
 

@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seo-page-creator-agent.dev/schemas/page-packet.schema.json",
+  "title": "Page Packet",
+  "type": "object",
+  "required": [
+    "metadata",
+    "seo",
+    "authorship",
+    "cta",
+    "rendering",
+    "sections",
+    "links",
+    "images",
+    "schemaDrafts",
+    "machineReadable"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["schemaVersion", "sourcePrewritingPageId", "companyName", "market", "pageType", "createdDate", "updatedDate"],
+      "properties": {
+        "schemaVersion": { "const": "page-packet.v1" },
+        "sourcePrewritingPageId": { "type": "string", "pattern": "^P[0-9]+$" },
+        "companyName": { "type": "string" },
+        "market": { "type": "string" },
+        "pageType": { "type": "string" },
+        "createdDate": { "type": "string" },
+        "updatedDate": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "seo": {
+      "type": "object",
+      "required": ["title", "description", "slug", "h1", "secondaryKeywords", "ogTitle", "ogDescription", "twitterTitle", "twitterDescription"],
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "slug": { "type": "string" },
+        "h1": { "type": "string" },
+        "primaryKeyword": { "type": "string" },
+        "secondaryKeywords": { "type": "array", "items": { "type": "string" } },
+        "ogTitle": { "type": "string" },
+        "ogDescription": { "type": "string" },
+        "twitterTitle": { "type": "string" },
+        "twitterDescription": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "authorship": {
+      "type": "object",
+      "required": ["author", "reviewedByVisible"],
+      "properties": {
+        "author": { "$ref": "#/$defs/personCredit" },
+        "reviewer": { "$ref": "#/$defs/personCredit" },
+        "reviewedByVisible": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "cta": {
+      "type": "object",
+      "required": ["primary", "mobileSticky"],
+      "properties": {
+        "primary": { "$ref": "#/$defs/cta" },
+        "mobileSticky": {
+          "type": "object",
+          "required": ["label"],
+          "properties": {
+            "label": { "type": "string" },
+            "destination": { "type": "string", "format": "uri" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "rendering": {
+      "type": "object",
+      "required": ["mobileFirst", "desktopNotes", "mobileNotes"],
+      "properties": {
+        "mobileFirst": { "const": true },
+        "desktopNotes": { "type": "array", "items": { "type": "string" } },
+        "mobileNotes": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "sections": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/section" }
+    },
+    "links": { "$ref": "#/$defs/links" },
+    "images": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/imageSlot" }
+    },
+    "schemaDrafts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "jsonLd"],
+        "properties": {
+          "type": { "type": "string", "enum": ["WebPage", "BreadcrumbList", "FAQPage"] },
+          "jsonLd": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "machineReadable": {
+      "type": "object",
+      "required": ["sections", "images", "links"],
+      "properties": {
+        "sections": { "type": "array", "items": { "$ref": "#/$defs/section" } },
+        "images": { "type": "array", "items": { "$ref": "#/$defs/imageSlot" } },
+        "links": { "$ref": "#/$defs/links" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "personCredit": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "descriptor": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "cta": {
+      "type": "object",
+      "required": ["label", "microcopy"],
+      "properties": {
+        "label": { "type": "string" },
+        "microcopy": { "type": "string" },
+        "destination": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": false
+    },
+    "section": {
+      "type": "object",
+      "required": ["id", "heading", "role", "markdown"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^S[0-9]+_[a-z0-9_]+$" },
+        "heading": { "type": "string" },
+        "role": { "type": "string" },
+        "markdown": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "links": {
+      "type": "object",
+      "required": ["internal", "external"],
+      "properties": {
+        "internal": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["url", "anchorText", "placement"],
+            "properties": {
+              "url": { "type": "string" },
+              "anchorText": { "type": "string" },
+              "placement": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "external": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["url", "label", "opensInNewTab", "purpose"],
+            "properties": {
+              "url": { "type": "string" },
+              "label": { "type": "string" },
+              "opensInNewTab": { "const": true },
+              "purpose": { "type": "string", "enum": ["citation", "destination"] }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "imageSlot": {
+      "type": "object",
+      "required": ["id", "purpose", "aspectRatio", "altText", "status"],
+      "properties": {
+        "id": { "type": "string" },
+        "sectionId": { "type": "string" },
+        "purpose": { "type": "string" },
+        "aspectRatio": { "type": "string" },
+        "altText": { "type": "string" },
+        "status": { "type": "string", "enum": ["reserved", "brief_needed", "generated"] }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
