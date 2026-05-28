@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { runGoogleAuth } from "./auth-google.js";
+import { runClusterCommand } from "./cluster.js";
 import { runInitWorkspace } from "./init-workspace.js";
 import { runMetadataCommand } from "./metadata.js";
 import { runSitemapCommand } from "./sitemap.js";
@@ -14,13 +15,15 @@ Usage:
   seo-agent auth google --code <AUTH_CODE>
   seo-agent sitemap fetch <sitemap-url>
   seo-agent metadata extract [--limit <number>]
+  seo-agent cluster plan --category <name> --company <name> [--market India] [--keywords <comma-separated>]
   seo-agent help
 
 V1 CLI scope:
   - deterministic helpers
   - workspace setup
   - Google OAuth token setup
-  - future sitemap, metadata, validation, and import commands
+  - sitemap, metadata, and cluster strategy helpers
+  - future validation and import commands
 
 Creative strategy, page copy, approval queues, and image generation are handled by agent adapters.
 `);
@@ -51,6 +54,11 @@ async function main(): Promise<void> {
 
   if (command === "metadata") {
     await runMetadataCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
+    return;
+  }
+
+  if (command === "cluster") {
+    await runClusterCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
     return;
   }
 
