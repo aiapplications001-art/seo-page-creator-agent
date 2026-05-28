@@ -9,6 +9,7 @@ import { runMetadataCommand } from "./metadata.js";
 import { runPagePacketCommand } from "./page-packet.js";
 import { runPreWritingCommand } from "./prewriting.js";
 import { runSitemapCommand } from "./sitemap.js";
+import { runWatcherCommand } from "./watcher.js";
 
 function printHelp(): void {
   console.log(`SEO Page Creator Agent CLI
@@ -24,6 +25,7 @@ Usage:
   seo-agent page-packet build --cluster <slug> --page-id <P1> [--author <name>]
   seo-agent final-copy expand --cluster <slug> --page-id <P1>
   seo-agent images plan --cluster <slug> --page-id <P1> [--expanded]
+  seo-agent watcher google-guidance [--date YYYY-MM-DD]
   seo-agent help
 
 V1 CLI scope:
@@ -87,6 +89,11 @@ async function main(): Promise<void> {
 
   if (command === "images") {
     await runImagesCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
+    return;
+  }
+
+  if (command === "watcher") {
+    await runWatcherCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
     return;
   }
 
