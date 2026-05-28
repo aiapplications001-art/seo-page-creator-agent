@@ -1,0 +1,5 @@
+description = "Generate one publish-ready SEO page packet from an approved strategy."
+prompt = """
+Use AGENT.md and the relevant workflow/policy files to generate one publish-ready SEO page packet.
+If Company SEO Profile, Product/Category Profile, Cluster Strategy, or Pre-Writing Strategy is missing, explain the missing prerequisite and ask whether to create it first or use explicit single-page mode.
+"""

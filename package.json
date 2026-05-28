@@ -1,0 +1,24 @@
+{
+  "name": "seo-page-creator-agent",
+  "version": "0.1.0",
+  "description": "Portable SEO page creator agent framework for brand-aware page packets, Google data inputs, and image workflows.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "bin": {
+    "seo-agent": "dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli/index.ts",
+    "init": "tsx src/cli/index.ts init",
+    "auth:google": "tsx src/cli/index.ts auth google",
+    "test": "node --test --import tsx tests/*.test.ts",
+    "validate": "npm run build && npm test",
+    "ci": "npm run validate"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
