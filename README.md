@@ -54,6 +54,8 @@ seo-agent images plan --cluster acne-treatment --page-id P1
 seo-agent watcher google-guidance
 ```
 
+The Google guidance watcher is also scheduled through GitHub Actions every Tuesday morning India time. Reports are uploaded as workflow artifacts rather than committed to the repo.
+
 Cluster strategy outputs are written to:
 
 ```text

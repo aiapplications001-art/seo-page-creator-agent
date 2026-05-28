@@ -8,6 +8,14 @@ Default schedule: Tuesday morning.
 
 The CLI runs on demand. A scheduler such as cron, GitHub Actions, or a host automation can call it weekly.
 
+The public repo includes a GitHub Actions scheduler at:
+
+```text
+.github/workflows/google-guidance-watcher.yml
+```
+
+It runs every Tuesday at `03:30 UTC`, which is Tuesday morning in India, and can also be started manually from GitHub Actions.
+
 ## CLI Command
 
 ```bash
@@ -21,6 +29,8 @@ Generated files:
 .seo-agent-workspace/watcher-reports/google-guidance-YYYY-MM-DD.md
 .seo-agent-workspace/watcher-state/google-guidance-state.json
 ```
+
+In GitHub Actions, these files are uploaded as a `google-guidance-watcher` artifact. The workflow does not commit generated reports back into the repository.
 
 ## Official Sources
 
