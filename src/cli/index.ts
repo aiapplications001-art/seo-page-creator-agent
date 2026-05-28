@@ -3,6 +3,7 @@
 import { runGoogleAuth } from "./auth-google.js";
 import { runClusterCommand } from "./cluster.js";
 import { runFinalCopyCommand } from "./final-copy.js";
+import { runImagesCommand } from "./images.js";
 import { runInitWorkspace } from "./init-workspace.js";
 import { runMetadataCommand } from "./metadata.js";
 import { runPagePacketCommand } from "./page-packet.js";
@@ -22,6 +23,7 @@ Usage:
   seo-agent prewriting plan --cluster <slug> --page-id <P1> --audience <cohort> [--tone <tone>]
   seo-agent page-packet build --cluster <slug> --page-id <P1> [--author <name>]
   seo-agent final-copy expand --cluster <slug> --page-id <P1>
+  seo-agent images plan --cluster <slug> --page-id <P1> [--expanded]
   seo-agent help
 
 V1 CLI scope:
@@ -80,6 +82,11 @@ async function main(): Promise<void> {
 
   if (command === "final-copy") {
     await runFinalCopyCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
+    return;
+  }
+
+  if (command === "images") {
+    await runImagesCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
     return;
   }
 

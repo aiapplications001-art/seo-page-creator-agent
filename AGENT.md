@@ -35,6 +35,7 @@ Company onboarding
 - Pre-writing strategy: see `workflows/14-prewriting-strategy.md`
 - Page packet: see `workflows/15-page-packet.md`
 - Final copy expansion: see `workflows/16-final-copy-expansion.md`
+- Image manifest: see `workflows/17-image-manifest.md`
 - Google data policy: see `policies/google-data-access-policy.md`
 - Image policy: see `policies/image-generation-policy.md`
 
@@ -62,4 +63,6 @@ page-packets/<category-slug>/<page-id>/page-packet.md
 page-packets/<category-slug>/<page-id>/page-packet.json
 page-packets/<category-slug>/<page-id>/page-packet.expanded.md
 page-packets/<category-slug>/<page-id>/page-packet.expanded.json
+page-packets/<category-slug>/<page-id>/image-manifest.json
+page-packets/<category-slug>/<page-id>/image-prompts.md, only when ungenerated image prompts are needed
 ```

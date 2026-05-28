@@ -50,6 +50,7 @@ seo-agent cluster plan --category "Acne Treatment" --company "ClearNest" --marke
 seo-agent prewriting plan --cluster acne-treatment --page-id P1 --audience "Indian adults with visible acne" --tone "professional compact"
 seo-agent page-packet build --cluster acne-treatment --page-id P1 --author "ClearNest Editorial Team"
 seo-agent final-copy expand --cluster acne-treatment --page-id P1
+seo-agent images plan --cluster acne-treatment --page-id P1
 ```
 
 Cluster strategy outputs are written to:
@@ -63,6 +64,8 @@ Cluster strategy outputs are written to:
 .seo-agent-workspace/page-packets/<category-slug>/<page-id>/page-packet.md
 .seo-agent-workspace/page-packets/<category-slug>/<page-id>/page-packet.expanded.json
 .seo-agent-workspace/page-packets/<category-slug>/<page-id>/page-packet.expanded.md
+.seo-agent-workspace/page-packets/<category-slug>/<page-id>/image-manifest.json
+.seo-agent-workspace/page-packets/<category-slug>/<page-id>/image-prompts.md
 ```
 
 ## Workspace

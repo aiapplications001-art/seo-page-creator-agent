@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seo-page-creator-agent.dev/schemas/image-manifest.schema.json",
+  "title": "Image Manifest",
+  "type": "object",
+  "required": ["schemaVersion", "page", "promptCompanionRequired", "assets"],
+  "properties": {
+    "schemaVersion": { "const": "image-manifest.v1" },
+    "page": {
+      "type": "object",
+      "required": ["slug", "h1", "pageId", "companyName"],
+      "properties": {
+        "slug": { "type": "string" },
+        "h1": { "type": "string" },
+        "pageId": { "type": "string" },
+        "companyName": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "promptCompanionRequired": { "type": "boolean" },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "purpose",
+          "recommendedFilename",
+          "preferredFormat",
+          "aspectRatio",
+          "altText",
+          "status",
+          "licensing"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "sectionId": { "type": "string" },
+          "purpose": { "type": "string" },
+          "recommendedFilename": { "type": "string" },
+          "preferredFormat": { "const": "webp" },
+          "aspectRatio": { "type": "string" },
+          "altText": { "type": "string" },
+          "status": { "type": "string", "enum": ["reserved", "brief_needed", "generated"] },
+          "filePath": { "type": "string" },
+          "publicUrl": { "type": "string" },
+          "licensing": {
+            "type": "object",
+            "required": ["status", "note"],
+            "properties": {
+              "status": { "type": "string", "enum": ["pending_review", "approved"] },
+              "note": { "type": "string" }
+            },
+            "additionalProperties": false
+          },
+          "promptBrief": {
+            "type": "object",
+            "required": [
+              "imageId",
+              "imagePurpose",
+              "recommendedAspectRatio",
+              "preferredFormat",
+              "brandStyle",
+              "logoUsage",
+              "prompt",
+              "negativeConstraints",
+              "altText",
+              "caption",
+              "designerNotes"
+            ],
+            "properties": {
+              "imageId": { "type": "string" },
+              "sectionId": { "type": "string" },
+              "imagePurpose": { "type": "string" },
+              "recommendedAspectRatio": { "type": "string" },
+              "preferredFormat": { "const": "webp" },
+              "brandStyle": { "type": "string" },
+              "logoUsage": { "type": "string" },
+              "prompt": { "type": "string" },
+              "negativeConstraints": { "type": "string" },
+              "altText": { "type": "string" },
+              "caption": { "type": "string" },
+              "designerNotes": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
