@@ -1,0 +1,6 @@
+description = "Show SEO Page Creator Agent workflow and command order."
+prompt = """
+Read AGENT.md and summarize the recommended SEO Page Creator Agent flow:
+onboard -> optional site scan -> cluster -> page -> edit-section -> rescore -> watcher.
+Explain prerequisites for each command and where artifacts are stored.
+"""

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seo-page-creator-agent.dev/schemas/google-data-import.schema.json",
+  "title": "Google Data Import",
+  "type": "object",
+  "required": ["source", "imported_at", "rows"],
+  "properties": {
+    "source": {
+      "type": "string",
+      "enum": ["search_console", "keyword_planner", "manual_keyword_sheet"]
+    },
+    "imported_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "site_url": {
+      "type": "string"
+    },
+    "customer_id": {
+      "type": "string"
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

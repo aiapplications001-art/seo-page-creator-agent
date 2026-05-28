@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seo-page-creator-agent.dev/schemas/image-plan.schema.json",
+  "title": "Image Plan",
+  "type": "object",
+  "required": ["page_id", "images"],
+  "properties": {
+    "page_id": {
+      "type": "string"
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["image_id", "image_type", "filename", "alt_text"],
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "image_type": {
+            "type": "string",
+            "enum": ["generated", "brand_owned", "external_fetched", "prompt_only", "og_social", "logo"]
+          },
+          "section_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "file_path_or_url": {
+            "type": "string"
+          },
+          "source_url": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "alt_text": {
+            "type": "string"
+          },
+          "caption": {
+            "type": "string"
+          },
+          "aspect_ratio": {
+            "type": "string"
+          },
+          "preferred_format": {
+            "type": "string",
+            "enum": ["webp", "png", "jpg"]
+          },
+          "rights_note": {
+            "type": "string"
+          },
+          "approval_required": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
