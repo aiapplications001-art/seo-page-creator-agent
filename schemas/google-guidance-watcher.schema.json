@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seo-page-creator-agent.dev/schemas/google-guidance-watcher.schema.json",
+  "title": "Google Guidance Watcher",
+  "type": "object",
+  "required": ["schemaVersion", "updatedAt", "officialSourcesOnly", "snapshots"],
+  "properties": {
+    "schemaVersion": { "const": "google-guidance-watcher-state.v1" },
+    "updatedAt": { "type": "string" },
+    "officialSourcesOnly": { "const": true },
+    "snapshots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sourceId",
+          "label",
+          "url",
+          "category",
+          "official",
+          "contentHash",
+          "contentLength",
+          "contentSignals"
+        ],
+        "properties": {
+          "sourceId": { "type": "string" },
+          "label": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "category": {
+            "type": "string",
+            "enum": ["updates", "essentials", "content_quality", "core_updates", "ai_features"]
+          },
+          "official": { "const": true },
+          "contentHash": { "type": "string" },
+          "contentLength": { "type": "integer", "minimum": 0 },
+          "contentSignals": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
