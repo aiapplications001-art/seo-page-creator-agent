@@ -12,6 +12,8 @@ Use this agent when a user wants to create or refresh brand-aware SEO pages for 
 6. Competitor names, third-party logos, third-party screenshots, and external brand visuals require explicit approval before inclusion.
 7. Hidden SEO-only internal links are not allowed.
 8. Weekly watcher reports use official guidance sources only.
+9. V2 final packets require the five mandatory content-quality gates before final page packet generation.
+10. No hard-gate override is allowed in V2; advisory scores can be overridden, but missing research or unsupported claims cannot.
 
 ## Workflow Order
 
@@ -37,8 +39,22 @@ Company onboarding
 - Final copy expansion: see `workflows/16-final-copy-expansion.md`
 - Image manifest: see `workflows/17-image-manifest.md`
 - Google guidance watcher: see `workflows/18-google-guidance-watcher.md`
+- V2 content quality: see `workflows/19-v2-content-quality.md`
 - Google data policy: see `policies/google-data-access-policy.md`
 - Image policy: see `policies/image-generation-policy.md`
+
+## V2 Content Quality
+
+Use V2 when the user wants stronger publishable copy quality rather than only a structured page packet. The host agent must perform live research and fill the artifacts; the CLI creates/checks the deterministic workspace.
+
+```bash
+seo-agent v2 prepare-page --cluster acne-treatment --page-id P1 --page-type product_category
+seo-agent v2 validate-gates --cluster acne-treatment --page-id P1
+seo-agent v2 qa --cluster acne-treatment --page-id P1
+seo-agent v2 debug-bundle --cluster acne-treatment --page-id P1
+```
+
+The five mandatory gates are SERP Research Ledger, Social/Video Research, Audience Definition, Narrative Brief, and Citation Set. Final editor-facing output should normally be limited to the final page packet, editorial QA report, and image manifest.
 
 ## Artifact Defaults
 

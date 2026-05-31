@@ -13,6 +13,7 @@ Use the SEO Page Creator Agent core files as the source of truth.
 - `/seo:edit-section`
 - `/seo:rescore`
 - `/seo:watcher`
+- `/seo:v2`
 
 ## Google Data Access
 
@@ -26,6 +27,10 @@ npm run dev -- auth google
 ```
 
 Google integrations are read-only by policy.
+
+## V2 Content Quality
+
+Use `/seo:v2` for one page at a time when stronger content quality is required. Read `workflows/19-v2-content-quality.md`, run the V2 prepare/status/validate-gates/qa/debug-bundle helpers, and keep normal editor-facing output limited to the final page packet, editorial QA report, and image manifest.
 
 ## Image Generation
 

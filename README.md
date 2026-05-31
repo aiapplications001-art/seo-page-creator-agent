@@ -17,6 +17,25 @@ The agent produces publish-ready page packets for guide/blog pages, comparison p
 - TypeScript CLI helpers
 - Gemini/Codex adapter-ready structure
 
+## V2 Content Quality
+
+V2 adds mandatory research, narrative, citation, QA, repair, and image-readiness gates before a final page packet is treated as ready for editorial review.
+
+Normal editor-facing output is the final page packet, editorial QA report, and image manifest. Internal research ledgers, source notes, page state, version history, and debug bundles stay available for troubleshooting without cluttering the editor review flow.
+
+Useful V2 commands:
+
+```bash
+seo-agent v2 prepare-page --cluster acne-treatment --page-id P1 --page-type product_category
+seo-agent v2 status --cluster acne-treatment --page-id P1
+seo-agent v2 validate-gates --cluster acne-treatment --page-id P1
+seo-agent v2 qa --cluster acne-treatment --page-id P1
+seo-agent v2 debug-bundle --cluster acne-treatment --page-id P1
+seo-agent images plan --cluster acne-treatment --page-id P1
+```
+
+Read the full flow in `workflows/19-v2-content-quality.md`.
+
 ## Out Of Scope For V1
 
 - CMS publishing
@@ -52,6 +71,10 @@ seo-agent page-packet build --cluster acne-treatment --page-id P1 --author "Clea
 seo-agent final-copy expand --cluster acne-treatment --page-id P1
 seo-agent images plan --cluster acne-treatment --page-id P1
 seo-agent watcher google-guidance
+seo-agent v2 prepare-page --cluster acne-treatment --page-id P1 --page-type product_category
+seo-agent v2 validate-gates --cluster acne-treatment --page-id P1
+seo-agent v2 qa --cluster acne-treatment --page-id P1
+seo-agent v2 debug-bundle --cluster acne-treatment --page-id P1
 ```
 
 The Google guidance watcher is also scheduled through GitHub Actions every Tuesday morning India time. Reports are uploaded as workflow artifacts rather than committed to the repo.
@@ -69,6 +92,14 @@ Cluster strategy outputs are written to:
 .seo-agent-workspace/page-packets/<category-slug>/<page-id>/page-packet.expanded.md
 .seo-agent-workspace/page-packets/<category-slug>/<page-id>/image-manifest.json
 .seo-agent-workspace/page-packets/<category-slug>/<page-id>/image-prompts.md
+.seo-agent-workspace/v2/page-packets/<category-slug>/<page-id>/page-state.json
+.seo-agent-workspace/v2/page-packets/<category-slug>/<page-id>/serp-research-ledger.json
+.seo-agent-workspace/v2/page-packets/<category-slug>/<page-id>/social-video-research.json
+.seo-agent-workspace/v2/page-packets/<category-slug>/<page-id>/audience-definition.json
+.seo-agent-workspace/v2/page-packets/<category-slug>/<page-id>/narrative-brief.json
+.seo-agent-workspace/v2/page-packets/<category-slug>/<page-id>/citation-set.json
+.seo-agent-workspace/v2/page-packets/<category-slug>/<page-id>/editorial-qa-report.md
+.seo-agent-workspace/v2/page-packets/<category-slug>/<page-id>/debug-bundle.md
 .seo-agent-workspace/watcher-reports/google-guidance-YYYY-MM-DD.md
 .seo-agent-workspace/watcher-state/google-guidance-state.json
 ```
