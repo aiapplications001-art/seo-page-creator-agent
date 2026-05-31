@@ -40,7 +40,8 @@ test("V2 schema files expose expected schema ids", () => {
     ["schemas/v2-narrative-brief.schema.json", "narrative-brief.v2"],
     ["schemas/v2-citation-set.schema.json", "citation-set.v2"],
     ["schemas/v2-editorial-qa-report.schema.json", "editorial-qa-report.v2"],
-    ["schemas/v2-section-version-history.schema.json", "section-version-history.v2"]
+    ["schemas/v2-section-version-history.schema.json", "section-version-history.v2"],
+    ["schemas/v2-refresh-packet.schema.json", "refresh-packet.v2"]
   ];
 
   for (const [path, schemaVersion] of schemaIds) {

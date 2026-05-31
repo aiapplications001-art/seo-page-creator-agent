@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-refresh-packet.schema.json",
+  "title": "V2 Refresh Packet",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "pageId",
+    "trigger",
+    "reason",
+    "changedSections",
+    "qa",
+    "versionHistorySummary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "refresh-packet.v2"
+    },
+    "pageId": {
+      "type": "string"
+    },
+    "trigger": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "changedSections": {
+      "type": "array"
+    },
+    "qa": {
+      "type": "object"
+    },
+    "versionHistorySummary": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}
