@@ -9,6 +9,7 @@ import { runMetadataCommand } from "./metadata.js";
 import { runPagePacketCommand } from "./page-packet.js";
 import { runPreWritingCommand } from "./prewriting.js";
 import { runSitemapCommand } from "./sitemap.js";
+import { runV2Command } from "./v2.js";
 import { runWatcherCommand } from "./watcher.js";
 
 function printHelp(): void {
@@ -25,6 +26,7 @@ Usage:
   seo-agent page-packet build --cluster <slug> --page-id <P1> [--author <name>]
   seo-agent final-copy expand --cluster <slug> --page-id <P1>
   seo-agent images plan --cluster <slug> --page-id <P1> [--expanded]
+  seo-agent v2 prepare-page --cluster <slug> --page-id <id> [--page-type product_category]
   seo-agent watcher google-guidance [--date YYYY-MM-DD]
   seo-agent help
 
@@ -89,6 +91,11 @@ async function main(): Promise<void> {
 
   if (command === "images") {
     await runImagesCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
+    return;
+  }
+
+  if (command === "v2") {
+    await runV2Command([subcommand, ...args].filter((item): item is string => Boolean(item)));
     return;
   }
 
