@@ -17,6 +17,7 @@ export interface ImageAssetRecord {
   id: string;
   sectionId?: string;
   purpose: string;
+  assetType: "generated" | "fetched_external" | "brand_asset" | "prompt_only" | "reserved";
   recommendedFilename: string;
   preferredFormat: "webp";
   aspectRatio: string;
@@ -56,6 +57,7 @@ export function buildImageManifest(packet: PagePacket): ImageManifest {
       id: image.id,
       sectionId: image.sectionId,
       purpose: image.purpose,
+      assetType: imageAssetType(image.status),
       recommendedFilename,
       preferredFormat: "webp" as const,
       aspectRatio: image.aspectRatio,
@@ -128,11 +130,19 @@ function buildPromptBrief(packet: PagePacket, image: PagePacket["images"][number
     recommendedAspectRatio: image.aspectRatio,
     preferredFormat: "webp",
     brandStyle: `${packet.metadata.companyName} brand guidelines, clean editorial layout, mobile-first readability.`,
-    logoUsage: image.id === "IMG_OG" ? "Use brand logo if approved and visually appropriate." : "Use logo only when the brand guideline allows it.",
+    logoUsage: image.id === "IMG_OG" || image.id === "IMG_HERO"
+      ? "Mandatory brand logo usage unless the user or brand guideline explicitly disallows it."
+      : "Use logo only when the brand guideline allows it.",
     prompt: `Create a brand-aligned image for ${packet.seo.h1}: ${image.purpose}. The image should support ${packet.seo.primaryKeyword ?? packet.seo.h1} without making unsupported medical or product claims.`,
     negativeConstraints: "Do not copy competitor visuals, do not use external brand marks without approval, avoid exaggerated before-after claims.",
     altText: image.altText,
     caption: `${packet.seo.h1} visual support`,
     designerNotes: "Prefer WebP output. Keep subject clear on mobile and leave safe space for cropping where needed."
   };
+}
+
+function imageAssetType(status: PagePacket["images"][number]["status"]): ImageAssetRecord["assetType"] {
+  if (status === "generated") return "generated";
+  if (status === "reserved") return "reserved";
+  return "prompt_only";
 }

@@ -55,7 +55,7 @@ const packet: PagePacket = {
       status: "reserved"
     },
     {
-      id: "IMG_01",
+      id: "IMG_HERO",
       sectionId: "S1_hero",
       purpose: "High-impact visual support for S1_hero.",
       aspectRatio: "16:9",
@@ -78,10 +78,14 @@ test("builds image manifest records from page packet image slots", () => {
   assert.equal(manifest.page.slug, "acne-treatment");
   assert.equal(manifest.assets.length, 2);
   assert.equal(manifest.assets[0].id, "IMG_OG");
+  assert.equal(manifest.assets[0].assetType, "reserved");
   assert.equal(manifest.assets[0].recommendedFilename, "acne-treatment-open-graph-image-for-social-and-search-previews.webp");
   assert.equal(manifest.assets[0].preferredFormat, "webp");
   assert.equal(manifest.assets[0].licensing.status, "pending_review");
+  assert.equal(manifest.assets[1].id, "IMG_HERO");
+  assert.equal(manifest.assets[1].assetType, "prompt_only");
   assert.equal(manifest.assets[1].promptBrief?.sectionId, "S1_hero");
+  assert.match(manifest.assets[1].promptBrief?.logoUsage ?? "", /mandatory/i);
   assert.equal(manifest.promptCompanionRequired, true);
 });
 

@@ -303,7 +303,10 @@ function buildLinks(strategy: PreWritingStrategy): PagePacket["links"] {
 }
 
 function buildImages(strategy: PreWritingStrategy): PagePacket["images"] {
-  const firstSections = strategy.pageStructure.sections.slice(0, 4);
+  const supportingSections = strategy.pageStructure.sections
+    .filter((section) => section.id !== "S1_hero")
+    .slice(0, 3);
+
   return [
     {
       id: "IMG_OG",
@@ -312,11 +315,19 @@ function buildImages(strategy: PreWritingStrategy): PagePacket["images"] {
       altText: `${strategy.selectedPage.title} preview image`,
       status: "reserved"
     },
-    ...firstSections.map((section, index) => ({
-      id: `IMG_${String(index + 1).padStart(2, "0")}`,
+    {
+      id: "IMG_HERO",
+      sectionId: "S1_hero",
+      purpose: "Mandatory hero visual for the first fold.",
+      aspectRatio: "16:9",
+      altText: `${strategy.category.name} hero visual`,
+      status: "brief_needed" as const
+    },
+    ...supportingSections.map((section, index) => ({
+      id: `IMG_${String(index + 2).padStart(2, "0")}`,
       sectionId: section.id,
       purpose: `High-impact visual support for ${section.id}.`,
-      aspectRatio: index === 0 ? "16:9" : "4:3",
+      aspectRatio: "4:3",
       altText: `${strategy.category.name} ${headingFromSectionId(section.id).toLowerCase()} visual`,
       status: "brief_needed" as const
     }))

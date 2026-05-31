@@ -123,6 +123,7 @@ test("generates a publish-ready page packet scaffold from pre-writing strategy",
   assert.equal(packet.sections[0].id, "S1_hero");
   assert.match(packet.sections[0].markdown, /Start your free skin analysis now/);
   assert.equal(packet.images[0].id, "IMG_OG");
+  assert.equal(packet.images[1].id, "IMG_HERO");
   assert.equal(packet.images[1].sectionId, "S1_hero");
   assert.equal(packet.links.internal[0].url, "https://example.com/skin-care/acne-treatment/");
   assert.equal(packet.schemaDrafts.some((schema) => schema.type === "FAQPage"), true);
