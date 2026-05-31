@@ -10,6 +10,7 @@ import {
   validateSocialVideoResearchGate,
   type V2GateValidationResult
 } from "../lib/v2/gates.js";
+import { createDebugBundle } from "../lib/v2/debug-bundle.js";
 import { getV2PageDir } from "../lib/v2/paths.js";
 import { prepareV2PageWorkspace } from "../lib/v2/templates.js";
 
@@ -81,6 +82,15 @@ export async function runV2Command(args: string[]): Promise<void> {
     return;
   }
 
+  if (subcommand === "debug-bundle") {
+    const pageDir = await getV2PageDir(process.cwd(), clusterSlug, pageId);
+    const result = await createDebugBundle({ pageDir });
+    console.log(`Created V2 debug bundle: ${result.markdownPath}`);
+    console.log(`Included artifacts: ${result.includedArtifactPaths.length}`);
+    console.log(`Omitted binary artifacts: ${result.omittedBinaryCount}`);
+    return;
+  }
+
   console.error(`Unknown v2 command: ${subcommand}`);
   printV2Help();
   process.exitCode = 1;
@@ -120,5 +130,6 @@ Usage:
   seo-agent v2 status --cluster <slug> --page-id <id>
   seo-agent v2 validate-gates --cluster <slug> --page-id <id>
   seo-agent v2 qa --cluster <slug> --page-id <id>
+  seo-agent v2 debug-bundle --cluster <slug> --page-id <id>
 `);
 }
