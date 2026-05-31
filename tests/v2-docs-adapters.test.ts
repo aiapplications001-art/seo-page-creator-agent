@@ -8,6 +8,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
   const agent = readFileSync("AGENT.md", "utf8");
   const gemini = readFileSync("adapters/gemini-cli/GEMINI.md", "utf8");
   const command = readFileSync("adapters/gemini-cli/commands/seo/v2.toml", "utf8");
+  const pageCommand = readFileSync("adapters/gemini-cli/commands/seo/page.toml", "utf8");
   const codexSkill = readFileSync("adapters/codex/skills/seo-page-creator/SKILL.md", "utf8");
 
   assert.match(workflow, /SERP Research Ledger Gate/);
@@ -24,8 +25,12 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
   assert.match(agent, /No hard-gate override/);
 
   assert.match(gemini, /\/seo:v2/);
+  assert.match(gemini, /\/seo:page now uses V2 quality gates/);
   assert.match(command, /Generate one V2 content-quality page workflow/);
   assert.match(command, /validate-gates/);
+  assert.match(pageCommand, /Generate one V2 content-quality page workflow/);
+  assert.match(pageCommand, /\/seo:v2 is an explicit alias/);
+  assert.match(pageCommand, /validate-gates/);
 
   assert.match(codexSkill, /V2 Content Quality/);
   assert.match(codexSkill, /debug-bundle/);
