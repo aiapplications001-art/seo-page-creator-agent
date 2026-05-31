@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-section-version-history.schema.json",
+  "title": "V2 Section Version History",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "entries"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "section-version-history.v2"
+    },
+    "entries": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

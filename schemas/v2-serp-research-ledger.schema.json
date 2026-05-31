@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-serp-research-ledger.schema.json",
+  "title": "V2 SERP Research Ledger",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "primaryKeyword",
+    "originalTop10",
+    "analyzedSources",
+    "contentGapSynthesis"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "serp-research-ledger.v2"
+    },
+    "primaryKeyword": {
+      "type": "string"
+    },
+    "originalTop10": {
+      "type": "array"
+    },
+    "analyzedSources": {
+      "type": "array"
+    },
+    "contentGapSynthesis": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

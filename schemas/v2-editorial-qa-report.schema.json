@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-editorial-qa-report.schema.json",
+  "title": "V2 Editorial QA Report",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "finalStatus",
+    "overallScore",
+    "dimensionScores",
+    "sectionScores"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "editorial-qa-report.v2"
+    },
+    "finalStatus": {
+      "type": "string"
+    },
+    "overallScore": {
+      "type": "number"
+    },
+    "dimensionScores": {
+      "type": "object"
+    },
+    "sectionScores": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "page-type-modifiers.v1",
+  "modifiers": [
+    {
+      "id": "guide_blog_modifier",
+      "appliesTo": "guide_blog",
+      "primaryGoal": "Educate, clarify, and build trust before suggesting a next step.",
+      "writingRules": [
+        "Start with the reader's problem or question.",
+        "Explain concepts in plain language.",
+        "Use examples and scenarios where useful.",
+        "Avoid pushing the product too early."
+      ],
+      "ctaBehavior": "Soft CTA after meaningful education."
+    },
+    {
+      "id": "comparison_modifier",
+      "appliesTo": "comparison",
+      "primaryGoal": "Help the reader compare options fairly and choose a next step.",
+      "writingRules": [
+        "State the comparison methodology.",
+        "Use qualitative labels unless numeric scoring is requested.",
+        "Explain tradeoffs clearly.",
+        "Avoid copying competitor claims."
+      ],
+      "ctaBehavior": "CTA should follow decision criteria."
+    },
+    {
+      "id": "product_category_modifier",
+      "appliesTo": "product_category",
+      "primaryGoal": "Match search intent, explain the category, and move qualified readers toward action.",
+      "writingRules": [
+        "Show useful first-fold value and primary CTA.",
+        "Explain the problem or category before selling.",
+        "Use benefit-led but source-safe copy.",
+        "Keep the primary CTA consistent."
+      ],
+      "ctaBehavior": "Primary CTA visible early and repeated naturally near the end."
+    }
+  ]
+}

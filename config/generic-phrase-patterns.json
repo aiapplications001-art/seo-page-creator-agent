@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "generic-phrase-patterns.v1",
+  "hardFailInOpening": [
+    "in today's fast-paced world",
+    "in the ever-evolving world",
+    "unlock your potential"
+  ],
+  "repairAnywhere": [
+    "game-changer",
+    "comprehensive solution",
+    "tailored to your needs",
+    "seamless experience",
+    "cutting-edge",
+    "revolutionary",
+    "one-stop solution"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "claim-rewrite-patterns.v1",
+  "patterns": [
+    {
+      "riskPattern": "cure|permanent cure|guaranteed cure",
+      "riskType": "medical_or_outcome_guarantee",
+      "defaultRewrite": "help you understand visible patterns and choose a more informed next step",
+      "requiresApprovalIfKept": true
+    },
+    {
+      "riskPattern": "best in india|number one|#1",
+      "riskType": "unsupported_superlative",
+      "defaultRewrite": "a useful option for readers comparing this category",
+      "requiresApprovalIfKept": true
+    },
+    {
+      "riskPattern": "works for everyone|suitable for all",
+      "riskType": "overbroad_claim",
+      "defaultRewrite": "may be suitable depending on the reader's needs, context, and available guidance",
+      "requiresApprovalIfKept": true
+    }
+  ]
+}

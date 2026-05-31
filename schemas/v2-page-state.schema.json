@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-page-state.schema.json",
+  "title": "V2 Page State",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "status",
+    "gates",
+    "publishReady"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "page-state.v2"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "in_progress",
+        "failed",
+        "content_ready",
+        "publish_ready"
+      ]
+    },
+    "gates": {
+      "type": "object"
+    },
+    "publishReady": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}

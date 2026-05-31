@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-citation-set.schema.json",
+  "title": "V2 Citation Set",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "claims",
+    "sources"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "citation-set.v2"
+    },
+    "claims": {
+      "type": "array"
+    },
+    "sources": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

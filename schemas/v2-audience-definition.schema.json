@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-audience-definition.schema.json",
+  "title": "V2 Audience Definition",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "targetCohort",
+    "awarenessStage",
+    "readerTakeaway",
+    "objections",
+    "ctaConnection"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "audience-definition.v2"
+    },
+    "targetCohort": {
+      "type": "string"
+    },
+    "awarenessStage": {
+      "type": "string"
+    },
+    "readerTakeaway": {
+      "type": "string"
+    },
+    "objections": {
+      "type": "array"
+    },
+    "ctaConnection": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

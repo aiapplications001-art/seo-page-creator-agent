@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-narrative-brief.schema.json",
+  "title": "V2 Narrative Brief",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "primaryStyle",
+    "readerTakeaway",
+    "openingAngle",
+    "brandPov",
+    "sectionDirections"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "narrative-brief.v2"
+    },
+    "primaryStyle": {
+      "type": "string"
+    },
+    "readerTakeaway": {
+      "type": "string"
+    },
+    "openingAngle": {
+      "type": "string"
+    },
+    "brandPov": {
+      "type": "string"
+    },
+    "sectionDirections": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

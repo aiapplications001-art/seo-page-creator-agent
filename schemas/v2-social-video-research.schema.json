@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-social-video-research.schema.json",
+  "title": "V2 Social Video Research",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "assets",
+    "insights",
+    "confidence"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "social-video-research.v2"
+    },
+    "assets": {
+      "type": "array"
+    },
+    "insights": {
+      "type": "array"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "limited"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

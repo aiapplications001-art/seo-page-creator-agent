@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "image-prompt-profiles.v1",
+  "profiles": [
+    {
+      "id": "og_image",
+      "label": "Open Graph image",
+      "aspectRatio": "1.91:1",
+      "rules": [
+        "include brand logo",
+        "keep crop safe",
+        "avoid clutter",
+        "use minimal embedded text"
+      ]
+    },
+    {
+      "id": "in_page_explainer",
+      "label": "In-page explainer",
+      "aspectRatio": "4:3",
+      "rules": [
+        "support section comprehension",
+        "avoid unsupported before-after claims",
+        "prioritize clarity"
+      ]
+    },
+    {
+      "id": "comparison_visual",
+      "label": "Comparison visual",
+      "aspectRatio": "16:9",
+      "rules": [
+        "show criteria clearly",
+        "avoid competitor marks without approval"
+      ]
+    },
+    {
+      "id": "process_visual",
+      "label": "Process visual",
+      "aspectRatio": "4:3",
+      "rules": [
+        "show steps simply",
+        "fit mobile"
+      ]
+    },
+    {
+      "id": "trust_visual",
+      "label": "Trust visual",
+      "aspectRatio": "4:3",
+      "rules": [
+        "support credibility",
+        "avoid fake certifications"
+      ]
+    },
+    {
+      "id": "product_category_visual",
+      "label": "Product/category visual",
+      "aspectRatio": "16:9",
+      "rules": [
+        "connect category to user problem",
+        "keep CTA-adjacent visuals clear"
+      ]
+    }
+  ]
+}

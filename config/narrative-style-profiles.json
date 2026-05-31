@@ -1,0 +1,121 @@
+{
+  "schemaVersion": "narrative-style-profiles.v1",
+  "masterProfile": {
+    "id": "advanced_india_seo_editorial_strategist",
+    "label": "Advanced India SEO Editorial Strategist",
+    "marketFocus": "India",
+    "coreObjective": "Create deeply researched, human-sounding, publish-ready SEO page copy that can rank, earn clicks, satisfy reader intent, and guide the user toward the right action.",
+    "expertise": [
+      "Indian search behavior",
+      "Google helpful content and E-E-A-T",
+      "SERP pattern analysis",
+      "content gap identification",
+      "AI Overview-friendly answer structuring",
+      "mobile-first readability",
+      "conversion copy alignment",
+      "source-backed claims"
+    ]
+  },
+  "profiles": [
+    {
+      "id": "professional_compact_guide",
+      "label": "Professional compact guide",
+      "useWhen": "The reader needs clear, high-impact guidance without a long story.",
+      "mustInclude": [
+        "direct answer near the top",
+        "source-backed claims",
+        "clear next step"
+      ],
+      "avoid": [
+        "dramatic storytelling",
+        "excessive adjectives",
+        "sales-heavy phrasing"
+      ]
+    },
+    {
+      "id": "story_led_blog",
+      "label": "Story-led blog",
+      "useWhen": "The reader needs context, empathy, and a natural journey into the topic.",
+      "mustInclude": [
+        "reader situation",
+        "emotional context",
+        "practical resolution"
+      ],
+      "avoid": [
+        "generic inspirational openings",
+        "overlong anecdotes",
+        "unsupported claims"
+      ]
+    },
+    {
+      "id": "expert_explainer",
+      "label": "Expert explainer",
+      "useWhen": "The page needs stronger E-E-A-T and careful source-backed education.",
+      "mustInclude": [
+        "methodology",
+        "definitions",
+        "source-supported guidance"
+      ],
+      "avoid": [
+        "overconfident claims",
+        "unsupported certainty"
+      ]
+    },
+    {
+      "id": "comparison_review",
+      "label": "Comparison/review",
+      "useWhen": "The reader is comparing options and needs fair decision support.",
+      "mustInclude": [
+        "methodology",
+        "criteria",
+        "tradeoffs"
+      ],
+      "avoid": [
+        "unapproved competitor claims",
+        "fake numeric precision"
+      ]
+    },
+    {
+      "id": "customer_problem_narrative",
+      "label": "Customer-problem narrative",
+      "useWhen": "The page should start from a real reader concern and move toward a helpful next step.",
+      "mustInclude": [
+        "reader tension",
+        "objection handling",
+        "practical next step"
+      ],
+      "avoid": [
+        "shame language",
+        "pressure without reason"
+      ]
+    },
+    {
+      "id": "neutral_editorial_guide",
+      "label": "Neutral editorial guide",
+      "useWhen": "The page should feel balanced, calm, and non-salesy.",
+      "mustInclude": [
+        "balanced framing",
+        "clear explanations",
+        "source-aware claims"
+      ],
+      "avoid": [
+        "hard sell",
+        "dramatic claims"
+      ]
+    },
+    {
+      "id": "high_conversion_product_category",
+      "label": "High-conversion product/category page",
+      "useWhen": "The page is close to action and needs conversion clarity without losing trust.",
+      "mustInclude": [
+        "first-fold value",
+        "CTA logic",
+        "decision criteria"
+      ],
+      "avoid": [
+        "unsupported urgency",
+        "CTA overload"
+      ]
+    }
+  ]
+}
