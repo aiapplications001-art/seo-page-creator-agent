@@ -31,11 +31,13 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
   assert.match(command, /Generate one V2 content-quality page workflow/);
   assert.match(command, /human-editorial-brief/);
   assert.match(command, /claim-first-section-plan/);
+  assert.match(command, /validate-human/);
   assert.match(command, /validate-gates/);
   assert.match(pageCommand, /Generate one V2 content-quality page workflow/);
   assert.match(pageCommand, /\/seo:v2 is an explicit alias/);
   assert.match(pageCommand, /human-editorial-brief/);
   assert.match(pageCommand, /claim-first-section-plan/);
+  assert.match(pageCommand, /validate-human/);
   assert.match(pageCommand, /validate-gates/);
 
   assert.match(codexSkill, /V2 Content Quality/);

@@ -11,6 +11,7 @@ V2.1 adds a human editorial layer before final copy. The Human Editorial Brief a
 ```bash
 seo-agent v2 prepare-page --cluster acne-treatment --page-id P1 --page-type product_category
 seo-agent v2 status --cluster acne-treatment --page-id P1
+seo-agent v2 validate-human --cluster acne-treatment --page-id P1
 seo-agent v2 validate-gates --cluster acne-treatment --page-id P1
 seo-agent v2 qa --cluster acne-treatment --page-id P1
 seo-agent v2 debug-bundle --cluster acne-treatment --page-id P1

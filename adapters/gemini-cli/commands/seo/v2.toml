@@ -13,11 +13,12 @@ Then, as the host agent:
 4. Fill the Narrative Brief Gate.
 5. Fill human-editorial-brief.json/md with the category-manager-with-editorial-empathy voice, depth strategy, examples, decision framework, common mistakes, not-right-for-you guidance, brand POV, and final human closing plan.
 6. Fill claim-first-section-plan.json/md so every visible section has a claim, reader question, evidence need, example/tradeoff, caveat, decision purpose, and transition purpose.
-7. Fill the Citation Set Gate.
-8. Run seo-agent v2 validate-gates.
-9. Generate the final page packet only when hard gates pass and the human editorial brief/claim-first section plan are complete.
-10. Produce the editorial QA report and run seo-agent v2 qa. Include a short human editorial summary in QA, not the full internal brief.
-11. Run the image manifest workflow after content passes.
+7. Run seo-agent v2 validate-human and repair the human editorial artifacts if it fails.
+8. Fill the Citation Set Gate.
+9. Run seo-agent v2 validate-gates.
+10. Generate the final page packet only when hard gates pass and validate-human passes.
+11. Produce the editorial QA report and run seo-agent v2 qa. Include a short human editorial summary in QA, not the full internal brief.
+12. Run the image manifest workflow after content passes.
 
 Show the editor only the final page packet, editorial QA report, and image manifest unless debug artifacts are requested.
 Use seo-agent v2 debug-bundle only for troubleshooting.

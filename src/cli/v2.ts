@@ -11,6 +11,11 @@ import {
   type V2GateValidationResult
 } from "../lib/v2/gates.js";
 import { createDebugBundle } from "../lib/v2/debug-bundle.js";
+import {
+  buildHumanEditorialQaSummary,
+  validateClaimFirstSectionPlan,
+  validateHumanEditorialBrief
+} from "../lib/v2/human-editorial.js";
 import { getV2PageDir } from "../lib/v2/paths.js";
 import { prepareV2PageWorkspace } from "../lib/v2/templates.js";
 
@@ -65,6 +70,32 @@ export async function runV2Command(args: string[]): Promise<void> {
       }
     }
     if (!allMandatoryGatesPassed(results.map((gate) => gate.result))) {
+      process.exitCode = 1;
+    }
+    return;
+  }
+
+  if (subcommand === "validate-human") {
+    const pageDir = await getV2PageDir(process.cwd(), clusterSlug, pageId);
+    const humanBrief = await readJson(path.join(pageDir, "human-editorial-brief.json"));
+    const claimPlan = await readJson(path.join(pageDir, "claim-first-section-plan.json"));
+    const briefResult = validateHumanEditorialBrief(humanBrief);
+    const planResult = validateClaimFirstSectionPlan(claimPlan);
+    const summary = buildHumanEditorialQaSummary({ briefResult, planResult });
+
+    console.log(`Human Editorial Brief: ${briefResult.status}`);
+    for (const issue of briefResult.blockingIssues) {
+      console.log(`- ${issue}`);
+    }
+    console.log(`Claim-First Section Plan: ${planResult.status}`);
+    for (const issue of planResult.blockingIssues) {
+      console.log(`- ${issue}`);
+    }
+    console.log(`Voice model: ${summary.voiceModel}`);
+    console.log(`Examples planned: ${summary.examplesCount}`);
+    console.log(`Decision framework: ${summary.decisionFrameworkType ?? "Not selected"}`);
+
+    if (summary.status !== "passed") {
       process.exitCode = 1;
     }
     return;
@@ -129,6 +160,7 @@ Usage:
   seo-agent v2 prepare-page --cluster <slug> --page-id <id> [--page-type product_category]
   seo-agent v2 status --cluster <slug> --page-id <id>
   seo-agent v2 validate-gates --cluster <slug> --page-id <id>
+  seo-agent v2 validate-human --cluster <slug> --page-id <id>
   seo-agent v2 qa --cluster <slug> --page-id <id>
   seo-agent v2 debug-bundle --cluster <slug> --page-id <id>
 `);
