@@ -20,6 +20,8 @@ test("prepareV2PageWorkspace creates required V2 artifacts", async () => {
   assert.ok(result.createdFiles.some((file) => file.endsWith("page-state.json")));
   assert.ok(result.createdFiles.some((file) => file.endsWith("serp-research-ledger.json")));
   assert.ok(result.createdFiles.some((file) => file.endsWith("social-video-research.md")));
+  assert.ok(result.createdFiles.some((file) => file.endsWith("human-editorial-brief.json")));
+  assert.ok(result.createdFiles.some((file) => file.endsWith("claim-first-section-plan.md")));
   assert.ok(result.createdFiles.some((file) => file.endsWith("section-version-history.json")));
 
   const stateJson = JSON.parse(
@@ -27,4 +29,21 @@ test("prepareV2PageWorkspace creates required V2 artifacts", async () => {
   );
   assert.equal(stateJson.schemaVersion, "page-state.v2");
   assert.equal(stateJson.status, "in_progress");
+
+  const humanBrief = JSON.parse(
+    await readFile(path.join(cwd, ".seo-agent-workspace", "v2", "page-packets", "acne-treatment", "P1", "human-editorial-brief.json"), "utf8")
+  );
+  assert.equal(humanBrief.schemaVersion, "human-editorial-brief.v2");
+  assert.equal(humanBrief.voiceModel, "category_manager_with_editorial_empathy");
+  assert.equal(humanBrief.visibility.default, "internal_only");
+  assert.equal(humanBrief.exampleRequirement.minimumExamplesPerPage, 2);
+  assert.equal(humanBrief.depthStrategy.pageType, "product_category");
+  assert.equal(humanBrief.depthStrategy.depth, "medium");
+
+  const claimPlan = JSON.parse(
+    await readFile(path.join(cwd, ".seo-agent-workspace", "v2", "page-packets", "acne-treatment", "P1", "claim-first-section-plan.json"), "utf8")
+  );
+  assert.equal(claimPlan.schemaVersion, "claim-first-section-plan.v2");
+  assert.equal(claimPlan.status, "missing");
+  assert.ok(claimPlan.sectionPlanTemplate.requiredFields.includes("sectionClaim"));
 });

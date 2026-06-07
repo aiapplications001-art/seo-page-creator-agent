@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-human-editorial-brief.schema.json",
+  "title": "V2 Human Editorial Brief",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "status",
+    "voiceModel",
+    "visibility",
+    "depthStrategy",
+    "exampleRequirement",
+    "humanDevices",
+    "qaSummary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "human-editorial-brief.v2"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "missing",
+        "draft",
+        "passed",
+        "failed"
+      ]
+    },
+    "voiceModel": {
+      "type": "string"
+    },
+    "visibility": {
+      "type": "object"
+    },
+    "depthStrategy": {
+      "type": "object"
+    },
+    "exampleRequirement": {
+      "type": "object"
+    },
+    "humanDevices": {
+      "type": "object"
+    },
+    "qaSummary": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

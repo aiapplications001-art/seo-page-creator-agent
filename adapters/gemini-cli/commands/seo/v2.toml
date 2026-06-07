@@ -10,11 +10,14 @@ Then, as the host agent:
 1. Do live SERP research and fill the SERP Research Ledger Gate.
 2. Review social/video assets and fill the Social/Video Research Gate.
 3. Ask for or confirm audience definition, narrative style, reader takeaway, objections, and CTA connection.
-4. Fill the Narrative Brief Gate and Citation Set Gate.
-5. Run seo-agent v2 validate-gates.
-6. Generate the final page packet only when hard gates pass.
-7. Produce the editorial QA report and run seo-agent v2 qa.
-8. Run the image manifest workflow after content passes.
+4. Fill the Narrative Brief Gate.
+5. Fill human-editorial-brief.json/md with the category-manager-with-editorial-empathy voice, depth strategy, examples, decision framework, common mistakes, not-right-for-you guidance, brand POV, and final human closing plan.
+6. Fill claim-first-section-plan.json/md so every visible section has a claim, reader question, evidence need, example/tradeoff, caveat, decision purpose, and transition purpose.
+7. Fill the Citation Set Gate.
+8. Run seo-agent v2 validate-gates.
+9. Generate the final page packet only when hard gates pass and the human editorial brief/claim-first section plan are complete.
+10. Produce the editorial QA report and run seo-agent v2 qa. Include a short human editorial summary in QA, not the full internal brief.
+11. Run the image manifest workflow after content passes.
 
 Show the editor only the final page packet, editorial QA report, and image manifest unless debug artifacts are requested.
 Use seo-agent v2 debug-bundle only for troubleshooting.

@@ -10,6 +10,7 @@ test("V2 editable config files define required defaults", () => {
   const pageTypes = json("config/page-type-modifiers.json");
   const claims = json("config/claim-rewrite-patterns.json");
   const images = json("config/image-prompt-profiles.json");
+  const humanEditorial = json("config/human-editorial-rules.json");
 
   assert.equal(generic.schemaVersion, "generic-phrase-patterns.v1");
   assert.ok(generic.hardFailInOpening.includes("in today's fast-paced world"));
@@ -29,6 +30,16 @@ test("V2 editable config files define required defaults", () => {
   assert.equal(images.schemaVersion, "image-prompt-profiles.v1");
   assert.ok(images.profiles.some((profile: { id: string }) => profile.id === "og_image"));
   assert.ok(images.profiles.some((profile: { id: string }) => profile.id === "product_category_visual"));
+
+  assert.equal(humanEditorial.schemaVersion, "human-editorial-rules.v1");
+  assert.equal(humanEditorial.defaultVoiceModel.id, "category_manager_with_editorial_empathy");
+  assert.equal(humanEditorial.defaultVoiceModel.language, "english_only");
+  assert.equal(humanEditorial.defaultVoiceModel.examples.minimumPerPage, 2);
+  assert.equal(humanEditorial.pageTypeDepth.product_category.depth, "medium");
+  assert.equal(humanEditorial.pageTypeDepth.guide_blog.depth, "full");
+  assert.equal(humanEditorial.pageTypeDepth.comparison.depth, "decision_relevant");
+  assert.ok(humanEditorial.humanDevices.some((device: { id: string }) => device.id === "blended_common_mistakes"));
+  assert.ok(humanEditorial.examples.some((example: { id: string }) => example.id === "acne_decision_first_background"));
 });
 
 test("V2 schema files expose expected schema ids", () => {
@@ -41,7 +52,9 @@ test("V2 schema files expose expected schema ids", () => {
     ["schemas/v2-citation-set.schema.json", "citation-set.v2"],
     ["schemas/v2-editorial-qa-report.schema.json", "editorial-qa-report.v2"],
     ["schemas/v2-section-version-history.schema.json", "section-version-history.v2"],
-    ["schemas/v2-refresh-packet.schema.json", "refresh-packet.v2"]
+    ["schemas/v2-refresh-packet.schema.json", "refresh-packet.v2"],
+    ["schemas/v2-human-editorial-brief.schema.json", "human-editorial-brief.v2"],
+    ["schemas/v2-claim-first-section-plan.schema.json", "claim-first-section-plan.v2"]
   ];
 
   for (const [path, schemaVersion] of schemaIds) {

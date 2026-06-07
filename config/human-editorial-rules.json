@@ -1,0 +1,250 @@
+{
+  "schemaVersion": "human-editorial-rules.v1",
+  "defaultVoiceModel": {
+    "id": "category_manager_with_editorial_empathy",
+    "label": "Category Manager With Editorial Empathy",
+    "language": "english_only",
+    "summary": "Write like a commercially aware category manager who gives clear recommendations, explains complex background when needed, and reduces reader confusion without becoming salesy.",
+    "principles": [
+      "Start from the reader's decision, not only the keyword.",
+      "Say what to choose, what to avoid, and where buyers usually go wrong.",
+      "Use clear brand POV without unsupported superiority.",
+      "Explain background deeply when the topic is complex, but keep every section useful.",
+      "Use empathy through clarity, practical next steps, and non-judgmental language."
+    ],
+    "opinionation": {
+      "mode": "adaptive",
+      "comparison": "strong",
+      "product_category": "strong",
+      "guide_blog": "moderate",
+      "sensitive_topic": "calm"
+    },
+    "firstPerson": {
+      "mode": "occasional",
+      "allowedMoments": [
+        "brand POV",
+        "decision framework",
+        "trust section",
+        "CTA context"
+      ],
+      "avoid": [
+        "repeated we language",
+        "self-praise",
+        "unsupported authority claims"
+      ]
+    },
+    "examples": {
+      "minimumPerPage": 2,
+      "priority": [
+        "category_context_first",
+        "india_context_when_relevant",
+        "brand_context_only_when_proof_exists"
+      ]
+    }
+  },
+  "pageTypeDepth": {
+    "comparison": {
+      "depth": "decision_relevant",
+      "goal": "Help the reader choose between options.",
+      "include": [
+        "practical topic framing",
+        "comparison criteria",
+        "best for and avoid if guidance",
+        "buyer mistakes that affect choice",
+        "caveats that change the recommendation"
+      ],
+      "avoid": [
+        "full textbook background",
+        "deep causal chains unless they affect the comparison"
+      ]
+    },
+    "product_category": {
+      "depth": "medium",
+      "goal": "Help the reader understand the category enough to take action.",
+      "include": [
+        "practical explanation of the topic",
+        "main causes, variants, or decision variables",
+        "common buyer mistakes",
+        "not-right-for-you guidance",
+        "decision framework",
+        "brand POV and CTA connection"
+      ],
+      "avoid": [
+        "exhaustive scientific detail",
+        "long theory that does not affect the category decision"
+      ]
+    },
+    "guide_blog": {
+      "depth": "full",
+      "goal": "Teach the topic deeply and build authority.",
+      "include": [
+        "5W explanation",
+        "causal chains",
+        "types and variants",
+        "reader confusion and misconceptions",
+        "decision tree",
+        "examples and caveats",
+        "FAQs and related reading"
+      ],
+      "lengthBehavior": "auto_expand_when_useful"
+    }
+  },
+  "deepBackgroundFramework": {
+    "id": "five_w_plus_causal_chain",
+    "useAcrossPageTypesWithDifferentDepth": true,
+    "questions": {
+      "what": [
+        "What is this topic in practical terms?",
+        "What are the main types or variants?",
+        "What does the reader usually confuse it with?"
+      ],
+      "why": [
+        "Why does it happen?",
+        "Why do the main triggers matter?",
+        "Why do people usually misdiagnose or misunderstand it?"
+      ],
+      "how": [
+        "How does it develop or work?",
+        "How does each trigger create a different outcome?",
+        "How can the reader address it early?"
+      ],
+      "who": [
+        "Who is most affected?",
+        "Who needs a different path?",
+        "Who should avoid casual self-selection?"
+      ],
+      "when": [
+        "When does it get worse?",
+        "When is it temporary versus recurring?",
+        "When should the reader take action?"
+      ],
+      "where": [
+        "Where does it show up?",
+        "Where does context change the advice?",
+        "Where should the reader go next?"
+      ]
+    },
+    "causalChainFields": [
+      "trigger",
+      "mechanism",
+      "visibleSignal",
+      "readerMistake",
+      "earlyAction",
+      "escalationPoint"
+    ]
+  },
+  "humanDevices": [
+    {
+      "id": "decision_framework",
+      "required": true,
+      "askUserOnce": true,
+      "formats": [
+        "if_this_then_that",
+        "comparison_table",
+        "checklist",
+        "scorecard",
+        "criteria_table"
+      ],
+      "qualityRule": "The framework must help the reader choose, avoid, compare, or act."
+    },
+    {
+      "id": "blended_common_mistakes",
+      "required": true,
+      "standaloneByDefault": false,
+      "qualityRule": "Blend buyer or reader mistakes into relevant sections and explain the better way to think."
+    },
+    {
+      "id": "not_right_for_you",
+      "requiredFor": [
+        "product_category",
+        "comparison"
+      ],
+      "recommendedFor": [
+        "guide_blog"
+      ],
+      "qualityRule": "Tell readers when the option or category is not right for them and offer a safer or better next step."
+    },
+    {
+      "id": "natural_reader_questions",
+      "required": false,
+      "qualityRule": "Use questions only when they mirror reader confusion or introduce a real decision point."
+    },
+    {
+      "id": "simple_practical_analogies",
+      "required": false,
+      "qualityRule": "Use analogies only when they make a complex concept easier without distorting accuracy."
+    },
+    {
+      "id": "mini_decision_tree",
+      "preferred": true,
+      "qualityRule": "Use if-this-then-that paths for product/category pages, comparisons, and complex guides."
+    },
+    {
+      "id": "micro_summary",
+      "requiredAfterComplexExplanation": true,
+      "qualityRule": "Summarize dense explanations only when it improves understanding or AI extraction."
+    },
+    {
+      "id": "short_narrative_opening",
+      "allowedWhen": [
+        "topic_is_personal",
+        "topic_is_complex"
+      ],
+      "qualityRule": "Keep it short, do not invent a person or fake story, and connect quickly to the decision."
+    },
+    {
+      "id": "final_human_closing_before_cta",
+      "required": true,
+      "qualityRule": "End with short decision or emotional closure that makes the CTA feel earned."
+    }
+  ],
+  "editorialTransparency": {
+    "visibleByDefault": true,
+    "guide_blog": [
+      "last updated",
+      "methodology",
+      "sources reviewed summary",
+      "author"
+    ],
+    "comparison": [
+      "last updated",
+      "comparison methodology",
+      "criteria used",
+      "source basis",
+      "author"
+    ],
+    "product_category": [
+      "last updated",
+      "author",
+      "short methodology if relevant"
+    ]
+  },
+  "visibility": {
+    "humanEditorialBrief": "internal_only",
+    "qaSummary": "short_summary_only",
+    "debugBundle": "include_internal_artifact_paths"
+  },
+  "examples": [
+    {
+      "id": "acne_decision_first_background",
+      "pageType": "guide_blog",
+      "topic": "acne",
+      "device": "decision_first_deep_background",
+      "example": "If your acne keeps coming back, the first useful question is not which product is strongest. It is what pattern your acne is following. Acne can look similar on the surface, but oil, clogged pores, inflammation, hormones, friction, and product mismatch can all change the next step."
+    },
+    {
+      "id": "category_not_right_for_you",
+      "pageType": "product_category",
+      "topic": "acne treatment",
+      "device": "not_right_for_you",
+      "example": "This category may not be right for you if you are looking for an overnight fix, if your acne is painful or worsening, or if you are not ready to follow a consistent routine. In those cases, the safer next step is to understand the acne pattern first."
+    },
+    {
+      "id": "comparison_tradeoff",
+      "pageType": "comparison",
+      "topic": "software tools",
+      "device": "category_manager_judgment",
+      "example": "The cheaper tool is not always lower-cost if your team loses time during onboarding. Compare pricing, support, and adoption effort together, not as separate boxes."
+    }
+  ]
+}

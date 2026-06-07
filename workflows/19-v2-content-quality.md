@@ -4,6 +4,8 @@ V2 is a host-agent-first workflow. The CLI creates and checks deterministic arti
 
 Generate one page packet at a time. Start with one product/category cluster, one selected page, one audience definition, and one conversion goal.
 
+V2.1 adds a human editorial layer before final copy. The Human Editorial Brief and Claim-First Section Plan are internal by default; the editor should normally see only a short summary in the QA report.
+
 ## Command Order
 
 ```bash
@@ -87,6 +89,63 @@ The Narrative Brief Gate must include:
 - Sensitivity note if the page touches health, finance, legal, safety, or similar topics.
 
 Sensitive topics should avoid dramatic or high-pressure styles and prefer calmer expert/professional styles.
+
+## Human Editorial Brief
+
+After the Narrative Brief, complete `human-editorial-brief.json` and `human-editorial-brief.md`.
+
+The brief should translate research and audience context into human editorial choices:
+
+- Voice model: category manager with editorial empathy.
+- Opinionation: adaptive by page type.
+- Depth: comparison uses decision-relevant depth, product/category uses medium depth, guide/blog uses full depth.
+- Background: decision-first, then 5W plus causal chain depth when useful.
+- Examples: at least 2 useful examples or scenarios per page.
+- Decision framework: required once per page, with user asked once for preferred format.
+- Common mistakes: mandatory, blended into relevant sections by default.
+- Not-right-for-you guidance: mandatory for product/category and comparison pages, recommended for guide/blog pages.
+- Brand POV: clear but not salesy, with occasional first-person only where useful.
+- Human devices: natural reader questions, practical analogies, mini decision trees, micro-summaries after complex explanations, and short human closing before CTA.
+
+Example:
+
+```yaml
+reader_tension:
+  what_reader_is_confused_about: "Why acne keeps returning even after changing products."
+category_manager_pov:
+  what_to_choose: "Start with understanding acne pattern before choosing stronger products."
+  what_to_avoid: "Do not treat every breakout as random."
+example_requirement:
+  minimum_examples_per_page: 2
+  priority: category context first, India context when relevant, brand context only with proof
+```
+
+## Claim-First Section Plan
+
+Before final copy, complete `claim-first-section-plan.json` and `claim-first-section-plan.md`.
+
+Every visible section should have:
+
+- Section claim.
+- Reader question.
+- Evidence needed.
+- Example or tradeoff.
+- Caveat or not-right-for-you note where relevant.
+- Decision purpose.
+- Transition purpose.
+
+This prevents sections from becoming keyword-shaped summaries. The section should earn its place by helping the reader understand, choose, avoid, compare, or act.
+
+Example:
+
+```yaml
+section_id: S3_context
+section_claim: Acne treatment works better when the reader first identifies the acne pattern.
+reader_question: Why did my previous acne products not work?
+evidence_needed: Source-backed acne type or trigger guidance.
+example_or_tradeoff: Recurring jawline acne may need a different path from occasional forehead bumps after a new product.
+decision_purpose: Help the reader choose diagnosis-first action instead of random product switching.
+```
 
 ## Citation Set Gate
 

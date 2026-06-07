@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-claim-first-section-plan.schema.json",
+  "title": "V2 Claim-First Section Plan",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "status",
+    "sectionPlanTemplate",
+    "sections"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "claim-first-section-plan.v2"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "missing",
+        "draft",
+        "passed",
+        "failed"
+      ]
+    },
+    "sectionPlanTemplate": {
+      "type": "object"
+    },
+    "sections": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}
