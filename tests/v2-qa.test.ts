@@ -122,6 +122,19 @@ test("markdown renderer includes scores, section lost-points reasons, and option
         notes: "Clear first-fold value."
       }
     ],
+    humanEditorialSummary: {
+      status: "passed",
+      voiceModel: "category_manager_with_editorial_empathy",
+      depth: "medium",
+      examplesCount: 2,
+      decisionFrameworkType: "if_this_then_that",
+      brandPovUsed: true,
+      keyHumanTouches: [
+        "decision framework: if_this_then_that",
+        "common mistakes blended into relevant sections"
+      ],
+      topHumanQualityRisks: []
+    },
     autoRepairSummary: [
       "Rewrote the hero opening to remove generic framing."
     ],
@@ -136,6 +149,9 @@ test("markdown renderer includes scores, section lost-points reasons, and option
   assert.match(markdown, /CTA microcopy could be sharper/);
   assert.match(markdown, /Auto-Repair Summary/);
   assert.match(markdown, /Rewrote the hero opening/);
+  assert.match(markdown, /Human Editorial Summary/);
+  assert.match(markdown, /category_manager_with_editorial_empathy/);
+  assert.match(markdown, /Examples planned: 2/);
 
   const withoutRepair = renderEditorialQaReportMarkdown(buildEditorialQaReport({
     overallScore: 86,

@@ -29,6 +29,7 @@ export interface EditorialQaReportInput {
   dimensionScores: DimensionScores;
   hardGateResults: HardGateResult[];
   sectionScores: SectionQaScoreInput[];
+  humanEditorialSummary?: HumanEditorialQaSummary;
   autoRepairSummary?: string[];
   recommendations: string[];
 }
@@ -40,6 +41,7 @@ export interface EditorialQaReport {
   dimensionScores: DimensionScores;
   hardGateResults: HardGateResult[];
   sectionScores: SectionQaScore[];
+  humanEditorialSummary?: HumanEditorialQaSummary;
   autoRepairSummary?: string[];
   recommendations: string[];
   blockingIssues: string[];
@@ -66,6 +68,7 @@ export function buildEditorialQaReport(input: EditorialQaReportInput): Editorial
     dimensionScores: input.dimensionScores,
     hardGateResults: input.hardGateResults,
     sectionScores,
+    humanEditorialSummary: input.humanEditorialSummary,
     autoRepairSummary: input.autoRepairSummary?.length ? input.autoRepairSummary : undefined,
     recommendations: input.recommendations,
     blockingIssues
@@ -90,6 +93,9 @@ export function renderEditorialQaReportMarkdown(report: EditorialQaReport): stri
   const sectionRows = report.sectionScores.map((section) =>
     `| ${section.sectionId} | ${section.heading} | ${section.score} | ${section.status} | ${section.whyPointsWereLost} | ${section.notes} |`
   ).join("\n");
+  const humanEditorialSummary = report.humanEditorialSummary
+    ? renderHumanEditorialSummary(report.humanEditorialSummary)
+    : "";
   const repairSummary = report.autoRepairSummary?.length
     ? `\n## Auto-Repair Summary\n\n${report.autoRepairSummary.map((item) => `- ${item}`).join("\n")}\n`
     : "";
@@ -126,10 +132,32 @@ ${gateRows}
 | Section ID | Heading | Score | Status | Why Points Were Lost | Notes |
 | --- | --- | ---: | --- | --- | --- |
 ${sectionRows}
-${repairSummary}${blockingIssues}
+${humanEditorialSummary}${repairSummary}${blockingIssues}
 ## Top Remaining Recommendations
 
 ${report.recommendations.map((recommendation, index) => `${index + 1}. ${recommendation}`).join("\n") || "None"}
+`;
+}
+
+function renderHumanEditorialSummary(summary: HumanEditorialQaSummary): string {
+  const touches = summary.keyHumanTouches.map((touch) => `- ${touch}`).join("\n") || "- None";
+  const risks = summary.topHumanQualityRisks.map((risk) => `- ${risk}`).join("\n") || "- None";
+
+  return `
+## Human Editorial Summary
+
+- Status: ${summary.status}
+- Voice model: ${summary.voiceModel}
+- Depth: ${summary.depth ?? "Not provided"}
+- Examples planned: ${summary.examplesCount}
+- Decision framework: ${summary.decisionFrameworkType ?? "Not selected"}
+- Brand POV used: ${summary.brandPovUsed}
+
+Key human touches:
+${touches}
+
+Top human quality risks:
+${risks}
 `;
 }
 
@@ -150,3 +178,4 @@ function collectBlockingIssues(hardGateResults: HardGateResult[], sectionScores:
   }
   return issues;
 }
+import type { HumanEditorialQaSummary } from "./human-editorial.js";
