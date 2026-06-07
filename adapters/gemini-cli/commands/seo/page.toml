@@ -1,7 +1,7 @@
 description = "Generate one V2 content-quality page workflow."
 prompt = """
 Use AGENT.md and workflows/19-v2-content-quality.md.
-This command is the default upgraded page workflow. /seo:v2 is an explicit alias for the same V2 content-quality flow.
+This command is the default upgraded V2.1 content-quality page workflow.
 
 Run the SEO Page Creator V2 flow for one page only.
 
