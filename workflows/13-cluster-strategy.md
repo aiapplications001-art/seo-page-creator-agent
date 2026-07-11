@@ -228,6 +228,189 @@ Every `supportingContentElements` item must include `allowedScope`, `notAllowedS
 
 `mustCarryForward` must include `primaryPageType`, `primaryInternalContentFormat`, selected supporting elements, `formatDecisionStatement`, and format boundaries. All downstream artifacts must carry `pageFormatHash`; if page type, internal format, supporting elements, adjacent routing, or boundaries change, return to Step 3.
 
+### Step 4 Next Action Contract Gate
+
+Step 4 defines the next action after Step 3 locks the page type and internal format. It is a hard blocker before prewriting, V2 research, page structure, final copy, page packet, images, commit, deploy, or publish. It chooses the natural user journey continuation only; Step 4 does not write CTA copy, place CTAs, build the outline, choose the page type, or redefine the business role.
+
+Step 4 must produce `nextActionContract` with:
+
+- `step0BContractHash`
+- `pageJobHash`
+- `searchIntentHash`
+- `pageFormatHash`
+- `nextActionHash`
+- `userJourneyStage`: exactly one primary fixed-enum value: `learning`, `evaluation`, or `action`.
+- `secondaryJourneyStages`: optional, maximum 3 adjacent readiness states.
+- `secondaryStageNotes`
+- `primaryNextAction`
+- `secondaryNextActions`: 1-3 alternate or softer next actions.
+- `ctaStrength`: exactly one fixed-enum value: `soft`, `medium`, or `direct`.
+- `ctaStrengthMapping`
+- `ctaStrengthExceptionReason`
+- `ctaStrengthExceptionEvidenceRefs`
+- `internalJourneyPath`
+- `nextActionStatement`
+- `stageEvidenceBasis`
+- `nextActionEvidenceBasis`
+- `step4InputFit`
+- `formatBoundaryCheck`
+- `businessRoleBoundaryCheck`
+- `brandConnectionFit`
+- `sensitiveActionRiskCheck` when relevant
+- `internalDestinationCheck`
+- `rejectedNextActions`
+- `nextActionUniquenessCheck`
+- `step4OutputMustNotContain`
+- `nextActionRepairLog`
+- `nextActionVerdict`
+- `mustCarryForward`
+
+`userJourneyStage` must come from Step 2 validated intent, Step 1 user task/outcome, and Step 3 page format. `secondaryJourneyStages` may capture adjacent readiness states, but they must not control `ctaStrength`. `ctaStrengthMapping` is strict by default: `learning` -> `soft`, `evaluation` -> `medium`, and `action` -> `direct`. A mismatch is allowed only when `ctaStrengthExceptionReason` and `ctaStrengthExceptionEvidenceRefs` are present and strong; secondary journey stages alone cannot justify changing CTA strength.
+
+`primaryNextAction` is exactly one most logical next step if the reader takes only one action after the page. `secondaryNextActions` must include 1-3 softer or alternative next steps for readers not ready for the primary action. Each action must include action type, target resource or action, user benefit, readiness fit, destination type, destination status, evidence refs, reason, and `finalCopyGuidance`. `finalCopyGuidance` should explain how the action should become visible later without writing exact CTA copy. Broad placement guidance may use labels such as `near_end`, `after_decision_tool`, `after_troubleshooting`, `after_comparison`, `after_key_takeaway`, or `contextual_internal_link_only`; exact placement, section IDs, button text, and final CTA wording are forbidden.
+
+`internalJourneyPath` must show the page's continuation path, such as checklist -> next guide -> diagnostic flow or comparison page -> pricing page -> consultation page. It should be primarily internal and use actual internal URLs or resource IDs when already known. If inventory or repo pages are accessible, Step 4 must check them; failure to check accessible inventory is a blocker. If inventory is inaccessible, Step 4 may continue with `pass_with_warnings`. `internalDestinationCheck.destinationStatus` must use only `existing_internal_destination`, `missing_but_recommended`, `external_destination`, or `ask_user_required`. If a useful destination is missing and does not affect business positioning or safety, infer `missing_but_recommended`; ask only when the destination affects business positioning, conversion promise, medical/skincare safety, finance/legal risk, or sensitive routing.
+
+External destinations are allowed only when required for trust, safety, compliance, official medical/legal/financial guidance, platform documentation, required third-party action, or other recommended products where relevant. They must not replace a brand-owned next step unless safety or trust demands it.
+
+`stageEvidenceBasis` and `nextActionEvidenceBasis` may cite only Step 0B, Step 1, Step 2, Step 3, and already-known site inventory, conversion destinations, or product/profile data. Each `primaryNextAction` and `secondaryNextActions` item must include evidence refs. Step 4 must not start new SERP, competitor, Reddit, video, PAA, or keyword research.
+
+`step4InputFit` must prove the next action follows the frozen page scope, page job, search intent, and page format. `formatBoundaryCheck` must prove the next action does not change the page type or internal content format. `businessRoleBoundaryCheck` must prove the action respects Step 1 `primaryBusinessRole` without turning an educational page into a forced sales page or making an action page too weak to satisfy the user.
+
+`brandConnectionFit` is required and must use one fixed label: `direct_business_connection`, `soft_brand_bridge`, `authority_building_internal_education`, or `no_brand_connection_reader_first_justified`. It can reference other web pages, topic hubs, resources, product pages, or tools of the same business when that is the most natural user-first continuation. A purely educational next action is allowed when it best fits the primary stage.
+
+`sensitiveActionRiskCheck` is required for skincare, medical, finance, legal, safety, or other sensitive topics. It must block unsafe next actions such as self-diagnosis, treatment guarantees, prescription-style instructions, risky financial/legal advice, urgency pressure, or conversion paths that imply expertise the brand/project has not established.
+
+`rejectedNextActions` must reject at least 2 plausible wrong next actions, not only absurd options. Each rejection must include the rejected action, why it is wrong for the current `userJourneyStage`, which upstream evidence it conflicts with, and whether it should be excluded, softened, delayed, or routed to a future page.
+
+`nextActionUniquenessCheck` must lightly compare `primaryNextAction`, `secondaryNextActions`, and `internalJourneyPath` across current-batch and historical pages when available. Identical next-action paths require a page-specific reason, repair, or failure before prewriting.
+
+`step4OutputMustNotContain` must explicitly block broad business role definition, page type selection, internal content format selection, H1, H2, H3, detailed outline, exact CTA placement, final CTA copy, conversion copy, metadata, title tag, meta description, final prose, image prompts, image manifest, visual design, and publishing instructions.
+
+`nextActionStatement` must be a human-readable sentence in this pattern: after reading this page, the user should primarily do X; if not ready, they should do Y/Z; the CTA should be soft/medium/direct because the primary stage is learning/evaluation/action and this fits the page job.
+
+`nextActionVerdict` uses structured pass/fail only, not a scorecard. Status may be `pass`, `pass_with_warnings`, `fail`, or `ask_user`; action must be `continue_to_prewriting`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. `pass_with_warnings` may continue automatically only for non-critical issues such as inaccessible inventory, `missing_but_recommended` support resource, secondary journey stage that does not control the CTA, external destination used only as trust/safety support, or missing internal URL with clear destination type.
+
+Step 4 may repair weak Step 4 fields up to 2 times through `nextActionRepairLog`: vague `nextActionStatement`, missing evidence refs, missing `finalCopyGuidance`, weak destination label, weak `rejectedNextActions`, CTA strength mismatch without exception fields, or missing secondary action. It must not auto-repair unsafe sensitive destination, impossible internal destination, business positioning conflict, true Step 3 format conflict, true Step 2 stage/intent conflict, Step 0B scope conflict, no defensible `primaryNextAction`, or no defensible `ctaStrength`. Non-repairables must route to the owning step: `return_to_step3` for format conflict, `return_to_step2` for intent/stage contradiction, `return_to_step1` for page job/business-role conflict, `return_to_0B` for scope conflict, `ask_user` for single-page ambiguity or safety/business decision, or `skip_page` in batch after allowed attempts.
+
+`mustCarryForward` must include `userJourneyStage`, `secondaryJourneyStages`, `primaryNextAction`, `secondaryNextActions`, `ctaStrength`, `internalJourneyPath`, `nextActionStatement`, `brandConnectionFit`, and next-action boundaries. All downstream artifacts must carry `nextActionHash`; if the journey stage, next action, CTA strength, internal journey path, or boundaries change, return to Step 4. Final copy or page-packet QA must include `nextActionDeliveryProof` proving the primary next action, secondary next actions, CTA strength, and internal journey path became visible in the page or visible link guidance.
+
+### Step 5 SERP Competitor Analysis Gate
+
+Step 5 analyzes the live SERP and competitors after Step 4 freezes the next action. It is a hard blocker before `current-page.lock`, prewriting, V2 research, page structure, final copy, page packet, images, commit, deploy, or publishing. Step 5 creates a dedicated `serpCompetitorAnalysis` artifact pair:
+
+- `serp-competitor-analysis.json`: machine-validated contract, source registry, hashes, structured fields, and verdict.
+- `serp-competitor-analysis.md`: human-readable summary with the same verdict and major findings.
+
+The JSON is the gate. The Markdown is a review/debug view and cannot replace the JSON.
+
+Step 5 must produce:
+
+- `step0BContractHash`
+- `pageJobHash`
+- `searchIntentHash`
+- `pageFormatHash`
+- `nextActionHash`
+- `serpCompetitorHash`
+- `serpContext`
+- `sourceRegistry`
+- `primarySerpResults`
+- `reviewedCompetitors`
+- `supportingQuerySerpChecks`
+- `discoveredQueryCandidates`
+- `serpFeatureInventory`
+- `marketSerpFitCheck`
+- `deviceSerpCheck`
+- `mobileFirstSerpInterpretation`
+- `globalBenchmarkRelevanceCheck`
+- `marketCompetitorMix`
+- `indiaGlobalInfluenceBoundary`
+- `serpCannibalizationCheck`
+- optional `differentiationRequirement`
+- `commercialSerpSignals`
+- `serpQuestionAndRelatedSignals`
+- `domainClusterHandling`
+- `excludedResults`
+- `serpStrengthLabel`
+- `minimumBarToMatch`
+- `opportunityGapsToExplore`
+- `coveragePatterns`
+- `contentAnglePatterns`
+- `depthBenchmark`
+- `trustSignalBenchmark`
+- `uxComponentBenchmark`
+- `competitorStrengthsToRespect`
+- `competitorWeaknessesAndGaps`
+- `superiorityComponentOpportunities`
+- `serpInformedScopeProtection`
+- `directionValidation`
+- `competitorImitationRisk`
+- `step5BoundaryNotes`
+- `analysisConfidence`
+- `batchSerpIsolationCheck`
+- `step5CompletenessChecklist`
+- `serpCompetitorSummaryStatement`
+- `serpCompetitorVerdict`
+- `mustCarryForward`
+
+`serpContext` must fix `targetQuery`, `targetCountry`, optional `targetRegionOrCity`, `language`, `deviceChecked`, `dateChecked`, `marketContextReason`, and `contextConfidence`. For India-sensitive skincare, product, service, local, or consumer pages, `marketSerpFitCheck.marketFit` must be `matched` or strongly justified as `partially_matched`; `not_matched` fails or asks the user because a global SERP can mislead the competitor set, product assumptions, examples, trust bar, and next action.
+
+Mobile-first interpretation is required for Indian consumer/skincare/product/service/local queries. `deviceSerpCheck` must record `mobile`, `desktop`, or `both`; dual-device checking is required when SERP features are likely device-sensitive. Desktop-only checks may continue only with warning and confidence notes when the query is low device-sensitivity or mobile access is unavailable.
+
+For the primary Step 0B `targetKeyword`, Step 5 must collect the top 10 organic results when available and preserve original rank order in `primarySerpResults`. Attempt direct page review of the top 5 organic competitors and complete at least 3 direct competitor reviews. If a top-5 page is blocked or inaccessible, record `accessStatus`, keep the rank visible, and replace it with the next accessible organic result when possible. Fewer than 3 direct competitor reviews is a critical blocker or `ask_user` in single-page mode.
+
+For supporting queries, Step 5 must check 3-5 important Step 0B supporting queries when available, with a light top 3 SERP check per query. Prioritize queries with different wording, potential hidden intent, or risky scope-drift words such as best, side effects, near me, price, routine, alternatives, reviews, template, tool, or service. Each supporting query must use `relationshipToCurrentPage`: `same_search_task`, `close_variant`, `supporting_subquestion`, `adjacent_need`, `different_opportunity`, or `conflicting_intent`; and `routingDecision`: `keep_in_current_scope`, `briefly_support_only`, `separate_page_candidate`, `exclude_from_current_page`, or `return_to_0B_required`.
+
+`discoveredQueryCandidates` may be created from SERP features, PAA, autocomplete, related searches, video suggestions, forums, or repeated competitor subtopics, but Step 5 must not silently expand the Step 0B scope. Route each discovered query as `add_to_current_scope_candidate`, `separate_page_candidate`, `exclude_from_current_page`, or `return_to_0B_required`.
+
+`sourceRegistry` must make evidence auditable. Each source needs `sourceRef`, `sourceClass`, `sourceType`, query, rank when applicable, title, URL, `accessStatus`, `reviewDepth`, `dateChecked`, `allowedEvidenceUse`, and `notAllowedEvidenceUse` when useful. Use `sourceClass` values such as `primary_serp_competitor`, `primary_serp_surface`, `supporting_query_serp_result`, `serp_feature`, `ai_overview_signal`, `existing_site_inventory`, and `global_benchmark_competitor`. Reddit, forums, video comments, PAA, and AI Overview can show audience language, objections, result shape, or answer shape; they cannot serve as medical/skincare/finance/legal factual authority. Official sources can set trust and safety standards, but they do not replace competitor-quality analysis.
+
+Ranking organic surfaces such as Reddit, Quora, YouTube, forums, official docs, marketplaces, news, and medical sites must be recorded and classified separately with `resultRole`, `surfaceType`, and `competitorUse`. A Reddit thread ranking on page 1 can be an audience signal or format signal without being scored like a polished competitor article. Ads and shopping results must go into `commercialSerpSignals` or `excludedResults`; they do not count as organic competitors.
+
+For each directly reviewed competitor, include structured scoring and notes for `intentMatch`, `coverageDepth`, `structureClarity`, `examplesAndPracticality`, `trustSignals`, `freshness`, `uxAndReadability`, and `distinctiveAssets`, plus `competitorStrengthScore`, `competitorStrengthLabel`, and `strengthReason`. Weak is 1.0-2.4, moderate is 2.5-3.7, and strong is 3.8-5.0. A competitor can still be labeled strong when it has high authority/trust, strong intent match, and strong UX/components even if one smaller dimension is weaker.
+
+Each reviewed competitor must also include:
+
+- `pageExperienceNotes`: scanability, above-fold clarity, intrusive ads/popups, mobile readability, navigation ease, visual support, and why it matters.
+- `aboveFoldIntentMatch`: whether the main intent is visible near the top, opening framing, delay or mismatch risk, and notes.
+- `freshnessSignals`: visible published/updated dates when available, freshness assessment, and why it matters.
+- `rankingHypothesis`: concise, evidence-grounded hypothesis for why the page likely ranks, with low/medium/high confidence.
+- strengths, weaknesses, `whatToRespect`, and `whatToAvoid`.
+
+`serpStrengthLabel` must synthesize the overall competitive bar as `weak`, `mixed`, `moderate`, or `strong`. A strong SERP usually has 3+ strong top-5 competitors or the top 2 are very strong; moderate SERP has mostly moderate competitors and at least 1 strong result; mixed SERP is uneven; weak SERP has mostly weak/moderate results and no strong competitor. Include strong/moderate/weak counts, strongest refs, and the reason.
+
+Separate `minimumBarToMatch` from `opportunityGapsToExplore`. A minimum-bar item is something our page must do to be credible in this SERP; each item needs `requirement`, `whyRequired`, competitor or SERP feature refs, and linked intent or satisfaction need. An opportunity gap is a weakness or missing piece that may feed Step 6 topic research, Step 7 unique angle, Step 9 structure, or the SERP Superiority Gate; each item needs `gap`, `whyItMatters`, evidence refs, `laterStepUse`, and when useful `pageInclusionCandidate`, `candidateInclusionType`, `inclusionRisk`, and `mustResolveBy`.
+
+Step 5 must produce evidence-linked `coveragePatterns`, `contentAnglePatterns`, `depthBenchmark`, `trustSignalBenchmark`, and `uxComponentBenchmark`. Coverage patterns preserve repeated subtopics, questions, definitions, steps, examples, components, trust signals, UX patterns, and missing/rare subtopics without creating H2/H3s or section order. Content angle patterns explain how competitors position the promise, such as beginner-friendly, safety-first, product-fit, troubleshooting-led, comparison-led, example-led, or local-market-specific.
+
+For normal pages, Step 5 should include at least 2 `contentAnglePatterns`, 4 `coveragePatterns`, 3 `competitorStrengthsToRespect`, 3 `competitorWeaknessesAndGaps`, 2 `minimumBarToMatch`, 2 `opportunityGapsToExplore`, and 3 `serpQuestionAndRelatedSignals` when visible. If fewer exist, Step 5 may continue only with non-critical warning and a reason that the SERP is unusually sparse or narrow.
+
+`competitorStrengthsToRespect` must classify strengths as `must_match`, `nice_to_respect`, or `not_relevant_to_our_page`. `competitorWeaknessesAndGaps` must classify gaps as `useful_gap`, `possible_gap`, `not_relevant_to_current_page`, `separate_page_opportunity`, `trust_or_safety_gap`, or `ux_component_gap`. Synthesis items must include `utilizationRouting` or `pageImpact`: `must_apply`, `consider_for_step6`, `consider_for_step7`, `consider_for_step9`, `consider_for_superiority_gate`, `do_not_use`, or `separate_page_candidate`. `must_apply` items require `pageImpact`; `do_not_use` items require `whyNotUsed`; `proofRequired: true` items must later appear in `serpCompetitorDeliveryProof`.
+
+For India-sensitive pages, Step 5 should attempt 2 global benchmark competitors only when `globalBenchmarkRelevanceCheck` says they are relevant. Global benchmark pages must use `sourceClass: global_benchmark_competitor` and must not count toward primary competitor minimums. `indiaGlobalInfluenceBoundary` must state that Indian SERP competitors and Indian/local search features define market reality, while global pages can raise quality, trust, UX, explanation clarity, and safety-boundary standards. Global benchmarks cannot override Indian product availability, pricing, climate/context, user language, local SERP intent, or brand next action, and they cannot become `must_apply` unless supported by Indian SERP competitors, Step 6 trustworthy research, Step 7 approved unique angle, or a safety/trust requirement.
+
+`serpCannibalizationCheck` is required when site inventory, sitemap, repo routes, known published URLs, or historical page packets are accessible. It must compare target keyword, query cluster, page job, intent, page format, SERP shape, audience, and next action. Use overlap types `same_query_same_intent`, `same_query_different_intent`, `different_query_same_serp_shape`, `adjacent_supporting_page`, `partially_duplicate`, or `no_meaningful_overlap`. Adjacent, safe, or partial overlap may continue; if continuing with partial overlap, Step 5 must create `differentiationRequirement` with `mustDifferentiateOn`, `mustNotRepeat`, `requiredUniqueContribution`, and `downstreamProofRequired`. High or critical duplication must return to Step 0B, ask the user, merge/refresh, or skip the page in batch.
+
+`directionValidation` must compare Step 1, Step 2, Step 3, and Step 4 against SERP reality using `confirm`, `refine`, or `reconsider`. `refinementSeverity` may be `none`, `minor_refinement`, or `contract_changing_refinement`. Minor refinements can continue to Step 6 and must be carried forward. Contract-changing refinements must return to the owner step: Step 4 for next-action conflict, Step 3 for format conflict, Step 2 for intent conflict, Step 1 for job conflict, or Step 0B for scope/cluster conflict.
+
+`competitorImitationRisk` is required. Step 5 must not copy competitor wording, headings, examples, tables, proprietary frameworks, or product-ranking logic. Store only short snippets when truly needed, prefer paraphrased observations, and synthesize observed patterns across sources. Copy-like competitor material is a critical blocker.
+
+`step5BoundaryNotes` must state that Step 5 does not resolve final factual claims, medical/skincare source citations, final unique angle, final superiority component, final outline, metadata, final CTA wording, image prompts, or final copy. It must list unresolved items and owner steps when competitor analysis exposes a question that Step 6 or later must validate.
+
+`batchSerpIsolationCheck` must prove the Step 5 artifact is page-specific. Batch runners cannot reuse another page's Step 5 artifact unless the target keyword, query cluster, page job, intent, format, and next-action hashes are identical. If two pages produce highly similar Step 5 summaries, coverage patterns, or opportunity gaps, trigger uniqueness warning or repair.
+
+`step5CompletenessChecklist` must include booleans for fixed SERP context, mobile-first or device-justified interpretation, primary top 10 collected, primary top 5 direct review attempted, minimum 3 direct reviews completed, supporting queries checked, SERP features captured, source registry complete, major conclusions evidence-linked, direction validation completed, cannibalization checked, imitation risk checked, boundary notes completed, and must-carry-forward completed. False values must trigger repair, warning, fail, or ask_user depending on severity.
+
+`serpCompetitorSummaryStatement` is required in this pattern: For [targetKeyword] in [market], the SERP is dominated by [page types] with [content angles]. The competitive bar is [weak/mixed/moderate/strong] because [reason]. Our planned page direction is [confirmed/refined/reconsidered]; to compete, it must at minimum [minimum bar], while later steps should explore [opportunity gaps] without copying [imitation risks].
+
+`serpCompetitorVerdict` uses structured pass/fail only. Status may be `pass`, `pass_with_warnings`, `fail`, or `ask_user`; action must be `continue_to_step6`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. `pass_with_warnings` may continue only for access/availability limits that do not break the competitive read, such as 8-9 organic results visible instead of 10, AI Overview unavailable, 1-2 top-5 pages blocked while at least 3 direct reviews completed, only 2 supporting queries relevant, device-specific SERP unavailable with context clear, or some SERP feature details missing while primary competitor evidence is strong.
+
+Step 5 may repair weak or missing Step 5 fields up to 2 times: missing evidence refs, weak SERP feature implications, incomplete competitor scoring notes, missing content angle patterns, missing coverage classification, weak minimum bar wording, weak opportunity gap routing, missing imitation-risk guardrail, or incomplete direction validation explanation. It must not auto-repair fewer than 3 direct competitor reviews, no primary SERP evidence, no fixed SERP context, access failure that prevents competitive read, major Step 1-4 contradiction, copy-like competitor material, no evidence-linked minimum bar, no evidence-linked opportunity gaps, no direction validation, or no defensible SERP strength judgment.
+
+Ask the user only when the competitive read cannot be safely inferred: ambiguous market/location, target query has multiple SERPs with different meanings, major prior-contract contradiction cannot be routed automatically, fewer than 3 direct reviews are possible in single-page mode, sensitive-topic SERP implies unresolved brand/safety boundary, or discovered query routing cannot be decided. In batch mode, unresolved cases may become `skip_page` with reasons instead of blocking the full batch.
+
+`mustCarryForward` must include SERP context, dominant SERP reality, `serpStrengthLabel`, `minimumBarToMatch`, `opportunityGapsToExplore`, direction validation, imitation warnings, `serpInformedScopeProtection`, any `differentiationRequirement`, and `serpCompetitorSummaryStatement`. All downstream artifacts must carry `serpCompetitorHash`; final copy or page-packet QA must include `serpCompetitorDeliveryProof`, and `differentiationDeliveryProof` when a differentiation requirement exists. If Step 6 research or later work materially changes the SERP assumptions, return to Step 5. A lightweight `serpRefreshCheck` may run before Step 9 when the workflow took a long time, the SERP is volatile, or Step 6 found contradictory market/intent evidence.
+
 ## Strategy Categories
 
 The strategy may classify opportunities as:
@@ -270,7 +453,7 @@ Fail or repair when two pages differ only by keyword wording, share the same pag
 
 Step 0B may include an optional `componentOpportunityHint` only when the query cluster obviously implies a reader aid. Required superiority components are not decided here; they are custom-created later by the SERP Superiority Gate.
 
-In strict batch mode, process one page as: select one opportunity -> Step 0B -> Step 1 -> Step 2 -> Step 3 -> create `current-page.lock` -> begin prewriting, research, and content work. Do not create `current-page.lock` until Step 3 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_prewriting`.
+In strict batch mode, process one page as: select one opportunity -> Step 0B -> Step 1 -> Step 2 -> Step 3 -> Step 4 -> Step 5 -> create `current-page.lock` -> begin Step 6, prewriting, research, and content work. Do not create `current-page.lock` until Step 5 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step6`.
 
 ## Source-Backed Inference Notes
 
