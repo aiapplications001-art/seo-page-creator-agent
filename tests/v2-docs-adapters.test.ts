@@ -426,5 +426,34 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /differentiationDeliveryProof/);
   }
 
+  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+    assert.match(doc, /Step 6|Topic Research Bank/);
+    assert.match(doc, /topicResearchBank/);
+    assert.match(doc, /topicResearchHash/);
+    assert.match(doc, /topic-research-bank\.json/);
+    assert.match(doc, /topic-research-bank\.md/);
+    assert.match(doc, /researchDepthDecision/);
+    assert.match(doc, /researchAgenda/);
+    assert.match(doc, /sourceRegistry/);
+    assert.match(doc, /topicEvidenceSources/);
+    assert.match(doc, /audienceSearchLanguageSources/);
+    assert.match(doc, /extractedFacts/);
+    assert.match(doc, /agendaCoverage/);
+    assert.match(doc, /step5CarryForwardCoverage/);
+    assert.match(doc, /researchBank/);
+    assert.match(doc, /sourceConflictNotes/);
+    assert.match(doc, /researchGaps/);
+    assert.match(doc, /doNotUse/);
+    assert.match(doc, /researchCompletenessChecklist/);
+    assert.match(doc, /researchSummaryStatement/);
+    assert.match(doc, /topicResearchVerdict/);
+    assert.match(doc, /continue_to_step7/);
+    assert.match(doc, /local-market evidence|localMarketEvidenceChecked|local-market/i);
+    assert.match(doc, /not_allowed_for_claims|audience\/search-language|audience-search/i);
+    assert.match(doc, /copied source|copied-looking|copied source material|copied source or competitor material/i);
+    assert.match(doc, /topicResearchDeliveryProof/);
+  }
+
   assert.equal(existsSync("docs/superpowers/specs/2026-07-11-step-5-serp-competitor-analysis-design.md"), true);
+  assert.equal(existsSync("docs/superpowers/specs/2026-07-11-step-6-topic-research-bank-design.md"), true);
 });

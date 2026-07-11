@@ -411,6 +411,81 @@ Ask the user only when the competitive read cannot be safely inferred: ambiguous
 
 `mustCarryForward` must include SERP context, dominant SERP reality, `serpStrengthLabel`, `minimumBarToMatch`, `opportunityGapsToExplore`, direction validation, imitation warnings, `serpInformedScopeProtection`, any `differentiationRequirement`, and `serpCompetitorSummaryStatement`. All downstream artifacts must carry `serpCompetitorHash`; final copy or page-packet QA must include `serpCompetitorDeliveryProof`, and `differentiationDeliveryProof` when a differentiation requirement exists. If Step 6 research or later work materially changes the SERP assumptions, return to Step 5. A lightweight `serpRefreshCheck` may run before Step 9 when the workflow took a long time, the SERP is volatile, or Step 6 found contradictory market/intent evidence.
 
+### Step 6 Topic Research Bank Gate
+
+Step 6 researches the topic deeply after Step 5 freezes the SERP competitor analysis. It is a hard blocker before unique-angle work, content brief, final outline, prewriting, V2 research artifacts, final copy, page packet, images, commit, deploy, or publishing. Step 6 creates `topicResearchBank` as a dedicated topic research artifact pair:
+
+- `topic-research-bank.json`: machine-validated source registry, research depth decision, agenda, extracted facts, research bank, conflicts, gaps, verdict, and hash.
+- `topic-research-bank.md`: human-readable summary of what was researched, what was found, what is safe to use, what needs caution, and what must carry forward.
+
+The JSON is the gate. The Markdown is the review/debug view and cannot replace the JSON.
+
+Step 6 must produce:
+
+- `step0BContractHash`
+- `pageJobHash`
+- `searchIntentHash`
+- `pageFormatHash`
+- `nextActionHash`
+- `serpCompetitorHash`
+- `topicResearchHash`
+- `researchDepthDecision`
+- `researchAgenda`
+- `sourceRegistry`
+- `topicEvidenceSources`
+- `audienceSearchLanguageSources`
+- `extractedFacts`
+- `agendaCoverage`
+- `step5CarryForwardCoverage`
+- `researchBank`
+- `sourceConflictNotes`
+- `researchGaps`
+- `doNotUse`
+- `mustCarryForward`
+- `researchCompletenessChecklist`
+- `researchSummaryStatement`
+- `topicResearchVerdict`
+
+`researchDepthDecision` is required before source collection begins. It must choose `researchRiskTier`, explain `depthReason`, list `minimumSourceRequirements`, and cite upstream fields in `derivedFrom`. Minimums are `low_risk`: 6+ credible sources and 20+ useful extracted facts; `standard`: 8+ credible sources, 2+ high/authoritative sources, and 30+ useful facts; `market_sensitive`: 10+ credible sources, 2+ local/market sources, 2+ high/authoritative sources, and 35+ useful facts; `sensitive_or_medical`: 12+ credible sources, 4+ authoritative medical/scientific/expert sources, and 45+ useful facts; `high_competition_or_deep`: 12-15+ credible sources, 4+ high/authoritative sources, and 50-70+ useful facts. Each credible source should contribute at least 2 useful facts unless it is a narrow source such as a product label, official warning, ingredient list, policy page, or short official guidance; exceptions require a reason.
+
+Competitor pages from Step 5 must not count as authoritative Step 6 topic-research sources. They may create research prompts, but actual factual support must come from credible topical, official, expert, medical/scientific, product, market, brand, and audience/search-language sources as appropriate. Every source must include `sourceClass`, `sourceReliability`, and `allowedUse`. Use `sourceReliability`: `authoritative`, `high`, `medium`, `low`, or `unusable`. Use `allowedUse`: `define_concept`, `verify_claim`, `support_safety_boundary`, `support_market_context`, `support_product_context`, `support_example`, `answer_user_question`, `capture_audience_language`, `identify_common_mistake`, `support_workflow`, `not_allowed_for_claims`, or `do_not_use`.
+
+Step 6 must separate `topicEvidenceSources` from `audienceSearchLanguageSources`. Topic evidence can support facts and claims when reliable enough. Audience/search-language sources such as Reddit, forums, Quora, PAA, autocomplete, reviews, video comments, support chats, and social/community comments can support user questions, objections, phrasing, confusion, mistakes, and lived concerns, but cannot support medical, legal, finance, safety, product-efficacy, or factual truth claims by themselves.
+
+`researchAgenda` must be created before source collection and derived from Step 0A through Step 5. It must ask what the reader needs to understand, what facts need verification, what safety or claim risks need support, what Step 5 gaps need trustworthy topic research, and what examples or workflows need evidence. Each agenda question needs `question`, `whyThisMatters`, `questionType`, `requiredEvidenceClass`, `sourceRefs`, `route`, and `answerStatus`. Valid routes are `must_answer_for_page`, `supporting_context`, `claim_verification`, `safety_or_risk_boundary`, `example_or_workflow_support`, `market_or_product_context`, `audience_question`, and `do_not_research_now`. Valid answer statuses are `answered`, `partially_answered`, `not_answered`, `rejected`, and `routed_later`.
+
+`agendaCoverage` must prove that extracted facts are distributed across important questions rather than clustered around easy topics. Every `must_answer_for_page`, `claim_verification`, `safety_or_risk_boundary`, and `market_or_product_context` question needs enough extracted facts to support its answer. Critical unresolved gaps fail Step 6 or route to `ask_user` or `skip_page` in batch. Critical means safety, medical/skincare, finance/legal, core user decision, or the Step 5 minimum SERP bar.
+
+`step5CarryForwardCoverage` is required. If Step 5 marks an item as `minimumBarToMatch`, `competitorStrengthsToRespect.strengthType = must_match`, `differentiationRequirement`, `serpInformedScopeProtection`, or `mustCarryForward`, Step 6 must research it with credible topic sources, route it to a later step with a reason, reject it with evidence, or defer it as not current scope. Valid decisions include `researched_in_step6`, `route_to_step7`, `route_to_step8`, `route_to_step9`, `route_to_step12`, `reject_with_evidence`, and `defer_as_not_current_scope`.
+
+The `researchBank` must be organized by page usefulness, not by source alone. It must include `coreConcepts`, `processOrWorkflow`, `practicalExamples`, `commonMistakes`, `supportingEvidence`, `safetyBoundaries`, `marketContext`, `productContext`, `readerQuestions`, `counterpointsOrCaveats`, `sourceConflicts`, and `doNotUse`. Each item must include `sourceRefs`, `pageUseRole`, `claimSensitivity`, `mappedAgendaQuestionRefs`, and `finalCopyUseHint`.
+
+`pageUseRole` must use one of `core_concept`, `process_step`, `example_support`, `mistake_to_avoid`, `claim_support`, `safety_boundary`, `market_context`, `product_context`, `audience_question_answer`, `counterpoint_or_caveat`, `definition_or_term`, `stat_or_data_point`, `source_conflict`, or `do_not_use`. Every extracted fact must include `claimSensitivity`: `low`, `medium`, `high`, or `critical`. High and critical facts require authoritative source support or must be softened, routed to Step 12, rejected, or blocked.
+
+Examples, workflows, and mistakes must be evidence-linked and specific. Practical examples need `sourceRefs` or must be labeled `illustrative_only`; illustrative examples cannot prove factual, safety, medical, finance, legal, or product claims. Workflow/process steps need credible topic evidence. Common mistakes need audience/search-language evidence, expert guidance, or Step 5 gap evidence. Weak generic mistakes fail unless made specific and evidence-linked.
+
+Reader questions must be evidence-backed, deduplicated by actual user need, routed, and mapped to final content use. Each `readerQuestion` needs `question`, `sourceRefs`, `sourceClass`, `impliedNeed`, `mappedAgendaQuestionRefs`, `routingDecision`, and `finalCopyUseHint`. Valid routing decisions are `answer_in_page`, `briefly_support_only`, `separate_page_candidate`, `exclude_from_current_page`, `route_to_step9_faq`, and `route_to_step12_trust`.
+
+For Indian-market skincare, product, or service pages, Step 6 requires local-market evidence for product availability, pricing or budget fit, Indian climate/context, local routines or usage patterns, Indian regulations or labels, and brand/category/site-specific fit. If local evidence is unavailable, the agent must mark the claim as `unsupported_local_context`, soften it, route it to later validation, or avoid it.
+
+`sourceConflictNotes` are required when credible sources disagree, especially for skincare, medical, finance, legal, or safety claims. Each conflict must include conflicting facts, source refs, why they differ, current safe interpretation, whether to soften, avoid, or route to Step 12, and whether final copy must mention uncertainty or limits.
+
+`doNotUse` must capture tempting but weak research, such as unsupported Reddit medical claims, competitor claims not verified by authoritative sources, outdated product or pricing claims, global-market assumptions that do not apply to India, overconfident cure/guarantee claims, or unresolved source conflicts. Each item needs `item`, `sourceRefs`, `whyNotUse`, `riskIfUsed`, and `safeAlternative` or `routeToLaterStep`.
+
+Step 6 must store short factual notes and paraphrased findings only. It must not copy long passages, competitor phrasing, source headings, product descriptions, routines, examples, tables, or frameworks. If a source phrase must be preserved, keep it short and mark it as `short_quote`. Copied-looking research bank material is a repair trigger or critical blocker.
+
+`mustCarryForward` must include only non-ignorable research conclusions: core facts the page must use, safety boundaries, market/product constraints, common mistakes that should appear if relevant, reader questions that must be answered, claims needing citation or softening, conflicts/uncertainties that must not be overstated, and Step 5 minimum-bar items validated by topic research. Final copy or page-packet QA must include `topicResearchDeliveryProof` proving every must-carry-forward item was visibly used, used in a table/checklist/decision tool, converted into a citation/safety note, intentionally rejected with a clear reason, or routed to another page/step.
+
+Step 6 must not produce final outline, H1/H2/H3 structure, final unique angle, required superiority component, final CTA wording, metadata, image prompts, final page copy, final citations display strategy, final trust module design, competitor imitation, or copied competitor structure.
+
+`researchCompletenessChecklist` must include booleans for `researchAgendaCreated`, `sourceRegistryComplete`, `riskTierMinimumsMet`, `agendaCoverageComplete`, `step5CarryForwardCovered`, `topicVsAudienceEvidenceSeparated`, `localMarketEvidenceChecked`, `readerQuestionsEvidenceBacked`, `examplesWorkflowsMistakesEvidenceLinked`, `sourceConflictsHandled`, `criticalResearchGapsResolved`, `doNotUseCompleted`, `mustCarryForwardCompleted`, `noCopiedSourceMaterial`, `boundaryContractRespected`, and `batchIsolationChecked`. False values must trigger repair, warning, fail, or routing depending on criticality.
+
+`researchSummaryStatement` is required in this pattern: For this page, Step 6 researched [topic/problem] at a [risk/depth tier] level using [source mix]. The usable evidence shows [core finding], with important cautions around [safety/market/conflict limits]. Later steps must use [must-carry-forward highlights] and avoid [do-not-use highlights].
+
+`topicResearchVerdict` uses structured pass/fail only. Status may be `pass`, `pass_with_warnings`, `fail`, or `ask_user`; action must be `continue_to_step7`, `return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. `pass_with_warnings` may continue automatically only for non-critical limitations. Step 6 may repair weak fields up to 2 times: missing evidence refs, weak agenda coverage notes, weak source reliability labels, missing `finalCopyUseHint`, incomplete `doNotUse`, incomplete conflict notes, or weak `mustCarryForward`. It must not auto-repair no credible topic sources, no authoritative support for critical claims, unresolved critical research gaps, no local evidence for required India-specific claims, copied source material, or major Step 0B-5 contradictions.
+
+`batchTopicResearchIsolationCheck` must prove the Step 6 artifact is page-specific. Every page must create its own topic research bank. Batch runners cannot reuse another page's Step 6 artifact unless Step 0B-5 hashes are identical. If two pages produce highly similar research agendas, facts, examples, mistakes, or `mustCarryForward`, trigger uniqueness warning or repair. Shared sources are allowed, but extracted facts and page-use mapping must be page-specific.
+
 ## Strategy Categories
 
 The strategy may classify opportunities as:
@@ -453,7 +528,7 @@ Fail or repair when two pages differ only by keyword wording, share the same pag
 
 Step 0B may include an optional `componentOpportunityHint` only when the query cluster obviously implies a reader aid. Required superiority components are not decided here; they are custom-created later by the SERP Superiority Gate.
 
-In strict batch mode, process one page as: select one opportunity -> Step 0B -> Step 1 -> Step 2 -> Step 3 -> Step 4 -> Step 5 -> create `current-page.lock` -> begin Step 6, prewriting, research, and content work. Do not create `current-page.lock` until Step 5 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step6`.
+In strict batch mode, process one page as: select one opportunity -> Step 0B -> Step 1 -> Step 2 -> Step 3 -> Step 4 -> Step 5 -> create `current-page.lock` -> Step 6 Topic Research Bank -> Step 7 and downstream page work. Do not create `current-page.lock` until Step 5 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step6`. Do not start Step 7, prewriting, final copy, images, commit, deploy, or publishing until Step 6 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step7`.
 
 ## Source-Backed Inference Notes
 

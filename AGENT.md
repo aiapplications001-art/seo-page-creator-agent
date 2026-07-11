@@ -14,13 +14,14 @@ Use this agent when a user wants to create or refresh brand-aware SEO pages for 
 8. Weekly watcher reports use official guidance sources only.
 9. V2 final packets require the five mandatory content-quality gates before final page packet generation.
 10. No hard-gate override is allowed in V2; advisory scores can be overridden, but missing research or unsupported claims cannot.
-11. Step 0A foundation, Step 0B Page Scope Contract, Step 1 Page Job Contract, Step 2 Search Intent Contract, Step 3 Page Format Contract, Step 4 Next Action Contract, and Step 5 SERP Competitor Analysis are hard gates before any page packet, prewriting, V2 research, final copy, images, batch publishing, commit, deploy, or live publish work.
+11. Step 0A foundation, Step 0B Page Scope Contract, Step 1 Page Job Contract, Step 2 Search Intent Contract, Step 3 Page Format Contract, Step 4 Next Action Contract, Step 5 SERP Competitor Analysis, and Step 6 Topic Research Bank are hard gates before any page packet, prewriting, final copy, images, batch publishing, commit, deploy, or live publish work.
 12. Every downstream page artifact must carry the frozen Step 0B `contractHash`; if `targetKeyword`, `targetQueryIntent`, query cluster, selected opportunity, `mustCover`, `mustNotCover`, `pageScopeSummary`, or `uniqueContribution` changes, rerun and revalidate Step 0B.
 13. Every downstream page artifact after Step 1 must carry `step0BContractHash` and `pageJobHash`; if the audience, task, help format, outcome, business role, risk boundary, evidence basis, uniqueness, or `pageJobStatement` changes, rerun and revalidate Step 1.
 14. Every downstream page artifact after Step 2 must carry `searchIntentHash`; if the dominant intent, deeper intent, expected depth, satisfaction condition, result type, content format, SERP pattern, market context, or alignment decision changes, rerun and revalidate Step 2.
 15. Every downstream page artifact after Step 3 must carry `pageFormatHash`; if the page type, internal content format, supporting elements, format boundaries, adjacent routing, or format decision changes, rerun and revalidate Step 3.
 16. Every downstream page artifact after Step 4 must carry `nextActionHash`; if the user journey stage, primary next action, secondary next action, CTA strength, internal journey path, or next-action statement changes, rerun and revalidate Step 4.
 17. Every downstream page artifact after Step 5 must carry `serpCompetitorHash`; if the SERP context, competitor set, SERP strength, minimum bar, opportunity gaps, cannibalization result, differentiation requirement, or direction validation changes, rerun and revalidate Step 5.
+18. Every downstream page artifact after Step 6 must carry `topicResearchHash`; if the research depth tier, research agenda, source registry, extracted facts, agenda coverage, Step 5 carry-forward coverage, source conflicts, local-market evidence, `doNotUse`, or `mustCarryForward` changes, rerun and revalidate Step 6.
 
 ## Workflow Order
 
@@ -37,6 +38,7 @@ Company onboarding
 -> Step 3 Page Format Contract: page type, internal content format, supporting elements, format boundaries, pageFormatHash
 -> Step 4 Next Action Contract: user journey stage, primary/secondary next actions, CTA strength, internal journey path, nextActionHash
 -> Step 5 SERP Competitor Analysis: primary SERP, supporting-query SERPs, competitor bar, gaps, market fit, serpCompetitorHash
+-> Step 6 Topic Research Bank: research agenda, credible sources, extracted facts, conflicts, do-not-use, topicResearchHash
 -> Pre-Writing Strategy
 -> Publish-ready page packet or refresh packet
 -> Section-level edits and version history
@@ -192,6 +194,28 @@ Step 5 findings must show how they affect later work through `utilizationRouting
 
 `mustCarryForward` must include the SERP context, dominant SERP reality, `serpStrengthLabel`, `minimumBarToMatch`, `opportunityGapsToExplore`, direction validation, imitation warnings, `serpInformedScopeProtection`, any `differentiationRequirement`, and `serpCompetitorSummaryStatement`. All downstream artifacts must carry `serpCompetitorHash`; final copy or page-packet QA must include `serpCompetitorDeliveryProof`, and `differentiationDeliveryProof` when a differentiation requirement exists.
 
+## Step 6 Topic Research Bank Gate
+
+Step 6 researches the topic deeply after Step 5 and before unique-angle, brief, structure, final copy, images, page packet, commit, deploy, or publish work. It creates `topicResearchBank`, with machine-readable `topic-research-bank.json`, human-readable `topic-research-bank.md`, and frozen `topicResearchHash`. Step 6 is the factual and practical evidence gate; it does not analyze competitors again, choose the final unique angle, create the required superiority component, build the final outline, write metadata, plan images, design trust modules, or write final copy.
+
+The artifact must include `step0BContractHash`, `pageJobHash`, `searchIntentHash`, `pageFormatHash`, `nextActionHash`, `serpCompetitorHash`, `topicResearchHash`, `researchDepthDecision`, `researchAgenda`, `sourceRegistry`, `topicEvidenceSources`, `audienceSearchLanguageSources`, `extractedFacts`, `agendaCoverage`, `step5CarryForwardCoverage`, `researchBank`, `sourceConflictNotes`, `researchGaps`, `doNotUse`, `mustCarryForward`, `researchCompletenessChecklist`, `researchSummaryStatement`, and `topicResearchVerdict`.
+
+Step 6 must declare `researchDepthDecision` before source collection. Risk-tier minimums are: `low_risk` with 6+ credible sources and 20+ useful facts; `standard` with 8+ credible sources, 2+ high/authoritative sources, and 30+ facts; `market_sensitive` with 10+ credible sources, 2+ local/market sources, 2+ high/authoritative sources, and 35+ facts; `sensitive_or_medical` with 12+ credible sources, 4+ authoritative medical/scientific/expert sources, and 45+ facts; and `high_competition_or_deep` with 12-15+ credible sources, 4+ high/authoritative sources, and 50-70+ facts.
+
+Competitor pages from Step 5 do not count as authoritative Step 6 topic-research sources. They may create research prompts, but factual support must come from credible topic, official, expert, medical/scientific, product, market, brand, or audience/search-language sources as appropriate. Every source needs `sourceClass`, `sourceReliability`, and `allowedUse`. Step 6 must separate `topicEvidenceSources` from `audienceSearchLanguageSources`; Reddit, forums, PAA, autocomplete, reviews, video comments, support chats, and social comments can support language, objections, confusion, mistakes, and questions, but cannot support medical, legal, finance, safety, product-efficacy, or factual truth claims by themselves.
+
+`researchAgenda` must be created before source collection and derived from Step 0A through Step 5, especially Step 5 `minimumBarToMatch`, must-match strengths, `differentiationRequirement`, `serpInformedScopeProtection`, and `mustCarryForward`. Each agenda question needs route and `answerStatus`; every `must_answer_for_page`, `claim_verification`, `safety_or_risk_boundary`, and `market_or_product_context` question needs enough extracted facts to support its answer. Critical unresolved gaps fail Step 6 or route to `ask_user` or `skip_page` in batch.
+
+`researchBank` must be organized by page usefulness: `coreConcepts`, `processOrWorkflow`, `practicalExamples`, `commonMistakes`, `supportingEvidence`, `safetyBoundaries`, `marketContext`, `productContext`, `readerQuestions`, `counterpointsOrCaveats`, `sourceConflicts`, and `doNotUse`. Each item must include `sourceRefs`, `pageUseRole`, `claimSensitivity`, `mappedAgendaQuestionRefs`, and `finalCopyUseHint`. Practical examples need source refs or `illustrative_only`; workflow steps need credible topic evidence; common mistakes need audience/search-language evidence, expert guidance, or Step 5 gap evidence. Reader questions must be evidence-backed, deduplicated by actual user need, routed, and mapped to final copy use.
+
+For India or other market-sensitive skincare, product, or service pages, local-market evidence is required for product availability, pricing or budget fit, climate/context, local routines or usage patterns, regulations or labels, and brand/category/site-specific fit. Missing local evidence must be marked `unsupported_local_context`, softened, routed, or avoided.
+
+Step 6 must create `sourceConflictNotes` when credible sources disagree, especially for skincare, medical, finance, legal, or safety claims. It must also capture weak or unsafe material in `doNotUse`, including unsupported audience medical claims, unverified competitor claims, outdated product/pricing claims, global assumptions that do not apply locally, overconfident cure/guarantee claims, and unresolved conflicts. Research notes must be paraphrased; copied-looking source, product, or competitor material fails or triggers repair.
+
+`topicResearchVerdict` may be `pass`, non-critical `pass_with_warnings`, `fail`, or `ask_user`, with action `continue_to_step7`, `return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. Step 6 may repair weak Step 6 fields up to 2 times, but no credible sources, no authoritative support for critical claims, unresolved critical research gaps, no required local evidence, copied source material, or major Step 0B-5 contradictions are not auto-repairable.
+
+`mustCarryForward` must include only non-ignorable research conclusions: core facts, safety boundaries, market/product constraints, common mistakes, reader questions, claims needing citation or softening, conflicts/uncertainties, and Step 5 minimum-bar items validated by topic research. All downstream artifacts must carry `topicResearchHash`; final copy or page-packet QA must include `topicResearchDeliveryProof` proving each must-carry-forward item was used visibly, used in a table/checklist/decision tool, converted into a citation/safety note, intentionally rejected with a clear reason, or routed to another page/step.
+
 ## V1 Tracks
 
 - Google OAuth read-only data access: see `workflows/10-google-oauth-readonly.md`
@@ -218,7 +242,7 @@ seo-agent v2 qa --cluster acne-treatment --page-id P1
 seo-agent v2 debug-bundle --cluster acne-treatment --page-id P1
 ```
 
-The five mandatory gates are SERP Research Ledger, Social/Video Research, Audience Definition, Narrative Brief, and Citation Set. Final editor-facing output should normally be limited to the final page packet, editorial QA report, and image manifest.
+The five mandatory V2 gates are SERP Research Ledger, Social/Video Research, Audience Definition, Narrative Brief, and Citation Set. Step 6 Topic Research Bank is the upstream topic-evidence gate before those downstream V2 artifacts. Final editor-facing output should normally be limited to the final page packet, editorial QA report, and image manifest.
 
 ## Artifact Defaults
 

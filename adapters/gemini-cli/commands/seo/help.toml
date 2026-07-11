@@ -4,7 +4,7 @@ Read AGENT.md and summarize the recommended SEO Page Creator Agent flow:
 onboard -> optional site scan -> cluster -> page -> edit-section -> rescore -> watcher.
 Explain prerequisites for each command and where artifacts are stored.
 
-For `/seo:page`, explain that Step 0A, Step 0B, Step 1, Step 2, Step 3, Step 4, and Step 5 from
+For `/seo:page`, explain that Step 0A, Step 0B, Step 1, Step 2, Step 3, Step 4, Step 5, and Step 6 from
 `workflows/13-cluster-strategy.md` must pass before page generation.
 
 Step 0A Foundation must create the compact search-opportunity artifact with
@@ -132,4 +132,28 @@ copied competitor material. It returns `continue_to_step6`, `return_to_step4`,
 `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`,
 `ask_user`, or `skip_page`. Downstream QA must include
 `serpCompetitorDeliveryProof` and `differentiationDeliveryProof` when relevant.
+
+Step 6 must freeze the selected page's Topic Research Bank as
+`topicResearchBank` before Step 7, prewriting, V2 research artifacts, final copy,
+images, commit, deploy, or publish. It must save `topic-research-bank.json` and
+`topic-research-bank.md`, and include `step0BContractHash`, `pageJobHash`,
+`searchIntentHash`, `pageFormatHash`, `nextActionHash`, `serpCompetitorHash`,
+`topicResearchHash`, `researchDepthDecision`, `researchAgenda`,
+`sourceRegistry`, `topicEvidenceSources`, `audienceSearchLanguageSources`,
+`extractedFacts`, `agendaCoverage`, `step5CarryForwardCoverage`,
+`researchBank`, `sourceConflictNotes`, `researchGaps`, `doNotUse`,
+`mustCarryForward`, `researchCompletenessChecklist`,
+`researchSummaryStatement`, and `topicResearchVerdict`. Explain that Step 6
+declares research depth before source collection, enforces risk-tier source and
+fact minimums, keeps competitor pages out of authoritative topic evidence,
+separates topic evidence from audience/search-language evidence, evidence-links
+examples/workflows/common mistakes/reader questions, requires local-market
+evidence for India-sensitive claims, handles source conflicts, records weak or
+unsafe material in `doNotUse`, prohibits copied source or competitor material,
+and does not create final outline, H1/H2/H3s, final unique angle, required
+superiority component, CTA copy, metadata, image prompts, final prose, citation
+display strategy, or trust module design. It returns `continue_to_step7`,
+`return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`,
+`return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. Downstream QA
+must include `topicResearchDeliveryProof` when relevant.
 """
