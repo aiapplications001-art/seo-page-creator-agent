@@ -28,7 +28,7 @@ Generated files:
 - Author block and hidden reviewer metadata
 - Primary CTA and mobile sticky CTA recommendation
 - Mobile-first and desktop rendering notes
-- Editable section blocks with standardized IDs
+- Editable section blocks from the prewriting strategy's intent-aware structure
 - Internal links and external reference slots
 - Image slots, including reserved `IMG_OG`
 - JSON-LD drafts where relevant
@@ -38,7 +38,9 @@ Generated files:
 
 - Keep one H1.
 - Keep one primary CTA path unless the editor intentionally changes strategy.
-- Keep section IDs stable for CMS parsing.
+- Keep section IDs stable for CMS parsing within the generated packet.
+- Do not assume section IDs are globally fixed across page types; read `pageStructure.intentPattern`, `pageStructure.structureVariant`, and `pageStructure.sections`.
+- Do not reuse page structure from another page, batch, or previous run. The page packet must follow the current page's research-derived `pageStructure.structureUniquenessRationale`; section order, decision tools, mistakes, troubleshooting, tables, FAQs, superiority component, and CTA placement must be visibly distinct when research differs.
 - External links used as destinations should open in a new tab.
 - Reference-only URLs should stay in the references section.
 - Image metadata and generated asset paths may be supplied in a companion artifact.
@@ -50,6 +52,7 @@ Agent adapters may expand section scaffolds into final prose, but they must pres
 
 - `metadata.schemaVersion`
 - section IDs
+- section order from the prewriting strategy
 - image IDs
 - link groups
 - JSON mirror structure

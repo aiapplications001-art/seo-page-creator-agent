@@ -4,7 +4,7 @@
 
 **Goal:** Build a deterministic final-copy expansion layer that turns a page packet scaffold into a fuller review-ready draft while preserving the page-packet schema.
 
-**Architecture:** Add pure expansion logic that maps each standardized section ID to richer draft copy. Add a CLI command that reads `page-packet.json` and writes expanded Markdown/JSON artifacts next to the original packet.
+**Architecture:** Add pure expansion logic that preserves generated section IDs and writes expanded Markdown/JSON artifacts next to the original packet. Current V2.1 behavior requires adapter-written final prose in `final-copy-draft.json`; section IDs are generated from intent-aware prewriting structure and are not globally standardized across page types.
 
 **Tech Stack:** TypeScript, Node test runner, existing `.seo-agent-workspace` conventions, Markdown workflow docs.
 
@@ -27,7 +27,7 @@ Expected: FAIL because `src/lib/final-copy.ts` does not exist.
 
 - [x] **Step 3: Implement minimal expansion logic**
 
-Implement `expandPagePacketCopy(packet)` with deterministic copy for each standardized section.
+Implement `expandPagePacketCopy(packet)` with deterministic legacy copy only for non-V2 packets. V2.1 packets must use adapter-written final-copy drafts keyed to the exact generated section IDs.
 
 - [x] **Step 4: Run tests to verify GREEN**
 

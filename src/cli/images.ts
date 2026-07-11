@@ -6,6 +6,7 @@ import {
   renderImagePromptBriefs
 } from "../lib/image-manifest.js";
 import type { PagePacket } from "../lib/page-packet.js";
+import { assertV2PageCanAdvance } from "../lib/v2/transaction-guard.js";
 
 export interface PlanImagesOptions {
   clusterSlug: string;
@@ -23,6 +24,12 @@ export interface ImagePlanOutputs {
 
 export async function planImagesFromWorkspace(options: PlanImagesOptions): Promise<ImagePlanOutputs> {
   const cwd = options.cwd ?? process.cwd();
+  await assertV2PageCanAdvance({
+    cwd,
+    clusterSlug: options.clusterSlug,
+    pageId: options.pageId,
+    stage: "images"
+  });
   const config = await readConfig(cwd);
   const packetRoot = path.resolve(cwd, config.workspace_path, "page-packets", options.clusterSlug, options.pageId);
   const packetFile = options.expanded ? "page-packet.expanded.json" : "page-packet.json";

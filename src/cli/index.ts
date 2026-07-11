@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { runGoogleAuth } from "./auth-google.js";
+import { runBatchCommand } from "./batch.js";
 import { runClusterCommand } from "./cluster.js";
 import { runFinalCopyCommand } from "./final-copy.js";
 import { runImagesCommand } from "./images.js";
@@ -27,6 +28,7 @@ Usage:
   seo-agent final-copy expand --cluster <slug> --page-id <P1>
   seo-agent images plan --cluster <slug> --page-id <P1> [--expanded]
   seo-agent v2 prepare-page --cluster <slug> --page-id <id> [--page-type product_category]
+  seo-agent batch live --count <number> [--cluster <slug>] [--project <id>]
   seo-agent watcher google-guidance [--date YYYY-MM-DD]
   seo-agent help
 
@@ -96,6 +98,11 @@ async function main(): Promise<void> {
 
   if (command === "v2") {
     await runV2Command([subcommand, ...args].filter((item): item is string => Boolean(item)));
+    return;
+  }
+
+  if (command === "batch") {
+    await runBatchCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
     return;
   }
 

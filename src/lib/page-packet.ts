@@ -22,7 +22,7 @@ export interface PagePacket {
     pageType: string;
     createdDate: string;
     updatedDate: string;
-    copyStatus?: "scaffold" | "expanded_review_ready";
+    copyStatus?: "scaffold" | "expanded_review_ready" | "adapter_written_review_ready";
   };
   seo: {
     title: string;

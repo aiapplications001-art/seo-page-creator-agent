@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { generatePreWritingStrategy } from "../src/lib/prewriting-strategy.js";
-import type { ClusterStrategy } from "../src/lib/cluster-strategy.js";
+import type { ClusterStrategy, PageOpportunity } from "../src/lib/cluster-strategy.js";
 
 const clusterStrategy: ClusterStrategy = {
   companyName: "ClearNest",
@@ -97,9 +98,18 @@ test("generates a pre-writing strategy for one selected product category page", 
   assert.equal(strategy.contentDepth.strict, false);
   assert.equal(strategy.cta.primaryGoal, "Route users to the category's primary product or action destination.");
   assert.equal(strategy.cta.mobileSticky.recommended, true);
+  assert.equal(strategy.pageStructure.intentPattern, "product_category");
+  assert.equal(strategy.pageStructure.structureVariant, "category_solution");
+  assert.ok(strategy.pageStructure.researchBasis.length >= 1);
+  assert.match(strategy.pageStructure.structureUniquenessRationale, /must not reuse a structure from another page, batch, or historical run/);
+  assert.deepEqual(strategy.pageStructure.mustDifferFromPages, []);
   assert.equal(strategy.pageStructure.sections[0].id, "S1_hero");
   assert.equal(strategy.pageStructure.sections.at(-1)?.id, "S10_references");
   assert.ok(strategy.pageStructure.sections.some((section) => section.id === "S8_faq"));
+  assert.ok(strategy.pageStructure.sections.every((section) => section.sectionIntent.length > 0));
+  assert.ok(strategy.pageStructure.sections.every((section) => section.evidenceNeeded.length > 0));
+  assert.ok(strategy.pageStructure.sections.every((section) => section.requiredDevices.length > 0));
+  assert.ok(strategy.pageStructure.sections.every((section) => section.evidenceBudget.minimumFacts >= 0));
   assert.equal(strategy.referenceRequirements.liveSerpReviewRequired, true);
   assert.equal(strategy.imageRequirements.defaultGeneratedImageCount, "3-5");
   assert.equal(strategy.approvalQueues.critical.length, 0);
@@ -122,6 +132,104 @@ test("does not choose a default tone when user has not selected one", () => {
   assert.equal(strategy.contentDepth.targetRange, "1200-1800 words");
 });
 
+test("adapts comparison pages to a methodology and decision-matrix structure", () => {
+  const strategy = generatePreWritingStrategy({
+    clusterStrategy,
+    selectedPageId: "P3",
+    audienceCohort: "Comparison shoppers evaluating acne treatment formats",
+    selectedTone: "balanced evaluator"
+  });
+
+  assert.equal(strategy.pageStructure.intentPattern, "comparison");
+  assert.equal(strategy.pageStructure.structureVariant, "comparison_matrix");
+  assert.deepEqual(
+    strategy.pageStructure.sections.map((section) => section.id),
+    [
+      "S1_hero",
+      "S2_quick_verdict",
+      "S3_comparison_methodology",
+      "S4_decision_criteria",
+      "S5_side_by_side_matrix",
+      "S6_reader_fit_tradeoffs",
+      "S7_trust_proof",
+      "S8_faq",
+      "S9_final_cta",
+      "S10_references"
+    ]
+  );
+  assert.equal(new Set(strategy.pageStructure.sections.map((section) => section.id)).size, strategy.pageStructure.sections.length);
+  assert.match(strategy.pageStructure.sections[2].notes, /methodology/i);
+  assert.ok(strategy.pageStructure.sections[4].requiredDevices.includes("side-by-side comparison matrix"));
+});
+
+test("infers pricing structure before guide or comparison signals", () => {
+  const pricingPage: PageOpportunity = {
+    id: "P4",
+    title: "Acne Treatment Pricing and Cost Guide",
+    pageType: "guide_blog",
+    strategyCategory: "high_competition",
+    targetIntent: "Help readers understand prices, fees, package cost drivers, and whether acne treatment is worth it.",
+    primaryCtaGoal: "Route readers to the pricing or consultation path.",
+    suggestedUrlSlug: "acne-treatment-pricing-cost",
+    evidenceStrength: "medium"
+  };
+  const strategy = generatePreWritingStrategy({
+    clusterStrategy: withPage(pricingPage),
+    selectedPageId: "P4",
+    audienceCohort: "Cost-conscious acne treatment shoppers",
+    selectedTone: "professional compact"
+  });
+
+  assert.equal(strategy.pageStructure.intentPattern, "pricing");
+  assert.equal(strategy.pageStructure.structureVariant, "pricing_decision");
+  assert.ok(strategy.pageStructure.sections.some((section) => section.id === "S3_cost_drivers"));
+  assert.ok(strategy.pageStructure.sections.some((section) => section.id === "S4_pricing_ranges"));
+  assert.ok(strategy.pageStructure.sections.some((section) => section.id === "S5_value_tradeoffs"));
+  assert.ok(!strategy.pageStructure.sections.some((section) => section.id === "S4_main_content"));
+  assert.match(strategy.pageStructure.sections.find((section) => section.id === "S4_pricing_ranges")?.notes ?? "", /cost transparency/i);
+});
+
+test("infers how-to structure for step-by-step guide intent", () => {
+  const howToPage: PageOpportunity = {
+    id: "P5",
+    title: "How To Use Acne Treatment Serum",
+    pageType: "guide_blog",
+    strategyCategory: "low_competition",
+    targetIntent: "Show readers the steps, routine order, mistakes, and expected outcomes for using treatment serum safely.",
+    primaryCtaGoal: "Route readers to the acne treatment serum page.",
+    suggestedUrlSlug: "how-to-use-acne-treatment-serum",
+    evidenceStrength: "medium"
+  };
+  const strategy = generatePreWritingStrategy({
+    clusterStrategy: withPage(howToPage),
+    selectedPageId: "P5",
+    audienceCohort: "First-time serum users",
+    selectedTone: "empathetic educational"
+  });
+
+  assert.equal(strategy.pageStructure.intentPattern, "how_to");
+  assert.equal(strategy.pageStructure.structureVariant, "step_by_step_guide");
+  assert.deepEqual(
+    strategy.pageStructure.sections.slice(2, 6).map((section) => section.id),
+    ["S3_prerequisites_safety", "S4_step_by_step_process", "S5_mistakes_troubleshooting", "S6_expected_outcome"]
+  );
+  assert.ok(strategy.pageStructure.sections.find((section) => section.id === "S4_step_by_step_process")?.requiredDevices.includes("numbered steps"));
+});
+
+test("prewriting schema declares structure variant and section content contract fields", () => {
+  const schema = JSON.parse(readFileSync("schemas/prewriting-strategy.schema.json", "utf8"));
+  assert.ok(schema.properties.pageStructure.required.includes("intentPattern"));
+  assert.ok(schema.properties.pageStructure.required.includes("structureVariant"));
+  assert.ok(schema.properties.pageStructure.required.includes("researchBasis"));
+  assert.ok(schema.properties.pageStructure.required.includes("structureUniquenessRationale"));
+  assert.ok(schema.properties.pageStructure.required.includes("mustDifferFromPages"));
+  const sectionRequired = schema.properties.pageStructure.properties.sections.items.required;
+  assert.ok(sectionRequired.includes("sectionIntent"));
+  assert.ok(sectionRequired.includes("evidenceNeeded"));
+  assert.ok(sectionRequired.includes("requiredDevices"));
+  assert.ok(sectionRequired.includes("evidenceBudget"));
+});
+
 test("throws when selected page is not in the cluster strategy", () => {
   assert.throws(
     () => generatePreWritingStrategy({
@@ -132,3 +240,10 @@ test("throws when selected page is not in the cluster strategy", () => {
     /Selected page P9 was not found/
   );
 });
+
+function withPage(page: PageOpportunity): ClusterStrategy {
+  return {
+    ...clusterStrategy,
+    pageOpportunities: [...clusterStrategy.pageOpportunities, page]
+  };
+}

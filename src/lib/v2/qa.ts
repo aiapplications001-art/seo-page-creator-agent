@@ -29,7 +29,9 @@ export interface EditorialQaReportInput {
   dimensionScores: DimensionScores;
   hardGateResults: HardGateResult[];
   sectionScores: SectionQaScoreInput[];
+  expectedSectionIds?: string[];
   humanEditorialSummary?: HumanEditorialQaSummary;
+  whyThisDeservesToRank?: string;
   autoRepairSummary?: string[];
   recommendations: string[];
 }
@@ -42,6 +44,7 @@ export interface EditorialQaReport {
   hardGateResults: HardGateResult[];
   sectionScores: SectionQaScore[];
   humanEditorialSummary?: HumanEditorialQaSummary;
+  whyThisDeservesToRank?: string;
   autoRepairSummary?: string[];
   recommendations: string[];
   blockingIssues: string[];
@@ -59,7 +62,7 @@ export function buildEditorialQaReport(input: EditorialQaReportInput): Editorial
     ...section,
     status: sectionStatus(section.score)
   }));
-  const blockingIssues = collectBlockingIssues(input.hardGateResults, sectionScores);
+  const blockingIssues = collectBlockingIssues(input.hardGateResults, sectionScores, input.whyThisDeservesToRank, input.expectedSectionIds);
 
   return {
     schemaVersion: "editorial-qa-report.v2",
@@ -69,6 +72,7 @@ export function buildEditorialQaReport(input: EditorialQaReportInput): Editorial
     hardGateResults: input.hardGateResults,
     sectionScores,
     humanEditorialSummary: input.humanEditorialSummary,
+    whyThisDeservesToRank: input.whyThisDeservesToRank,
     autoRepairSummary: input.autoRepairSummary?.length ? input.autoRepairSummary : undefined,
     recommendations: input.recommendations,
     blockingIssues
@@ -95,6 +99,9 @@ export function renderEditorialQaReportMarkdown(report: EditorialQaReport): stri
   ).join("\n");
   const humanEditorialSummary = report.humanEditorialSummary
     ? renderHumanEditorialSummary(report.humanEditorialSummary)
+    : "";
+  const whyThisDeservesToRank = report.whyThisDeservesToRank
+    ? `\n## Why This Deserves To Rank\n\n${report.whyThisDeservesToRank}\n`
     : "";
   const repairSummary = report.autoRepairSummary?.length
     ? `\n## Auto-Repair Summary\n\n${report.autoRepairSummary.map((item) => `- ${item}`).join("\n")}\n`
@@ -132,7 +139,7 @@ ${gateRows}
 | Section ID | Heading | Score | Status | Why Points Were Lost | Notes |
 | --- | --- | ---: | --- | --- | --- |
 ${sectionRows}
-${humanEditorialSummary}${repairSummary}${blockingIssues}
+${humanEditorialSummary}${whyThisDeservesToRank}${repairSummary}${blockingIssues}
 ## Top Remaining Recommendations
 
 ${report.recommendations.map((recommendation, index) => `${index + 1}. ${recommendation}`).join("\n") || "None"}
@@ -161,7 +168,12 @@ ${risks}
 `;
 }
 
-function collectBlockingIssues(hardGateResults: HardGateResult[], sectionScores: SectionQaScore[]): string[] {
+function collectBlockingIssues(
+  hardGateResults: HardGateResult[],
+  sectionScores: SectionQaScore[],
+  whyThisDeservesToRank: string | undefined,
+  expectedSectionIds: string[] | undefined
+): string[] {
   const issues: string[] = [];
   for (const gate of hardGateResults) {
     if (gate.status === "passed" || gate.status === "passed_limited_confidence") continue;
@@ -175,6 +187,20 @@ function collectBlockingIssues(hardGateResults: HardGateResult[], sectionScores:
   }
   if (sectionScores.some((section) => section.score < 70)) {
     issues.push("Every visible section must score at least 70.");
+  }
+  if (expectedSectionIds?.length) {
+    const scoredSectionIds = new Set(sectionScores.map((section) => section.sectionId));
+    for (const sectionId of expectedSectionIds) {
+      if (!scoredSectionIds.has(sectionId)) {
+        issues.push(`${sectionId}: every visible generated section must have a QA score.`);
+      }
+    }
+    if (sectionScores.length !== scoredSectionIds.size) {
+      issues.push("QA section scores must not contain duplicate section IDs.");
+    }
+  }
+  if (!whyThisDeservesToRank || whyThisDeservesToRank.trim().split(/\s+/).filter(Boolean).length < 18) {
+    issues.push("Why This Deserves To Rank summary is required before final packet delivery.");
   }
   return issues;
 }

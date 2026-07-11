@@ -6,6 +6,77 @@ Generate one page packet at a time. Start with one product/category cluster, one
 
 V2.1 adds a human editorial layer before final copy. The Human Editorial Brief and Claim-First Section Plan are internal by default; the editor should normally see only a short summary in the QA report.
 
+## Required Upstream Contract
+
+Before `seo-agent v2 prepare-page` or any V2 research work begins, the cluster must have a passing Step 0A Foundation gate, the selected page must have a passing Step 0B Page Scope Contract, the selected page must have a passing Step 1 Page Job Contract, the selected page must have a passing Step 2 Search Intent Contract, and the selected page must have a passing Step 3 Page Format Contract from `workflows/13-cluster-strategy.md`.
+
+The Step 0A foundation artifact must include:
+
+- `selectedTopic`
+- `topicBoundarySummary`
+- `businessSideRelevance`
+- `primarySearchProblem`
+- `searchProblemBoundarySummary`
+- `wrongPageRisk`
+- `desiredOutcome`
+- `readerState`
+- `problemLanguage`
+- `relationshipCheck`
+- `foundationVerdict`
+- `mustCarryForward`
+
+Step 0A must prove that the topic, search problem, and problem-language connect clearly before V2 begins. `businessSideRelevance` must be evidence-based; business relevance is unclear is a critical blocker. `problemLanguage` must include 8 cleaned natural user phrases, at least 5-6 evidence-backed phrases, `cleanedPhrase`, source excerpt, `sourceRef`, `sourceType`, and `sourceClass` for evidence-backed entries. `sourceClass` must separate `search_surface` from `audience_language`, and at least one `audience_language` source is mandatory when available. At least 6/8 phrases must support the `primarySearchProblem`, at most 2/8 may be adjacent, and 0 contradictions are allowed.
+
+The Page Scope Contract must include:
+
+- `targetKeyword`
+- `targetQueryIntent`
+- `queryCluster`
+- `selectedOpportunity`
+- `pageScopeSummary`
+- `uniqueContribution`
+- `mustCover`
+- `mustNotCover`
+- `businessGoal`
+- `existingUrlAction`
+- rough `slugCandidate`
+- frozen `contractHash`
+
+Step 0B must have live keyword/search evidence from at least two approved source types, one true search-demand source, a light SERP overlap/page-type check for clustering and splitting, routed candidate phrases, a dominant fixed-enum `primaryIntent`, fixed-enum `pageType`, fixed-enum `primaryReaderStage`, evidence-linked `mustCover`, routed `mustNotCover`, and batch duplicate checks when applicable.
+
+The Step 1 `pageJobContract` must include:
+
+- `step0BContractHash`
+- `pageJobHash`
+- `pageJobStatement`
+- `audience` with `audienceSentence`
+- `userTask` with `taskConstraints`, `successCriteria`, and `nonGoals`
+- `primaryHelpFormat`
+- `secondaryHelpFormats`
+- `userOutcome` with `outcomeConsequence`
+- `businessRole` with `primaryBusinessRole`
+- `riskLayer` with `riskLevel` and `claimSensitivity`
+- `evidenceBasis`
+- `jobUniquenessCheck`
+- `pageJobVerdict`
+- `inferenceRepairLog`
+
+Step 1 must infer the page job from Step 0A and Step 0B. It must not directly modify Step 0B; if the selected opportunity or scope is wrong, return `return_to_0B`. Prewriting must not directly modify Step 1; if the page job is wrong or incomplete, return `return_to_step1`.
+
+The Step 2 `searchIntentContract` must include `step0BContractHash`, `pageJobHash`, `searchIntentHash`, `intentStatement`, `dominantBroadIntent`, optional `coPrimaryBroadIntent`, `primaryDeeperIntent`, optional `projectSpecificIntentLabel`, `depthLevel`, `depthStyle`, `satisfactionCondition`, `tooShallowIf`, `wrongPageIf`, `recommendedPageType`, `dominantInternalContentFormat`, `supportingContentFormats`, `lightSerpValidation`, `mixedIntentHandling`, `pageJobAlignmentCheck`, `validatedIntentDecision`, `marketContextCheck`, optional `aiOverviewIntentSignal`, `intentVerdict`, `intentRepairLog`, and `mustCarryForward`.
+
+Step 2 must check the top 5 SERP results lightly for result type and intent pattern. Normal pass requires 3/5 support for `dominantBroadIntent` and `primaryDeeperIntent`; 2/5 may continue only as non-critical `pass_with_warnings` when PAA, autocomplete, related searches, query cluster, and other search-surface evidence support the decision. `mixedIntentHandling` must route non-dominant intents as `adjacent` or `conflicting`. `validatedIntentDecision` must say whether evidence `confirm`, `refine`, or `correct` the query-only hypothesis. `marketContextCheck` must confirm target-market fit, and `aiOverviewIntentSignal` may be used only as optional light intent evidence, not factual authority.
+
+Step 2 action must be `continue_to_prewriting`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. It may repair weak Step 2 fields up to 2 times, but true Step 0B mismatch, true Step 1 mismatch, no defensible dominant intent, no defensible primary deeper intent, or market-context mismatch must route back or block.
+
+The Step 3 `pageFormatContract` must include `step0BContractHash`, `pageJobHash`, `searchIntentHash`, `pageFormatHash`, `primaryPageType`, `secondaryPageTypeInfluences`, `primaryInternalContentFormat`, `supportingFormatInfluences`, `supportingContentElements`, `step2RecommendationFit`, `formatEvidenceBasis`, `scopeBoundaryCheck`, `formatCompatibilityCheck`, `formatRiskCheck`, `formatUniquenessCheck`, `businessConnectionBoundary`, `adjacentNeedRouting`, `rejectedPageTypes`, `rejectedInternalFormats`, `formatDecisionStatement`, `step3OutputMustNotContain`, `formatRepairLog`, `formatVerdict`, and `mustCarryForward`.
+
+Step 3 must choose one `primaryPageType`, one `primaryInternalContentFormat`, and 3-6 `supportingContentElements` with `allowedScope` and `notAllowedScope`. It uses inherited light evidence only from Step 0B, Step 1, and Step 2. It must not start new research, create headings, outline, CTA strategy, metadata, competitor gaps, final copy, image prompts, image manifest, or layout specification. It can define `businessConnectionBoundary` and scoped visual/media supporting elements only.
+
+Step 3 action must be `continue_to_prewriting`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. `formatVerdict` uses pass, pass_with_warnings, fail, or ask_user with confidence, not a scorecard. Step 3 may repair weak Step 3 fields through `formatRepairLog` up to 2 times, but true Step 2 contradiction, true Step 1 mismatch, Step 0B conflict, unsafe sensitive-topic format, or no defensible primary format must route back or block.
+
+V2 artifacts must reference the same `contractHash`, `step0BContractHash`, `pageJobHash`, `searchIntentHash`, and `pageFormatHash`. If V2 research shows the `targetKeyword`, `targetQueryIntent`, query cluster, selected opportunity, `pageScopeSummary`, `uniqueContribution`, `mustCover`, or `mustNotCover` is wrong, stop and regenerate Step 0B instead of silently expanding the page scope. If V2 research or prewriting shows the `pageJobStatement`, audience, user task, help format, outcome, business role, risk boundary, evidence basis, or uniqueness is wrong, stop and regenerate Step 1. If V2 research or prewriting shows the intent, expected depth, satisfaction condition, recommended page type, internal content format, or page-job alignment is wrong, stop and regenerate Step 2. If prewriting or later work changes page type, internal format, supporting elements, adjacent routing, or format boundaries, stop and regenerate Step 3.
+
 ## Command Order
 
 ```bash
@@ -13,6 +84,8 @@ seo-agent v2 prepare-page --cluster acne-treatment --page-id P1 --page-type prod
 seo-agent v2 status --cluster acne-treatment --page-id P1
 seo-agent v2 validate-human --cluster acne-treatment --page-id P1
 seo-agent v2 validate-gates --cluster acne-treatment --page-id P1
+seo-agent v2 validate-depth --cluster acne-treatment --page-id P1
+seo-agent final-copy expand --cluster acne-treatment --page-id P1
 seo-agent v2 qa --cluster acne-treatment --page-id P1
 seo-agent v2 debug-bundle --cluster acne-treatment --page-id P1
 ```
@@ -27,13 +100,14 @@ Refresh packets are built for changed sections only and should be written beside
 
 ## Mandatory Gates
 
-The final page packet must not be generated until all five gates pass.
+The final page packet must not be generated until all mandatory gates pass.
 
 1. SERP Research Ledger Gate
 2. Social/Video Research Gate
 3. Audience Definition Gate
 4. Narrative Brief Gate
 5. Citation Set Gate
+6. Page Depth Contract
 
 Hard gate failures cannot be overridden. Advisory scores can be overridden by an editor, but the override must not bypass missing research, unsupported claims, or missing required artifacts.
 
@@ -125,11 +199,15 @@ example_requirement:
 
 Before final copy, complete `claim-first-section-plan.json` and `claim-first-section-plan.md`.
 
+Start from `pageStructure.intentPattern`, `pageStructure.structureVariant`, and the exact `pageStructure.sections` generated by the Pre-Writing Strategy. Section IDs are stable within a page packet but are not globally fixed across all page types. Do not assume old category IDs such as `S3_context` or `S4_main_content`; every visible generated section needs a matching claim-first entry.
+
+The structure must also be unique to the current page research. Before final copy, images, commit, or publish, compare the page structure against current-batch pages and historical pages from previous runs. Repeated section order, decision matrix shape, mistake/troubleshooting pattern, FAQ shape, superiority component, CTA placement, or CTA body can fail the page even when the wording is paraphrased. Different title, hook, or slug is insufficient.
+
 Every visible section should have:
 
 - Section claim.
 - Reader question.
-- Evidence needed.
+- Evidence needed, aligned to the section's `evidenceNeeded` array.
 - Example or tradeoff.
 - Caveat or not-right-for-you note where relevant.
 - Decision purpose.
@@ -140,13 +218,146 @@ This prevents sections from becoming keyword-shaped summaries. The section shoul
 Example:
 
 ```yaml
-section_id: S3_context
-section_claim: Acne treatment works better when the reader first identifies the acne pattern.
-reader_question: Why did my previous acne products not work?
-evidence_needed: Source-backed acne type or trigger guidance.
-example_or_tradeoff: Recurring jawline acne may need a different path from occasional forehead bumps after a new product.
-decision_purpose: Help the reader choose diagnosis-first action instead of random product switching.
+section_id: S4_pricing_ranges
+section_claim: Acne treatment pricing changes most when package scope, review cadence, and product format change.
+reader_question: What will change the price for someone like me?
+evidence_needed: Source-backed pricing model or package logic, plus a citation for any stated range.
+example_or_tradeoff: A lower upfront plan can still be poor value if it excludes review support the reader needs.
+decision_purpose: Help the reader compare cost against fit and expected support.
 ```
+
+## Page Depth Contract
+
+Before final copy, images, commit, or publishing, complete the depth artifacts and run:
+
+```bash
+seo-agent v2 validate-depth --cluster acne-treatment --page-id P1
+```
+
+The Page Depth Contract proves the agent did not merely count sources. It must show what was extracted, compared, synthesized, and applied to each section.
+
+Required artifacts:
+
+- `research-extraction-matrix.json`: at least 40 extracted facts, with at least 3 facts per analyzed source.
+- `competitor-depth-delta.json`: primary keyword top 5 SERP pages with full competitor strength scoring, at least one secondary keyword or long-tail SERP with top 3 pages, at least 5 competing pages, and 10 specific improvements over them.
+- `audience-pain-point-ledger.json`: at least 20 audience signals mapped to page sections.
+- `pre-draft-synthesis-brief.json`: 500-900 words covering search intent, anxieties, competitor gaps, recommended angle, section promises, and evidence inventory.
+- `pre-draft-quality-brief.json`: pre-copy proof that the page covers sub-intents, diagnostic depth, market nuance, safety/trust, a standout element, brand connection, publish-worthiness, SERP superiority, extractable answer targets, and internal links.
+- `depth-score.json`: overall score at least 85, every dimension at least 4/5, at least 8 information-gain items, and section evidence budgets.
+
+The Pre-Draft Quality Brief is the anti-thin-page gate. It must show:
+
+- At least 6 sub-intents.
+- At least 4 diagnostic depth items, such as identification tables, symptom-to-action maps, decision matrices, not-right-for-you guidance, or escalation criteria.
+- At least 4 India-specific angles when India is part of the page promise.
+- At least 4 safety/trust requirements for health, finance, legal, or other high-trust topics.
+- One standout element competitors do not have.
+- A natural brand connection that explains why the brand helps this reader's uncertainty.
+- At least 8 real reader questions from SERP/social/video/forum research.
+- At least 3 recommendation sanity checks for any products, tools, services, or actives mentioned.
+- At least 5 claim-risk items that must be cited or carefully rewritten.
+- At least 4 troubleshooting plan items that answer what to do if the advice makes things worse.
+- 4-7 main intent dimensions, with superiority required on the top 4 intent dimensions and parity allowed only on lower-priority dimensions.
+- At least 1 required superiority component custom-created from the specific research findings.
+- At least 5 differentiated improvements across visible sections, each mapped to source refs and intent dimensions.
+- At least 3 extractable answer blocks: quick answer near the top, decision/action answer, and troubleshooting/safety answer when relevant.
+- A brand CTA fit that states the supported reader problem, supported CTA promise, and unsupported claims to avoid.
+- At least 3 AI Overview/extractable answer targets.
+- At least 5 internal link targets.
+
+## SERP Superiority Gate
+
+The page must deserve to compete, not merely be comprehensive.
+
+Use a broader evidence set:
+
+- Primary keyword top 5 SERP pages, fully scored.
+- Secondary keyword or long-tail top 3 SERP pages, lightly scored for useful gaps.
+- Reddit, forums, video/social, People Also Ask, and audience-language sources.
+- AI Overview summary or equivalent search-summary weakness when available.
+- Trust/citation sources for medical, skincare, safety, or other high-trust claims.
+
+Competitor strength scoring must include `intentMatch`, `topIntentCoverage`, `depthAndSpecificity`, `decisionUsefulness`, `informationArchitecture`, `evidenceAndTrust`, `originalityInformationGain`, `audienceSpecificity`, `riskHandling`, `practicalCompleteness`, and `uxPageExperience`. A competitor is strong when it scores at least 4/5 on `intentMatch` and `topIntentCoverage`, at least 3/5 on `decisionUsefulness`, `depthAndSpecificity`, `practicalCompleteness`, and `uxPageExperience`, and includes at least 3 concrete evidence notes. Strong competitors make parity insufficient.
+
+The agent must prove:
+
+- Superiority on the top 4 main intent dimensions for the query.
+- At least one major required superiority component, such as a decision matrix, diagnostic table, checklist, calculator-style table, flow, image, or interactive component.
+- At least 5 differentiated improvements across sections. Differentiation may come from primary SERP gaps, secondary keyword gaps, long-tail variants, Reddit/forum/video gaps, PAA gaps, or AI Overview weaknesses.
+- Source diversity from at least one primary SERP competitor, one secondary keyword or long-tail source, one audience-language source, and one trust/citation source when claims are medical, skincare, or safety-related.
+- A final `whyThisDeservesToRank` explanation in plain human language.
+
+The required superiority component must serve the reader first. Include a light brand-fit explanation only where natural. If no strong competitor component exists, the agent must prove it reviewed the top competitors and explain why the new component fills an empty gap.
+
+Pre-draft planning is not enough. The promised top-4 intent wins, required superiority component, differentiated improvements, extractable answer blocks, and citation/source handling must appear in `final-copy-draft.json` and the final expanded copy.
+
+## Research-Derived Structure Gate
+
+The Pre-Draft Quality Brief must include `researchDerivedStructurePlan`. This is a hard blocker before final copy, even for one-off pages, because one weak structure can become the next reusable template.
+
+The plan must prove:
+
+- The main search intent and primary reader concern are visible within the first 3 visible sections.
+- Important risk, harm, safety, price, eligibility, or action information is not buried behind generic background.
+- Normal informational sections have at least 2 evidence links.
+- Decision tools, matrices, comparison tables, troubleshooting blocks, FAQs, superiority components, and CTA structure decisions have at least 3 evidence links.
+- Objection, mistake, troubleshooting, and FAQ sections include at least one audience-language source such as Reddit, forum, video, social, PAA, or long-tail evidence.
+- Differentiation or superiority sections include at least one primary or secondary SERP competitor gap source.
+- Medical, skincare, safety, or brand-capability claims include trust/citation evidence or are softened.
+- The structure has at least one research-derived mutation: add, expand, reorder, replace, merge, or remove.
+- The page structure is materially different from current batch pages and historical pages from previous runs. Shared body section patterns are forbidden.
+
+`final-copy-draft.json` must include `structurePlanDeliveryProof`. The proof must point to visible snippets in the final section markdown showing that the primary concern, every high-impact structure component, and every promised visible section output made it into final copy. Strategy notes alone do not count.
+
+## Publish-Worthiness Gate
+
+The Pre-Draft Quality Brief must prove the page is publish-worthy before prose exists. A page that has headings, a table, and a CTA can still fail if it does not answer real reader doubts, sanity-check recommendations, ground risky claims, include troubleshooting, and connect the brand CTA honestly.
+
+For skincare and other high-trust pages, the host agent must explicitly plan:
+
+- Reader questions: long-tail doubts and objections the final copy will answer.
+- Recommendation sanity: why each recommended product, active, service, or tool belongs, who should avoid it, and what evidence is required.
+- Claim risk: phrases such as clinically proven, dermatologist-approved, safest, non-comedogenic, guaranteed, AI diagnosis, or direct detection claims that need citations or softer wording.
+- Troubleshooting: what to do if the routine, product, treatment, or advice causes breakouts, tightness, irritation, burning, worsening symptoms, or no improvement.
+- Brand CTA fit: what the brand can genuinely help track, compare, or clarify, plus what it must not claim.
+
+Weak filler is not allowed even when counts are met. Reject entries such as "What is this?", "Recommend good products", "Cite claims", or "Help if it gets worse." Every reader question, recommendation sanity check, claim-risk item, and troubleshooting item must be specific, evidence-aware, and decision-useful.
+
+Every item inside `readerQuestionCoverage`, `recommendationSanityPlan`, `claimRiskPlan`, and `troubleshootingPlan` must be a structured object with `item`, `sourceRefs`, `mappedSectionId`, `whyThisMatters`, and `finalCopyUse`. `sourceRefs` must point to extracted fact ids, audience signal ids, or analyzed source URLs already present in the depth artifacts, so the publish-worthiness plan is evidence-linked instead of invented.
+
+Every major section must meet or exceed its generated `evidenceBudget`. If an older artifact has no generated budget, use the fallback minimum:
+
+- 2 specific facts.
+- 1 cited claim.
+- 1 concrete usefulness item such as an example, use case, diagnostic cue, decision rule, mistake, comparison, table, or checklist.
+
+Variant-specific proof is mandatory: comparison pages need methodology and matrix evidence, best-list pages need ranking criteria, pricing pages need cost drivers and price/source caveats, local pages need local availability or service-area proof, and how-to pages need step rationale plus safety or escalation boundaries.
+
+If the Page Depth Contract fails during repair, add new research before rewriting prose. A repair that only rephrases shallow copy is not a valid repair.
+
+## Final Copy Draft Gate
+
+The deterministic CLI does not write V2.1 final prose. The host adapter must fill `final-copy-draft.json` with adapter-written section markdown after `validate-human`, `validate-gates`, and `validate-depth` pass.
+
+`seo-agent final-copy expand` validates and merges `final-copy-draft.json` into `page-packet.expanded.json` and `page-packet.expanded.md`. It must reject placeholder or scaffold prose such as "This section should", "Use this section", "Replace this", "Editable scaffold", or "Reference URLs still need".
+
+Every visible informational section in `final-copy-draft.json` needs evidence refs and citation claim ids. The references section must be populated from real source records, not placeholder instructions.
+
+`final-copy-draft.json` must include `superiorityProof` and `structurePlanDeliveryProof`. This proof must show:
+
+- 4 delivered intent wins with section ids, evidence refs, and visible final-copy evidence.
+- At least 1 visible superiority component.
+- 5 visible differentiated improvements.
+- 3 visible extractable answer blocks: quick answer, decision/action answer, and troubleshooting/safety answer when relevant.
+- Visible citation/source handling for important medical, skincare, safety, or brand-capability claims.
+- `whyThisDeservesToRank`, a human-readable summary of why this page can compete.
+- Visible delivery of `researchDerivedStructurePlan`: primary concern near the top, high-impact components, and promised visible outputs.
+
+When a V2 workspace exists for a page, advancement commands enforce this contract:
+
+- `seo-agent final-copy expand` refuses to run until `validate-human`, `validate-gates`, and `validate-depth` pass, and then refuses to emit expanded artifacts unless `final-copy-draft.json` passes final-copy validation.
+- `seo-agent images plan` refuses to run until `validate-human`, `validate-gates`, and `validate-depth` pass.
+- Publish adapters should call the same transaction guard before committing or deploying.
 
 ## Citation Set Gate
 

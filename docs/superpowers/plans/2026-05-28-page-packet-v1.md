@@ -18,7 +18,7 @@
 
 - [x] **Step 1: Write failing tests**
 
-Test that a selected prewriting strategy generates metadata, H1, URL slug, CTA copy, mobile/desktop notes, standardized sections, references, image slots, JSON-LD drafts, and machine metadata.
+Test that a selected prewriting strategy generates metadata, H1, URL slug, CTA copy, mobile/desktop notes, intent-aware generated sections, references, image slots, JSON-LD drafts, and machine metadata.
 
 - [x] **Step 2: Run tests to verify RED**
 

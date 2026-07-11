@@ -3,4 +3,69 @@ prompt = """
 Read AGENT.md and summarize the recommended SEO Page Creator Agent flow:
 onboard -> optional site scan -> cluster -> page -> edit-section -> rescore -> watcher.
 Explain prerequisites for each command and where artifacts are stored.
+
+For `/seo:page`, explain that Step 0A, Step 0B, Step 1, Step 2, and Step 3 from
+`workflows/13-cluster-strategy.md` must pass before page generation.
+
+Step 0A Foundation must create the compact search-opportunity artifact with
+`selectedTopic`, `topicBoundarySummary`, `candidateTopics`, `businessSideRelevance`,
+`primarySearchProblem`, `searchProblemBoundarySummary`, `wrongPageRisk`,
+`desiredOutcome`, `readerState`, `problemLanguage`, `relationshipCheck`,
+`foundationVerdict`, and `mustCarryForward`. Explain that messy input requires 2-4
+candidate topics, routed rejected inputs, and user clarification when the winner is
+unclear. Mention that `problemLanguage` needs 8 cleaned natural phrases, at least 5-6
+evidence-backed phrases with `cleanedPhrase`, `sourceRef`, `sourceType`, and
+`sourceClass`, separate `search_surface` and `audience_language`, at least one
+`audience_language` source when available, 6/8 phrases supporting
+`primarySearchProblem`, and 0 contradictions. Business relevance is unclear is a
+critical blocker.
+
+Step 0B must freeze the selected opportunity as a Page Scope Contract with
+`targetKeyword`, `targetQueryIntent`, `queryCluster`, `selectedOpportunity`,
+`pageScopeSummary`, evidence-linked `uniqueContribution`, `mustCover`, routed
+`mustNotCover`, `businessGoal`, `existingUrlAction`, `slugCandidate`, and
+`contractHash`. Mention that Step 0B requires live keyword/search evidence, a light SERP overlap
+check for clustering/splitting, routed candidate phrases, and a batch
+duplicate check before any downstream V2 research, final copy, images, commits,
+deploys, or publishing.
+
+Step 1 must freeze the selected page's Page Job Contract as `pageJobContract`
+before prewriting. It must include `step0BContractHash`, `pageJobHash`,
+`pageJobStatement`, `audienceSentence`, `taskConstraints`, `successCriteria`,
+`nonGoals`, `primaryHelpFormat`, `secondaryHelpFormats`, `primaryBusinessRole`,
+`riskLevel`, `claimSensitivity`, `outcomeConsequence`, `evidenceBasis`,
+`jobUniquenessCheck`, `pageJobVerdict`, and `inferenceRepairLog`. Explain that
+Step 1 returns `return_to_0B` when the frozen page scope is wrong and prewriting
+returns `return_to_step1` when the page job is wrong or incomplete.
+
+Step 2 must freeze the selected page's Search Intent Contract as
+`searchIntentContract` before prewriting. It must include `step0BContractHash`,
+`pageJobHash`, `searchIntentHash`, `intentStatement`, `dominantBroadIntent`,
+`coPrimaryBroadIntent`, `primaryDeeperIntent`, `projectSpecificIntentLabel`,
+`depthLevel`, `depthStyle`, `satisfactionCondition`, `tooShallowIf`,
+`wrongPageIf`, `recommendedPageType`, `dominantInternalContentFormat`,
+`supportingContentFormats`, `lightSerpValidation`, `mixedIntentHandling`,
+`pageJobAlignmentCheck`, `validatedIntentDecision`, `marketContextCheck`,
+`aiOverviewIntentSignal`, `intentVerdict`, and `intentRepairLog`. Explain that
+Step 2 uses a top 5 SERP light intent-pattern check, needs 3/5 support for a
+normal pass, routes mixed intents as `adjacent` or `conflicting`, records whether
+evidence `confirm`, `refine`, or `correct` the query-only hypothesis, and then
+returns `continue_to_prewriting`, `return_to_step1`, `return_to_0B`, `ask_user`,
+or `skip_page`.
+
+Step 3 must freeze the selected page's Page Format Contract as
+`pageFormatContract` before prewriting. It must include `step0BContractHash`,
+`pageJobHash`, `searchIntentHash`, `pageFormatHash`, `primaryPageType`,
+`secondaryPageTypeInfluences`, `primaryInternalContentFormat`,
+`supportingFormatInfluences`, `supportingContentElements`,
+`step2RecommendationFit`, `formatEvidenceBasis`, `scopeBoundaryCheck`,
+`formatCompatibilityCheck`, `formatRiskCheck`, `formatUniquenessCheck`,
+`businessConnectionBoundary`, `adjacentNeedRouting`, `rejectedPageTypes`,
+`rejectedInternalFormats`, `formatDecisionStatement`, `step3OutputMustNotContain`,
+`formatRepairLog`, `formatVerdict`, and `mustCarryForward`. Explain that Step 3
+requires one fixed-enum page type, one fixed-enum internal format, 3-6 supporting
+elements with `allowedScope` and `notAllowedScope`, adjacent need routing,
+rejected wrong formats, inherited evidence only, and no outline/CTA/metadata/final
+copy/image strategy work. It returns `continue_to_prewriting`,
+`return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`.
 """

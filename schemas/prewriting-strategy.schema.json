@@ -137,18 +137,74 @@
     },
     "pageStructure": {
       "type": "object",
-      "required": ["h1Rule", "sections"],
+      "required": ["intentPattern", "structureVariant", "inference", "researchBasis", "structureUniquenessRationale", "mustDifferFromPages", "h1Rule", "sections"],
       "properties": {
+        "intentPattern": {
+          "type": "string",
+          "enum": ["product_category", "comparison", "alternatives", "best_list", "how_to", "pricing", "local", "informational"]
+        },
+        "structureVariant": {
+          "type": "string",
+          "enum": ["category_solution", "comparison_matrix", "alternatives_evaluator", "ranked_shortlist", "step_by_step_guide", "pricing_decision", "local_service", "educational_guide"]
+        },
+        "inference": {
+          "type": "object",
+          "required": ["confidence", "signals", "notes"],
+          "properties": {
+            "confidence": { "$ref": "#/$defs/evidenceStrength" },
+            "signals": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "notes": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        "researchBasis": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "structureUniquenessRationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mustDifferFromPages": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
         "h1Rule": { "const": "exactly_one" },
         "sections": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["id", "purpose", "contentRole", "notes"],
+            "required": ["id", "purpose", "contentRole", "sectionIntent", "evidenceNeeded", "requiredDevices", "evidenceBudget", "notes"],
             "properties": {
               "id": { "type": "string", "pattern": "^S[0-9]+_[a-z0-9_]+$" },
               "purpose": { "type": "string" },
               "contentRole": { "type": "string", "enum": ["conversion", "seo", "trust", "ux", "reference"] },
+              "sectionIntent": { "type": "string" },
+              "evidenceNeeded": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string" }
+              },
+              "requiredDevices": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string" }
+              },
+              "evidenceBudget": {
+                "type": "object",
+                "required": ["minimumFacts", "minimumCitedClaims", "minimumConcreteExamples"],
+                "properties": {
+                  "minimumFacts": { "type": "integer", "minimum": 0 },
+                  "minimumCitedClaims": { "type": "integer", "minimum": 0 },
+                  "minimumConcreteExamples": { "type": "integer", "minimum": 0 }
+                },
+                "additionalProperties": false
+              },
+              "optional": { "type": "boolean" },
               "notes": { "type": "string" }
             },
             "additionalProperties": false

@@ -417,27 +417,21 @@ V2 includes heuristic originality checks against SERP content, social/video capt
 
 ## Section Model
 
-Core reserved section IDs remain:
+Current implementation note: prewriting now generates an intent-aware `pageStructure.intentPattern`, `pageStructure.structureVariant`, and exact `pageStructure.sections` contract. Section IDs are stable within a generated packet, but middle section IDs are not globally fixed across page types. Adapters must read each section's `sectionIntent`, `evidenceNeeded`, `requiredDevices`, and `evidenceBudget` before drafting claim-first plans, depth artifacts, final copy, or images.
+
+Common anchors usually remain:
 
 - `S1_hero`
-- `S2_quick_answer`
-- `S3_context`
-- `S4_main_content`
-- `S5_decision_support`
-- `S6_product_or_solution_block`
-- `S7_trust_proof`
 - `S8_faq`
 - `S9_final_cta`
 - `S10_references`
 
-Research can refine the structure after initial planning. Inserted sections are allowed between core sections, but `S1_hero` must remain first and `S10_references` must remain last.
-
-Inserted sections use simple sequential IDs such as `S11`, `S12`, and `S13`, with a `sectionType` field.
+Research can refine structure after initial planning, but generated section IDs and order must remain synchronized across page packet, claim-first plan, depth artifacts, final-copy draft, images, and QA.
 
 Final page packet Markdown uses both comments and visible headings:
 
 ```md
-<!-- SECTION_ID: S4_main_content -->
+<!-- SECTION_ID: S4_pricing_ranges -->
 ## Section Heading
 ```
 

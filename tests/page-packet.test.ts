@@ -4,7 +4,7 @@ import {
   generatePagePacket,
   renderPagePacketMarkdown
 } from "../src/lib/page-packet.js";
-import type { PreWritingStrategy } from "../src/lib/prewriting-strategy.js";
+import type { PreWritingSection, PreWritingStrategy } from "../src/lib/prewriting-strategy.js";
 
 const prewritingStrategy: PreWritingStrategy = {
   companyName: "ClearNest",
@@ -49,8 +49,15 @@ const prewritingStrategy: PreWritingStrategy = {
     }
   },
   pageStructure: {
+    intentPattern: "product_category",
+    structureVariant: "category_solution",
+    inference: {
+      confidence: "high",
+      signals: ["pageType=product_category"],
+      notes: "Fixture product/category strategy."
+    },
     h1Rule: "exactly_one",
-    sections: [
+    sections: withSectionContract([
       { id: "S1_hero", purpose: "First-fold answer, H1, primary CTA, and surrounding CTA microcopy.", contentRole: "conversion", notes: "Primary actionable must be visible." },
       { id: "S2_quick_answer", purpose: "Short answer optimized for humans and AI overview style retrieval.", contentRole: "seo", notes: "Answer directly." },
       { id: "S3_context", purpose: "Explain the problem and audience context.", contentRole: "ux", notes: "Stay aligned to cohort." },
@@ -61,7 +68,7 @@ const prewritingStrategy: PreWritingStrategy = {
       { id: "S8_faq", purpose: "Answer likely questions and support FAQ JSON-LD.", contentRole: "seo", notes: "Include FAQ schema draft." },
       { id: "S9_final_cta", purpose: "Final primary CTA and closing copy.", contentRole: "conversion", notes: "Use one primary CTA variant." },
       { id: "S10_references", purpose: "Reference URLs and source metadata.", contentRole: "reference", notes: "Only URL/source metadata." }
-    ]
+    ])
   },
   referenceRequirements: {
     liveSerpReviewRequired: true,
@@ -156,3 +163,19 @@ test("requires selected tone before generating a page packet", () => {
     /Selected tone is required/
   );
 });
+
+function withSectionContract(
+  sections: Array<Pick<PreWritingSection, "id" | "purpose" | "contentRole" | "notes">>
+): PreWritingSection[] {
+  return sections.map((section) => ({
+    ...section,
+    sectionIntent: section.id.replace(/^S[0-9]+_/, "").replace(/_/g, " "),
+    evidenceNeeded: section.contentRole === "reference" ? ["reference URL"] : ["source-backed fact"],
+    requiredDevices: section.contentRole === "reference" ? ["reference list"] : ["editable section"],
+    evidenceBudget: {
+      minimumFacts: section.contentRole === "reference" ? 0 : 1,
+      minimumCitedClaims: section.contentRole === "reference" ? 0 : 1,
+      minimumConcreteExamples: 0
+    }
+  }));
+}

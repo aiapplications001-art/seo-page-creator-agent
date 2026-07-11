@@ -23,6 +23,8 @@ const dimensionScores = {
   conversionClarity: 85
 };
 
+const whyThisDeservesToRank = "This page deserves to compete because it beats the current SERP on diagnosis, India-specific decision support, troubleshooting depth, and safer recommendation boundaries with a custom evidence-backed component.";
+
 test("sectionStatus maps scores into V2 QA bands", () => {
   assert.equal(sectionStatus(94), "Strong");
   assert.equal(sectionStatus(81), "Pass");
@@ -51,6 +53,7 @@ test("QA passes when all gates pass and every section score is at least 70", () 
         notes: "Still useful and publishable."
       }
     ],
+    whyThisDeservesToRank,
     recommendations: ["Add one stronger proof point if available."]
   });
 
@@ -74,6 +77,7 @@ test("QA fails when any section remains below 70", () => {
         notes: "Needs sharper objection handling."
       }
     ],
+    whyThisDeservesToRank,
     recommendations: ["Revise FAQ using the audience objections."]
   });
 
@@ -81,6 +85,44 @@ test("QA fails when any section remains below 70", () => {
   assert.equal(canGenerateFinalPacket(report), false);
   assert.equal(report.sectionScores[0]?.status, "Needs repair");
   assert.ok(report.blockingIssues.includes("Every visible section must score at least 70."));
+});
+
+test("QA fails without why this deserves to rank summary", () => {
+  const report = buildEditorialQaReport({
+    overallScore: 86,
+    dimensionScores,
+    hardGateResults: passingGateResults,
+    sectionScores: [
+      {
+        sectionId: "S1_hero",
+        heading: "Hero",
+        score: 88,
+        whyPointsWereLost: "CTA microcopy could be sharper.",
+        notes: "Clear first-fold value."
+      }
+    ],
+    recommendations: ["Add one stronger brand proof point."]
+  });
+
+  assert.equal(report.finalStatus, "failed");
+  assert.equal(canGenerateFinalPacket(report), false);
+  assert.match(report.blockingIssues.join("\n"), /Why This Deserves To Rank/);
+});
+
+test("QA fails when expected visible sections are not scored", () => {
+  const report = buildEditorialQaReport({
+    overallScore: 86,
+    dimensionScores,
+    hardGateResults: passingGateResults,
+    sectionScores: [],
+    expectedSectionIds: ["S1_hero"],
+    whyThisDeservesToRank,
+    recommendations: ["Score every generated section before packet delivery."]
+  });
+
+  assert.equal(report.finalStatus, "failed");
+  assert.equal(canGenerateFinalPacket(report), false);
+  assert.match(report.blockingIssues.join("\n"), /S1_hero: every visible generated section must have a QA score/);
 });
 
 test("hard gate failure prevents final packet eligibility", () => {
@@ -100,6 +142,7 @@ test("hard gate failure prevents final packet eligibility", () => {
         notes: "Strong opening."
       }
     ],
+    whyThisDeservesToRank,
     recommendations: ["Add source support for the high-strength claim."]
   });
 
@@ -138,6 +181,7 @@ test("markdown renderer includes scores, section lost-points reasons, and option
     autoRepairSummary: [
       "Rewrote the hero opening to remove generic framing."
     ],
+    whyThisDeservesToRank,
     recommendations: ["Add one stronger brand proof point."]
   });
 
@@ -150,6 +194,8 @@ test("markdown renderer includes scores, section lost-points reasons, and option
   assert.match(markdown, /Auto-Repair Summary/);
   assert.match(markdown, /Rewrote the hero opening/);
   assert.match(markdown, /Human Editorial Summary/);
+  assert.match(markdown, /Why This Deserves To Rank/);
+  assert.match(markdown, /custom evidence-backed component/);
   assert.match(markdown, /category_manager_with_editorial_empathy/);
   assert.match(markdown, /Examples planned: 2/);
 
@@ -166,6 +212,7 @@ test("markdown renderer includes scores, section lost-points reasons, and option
         notes: "Clear first-fold value."
       }
     ],
+    whyThisDeservesToRank,
     recommendations: ["Add one stronger brand proof point."]
   }));
 

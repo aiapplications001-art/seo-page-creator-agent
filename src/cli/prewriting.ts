@@ -93,7 +93,7 @@ export async function runPreWritingCommand(args: string[]): Promise<void> {
 
 export function renderPreWritingStrategyMarkdown(strategy: PreWritingStrategy): string {
   const sections = strategy.pageStructure.sections.map((section) => (
-    `| ${section.id} | ${section.contentRole} | ${section.purpose} | ${section.notes} |`
+    `| ${section.id} | ${section.contentRole} | ${section.sectionIntent} | ${section.evidenceBudget.minimumFacts}/${section.evidenceBudget.minimumCitedClaims}/${section.evidenceBudget.minimumConcreteExamples} | ${section.requiredDevices.join(", ")} | ${section.notes} |`
   )).join("\n");
   const approvalRows = [
     ...strategy.approvalQueues.critical,
@@ -138,8 +138,14 @@ Selected page: ${strategy.selectedPage.id}
 
 ## Section Plan
 
-| Section ID | Role | Purpose | Notes |
-| --- | --- | --- | --- |
+Intent pattern: ${strategy.pageStructure.intentPattern}
+Structure variant: ${strategy.pageStructure.structureVariant}
+Inference confidence: ${strategy.pageStructure.inference.confidence}
+Inference signals: ${strategy.pageStructure.inference.signals.join(", ") || "None"}
+Inference notes: ${strategy.pageStructure.inference.notes}
+
+| Section ID | Role | Section Intent | Evidence Budget (facts/cited claims/examples) | Required Devices | Notes |
+| --- | --- | --- | --- | --- | --- |
 ${sections}
 
 ## Reference Requirements

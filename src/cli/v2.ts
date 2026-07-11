@@ -1,6 +1,8 @@
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { readConfig } from "../lib/config.js";
+import type { PagePacket } from "../lib/page-packet.js";
 import {
   allMandatoryGatesPassed,
   validateAudienceDefinitionGate,
@@ -11,6 +13,7 @@ import {
   type V2GateValidationResult
 } from "../lib/v2/gates.js";
 import { createDebugBundle } from "../lib/v2/debug-bundle.js";
+import { validatePageDepthContract } from "../lib/v2/depth.js";
 import {
   buildHumanEditorialQaSummary,
   validateClaimFirstSectionPlan,
@@ -101,6 +104,30 @@ export async function runV2Command(args: string[]): Promise<void> {
     return;
   }
 
+  if (subcommand === "validate-depth") {
+    const pageDir = await getV2PageDir(process.cwd(), clusterSlug, pageId);
+    const result = validatePageDepthContract({
+      researchExtractionMatrix: await readJson(path.join(pageDir, "research-extraction-matrix.json")) as Parameters<typeof validatePageDepthContract>[0]["researchExtractionMatrix"],
+      competitorDepthDelta: await readJson(path.join(pageDir, "competitor-depth-delta.json")) as Parameters<typeof validatePageDepthContract>[0]["competitorDepthDelta"],
+      audiencePainPointLedger: await readJson(path.join(pageDir, "audience-pain-point-ledger.json")) as Parameters<typeof validatePageDepthContract>[0]["audiencePainPointLedger"],
+      preDraftSynthesisBrief: await readJson(path.join(pageDir, "pre-draft-synthesis-brief.json")) as Parameters<typeof validatePageDepthContract>[0]["preDraftSynthesisBrief"],
+      preDraftQualityBrief: await readJson(path.join(pageDir, "pre-draft-quality-brief.json")) as Parameters<typeof validatePageDepthContract>[0]["preDraftQualityBrief"],
+      pageDepthScore: await readJson(path.join(pageDir, "depth-score.json")) as Parameters<typeof validatePageDepthContract>[0]["pageDepthScore"],
+      expectedSectionIds: await readGeneratedSectionIds(process.cwd(), clusterSlug, pageId)
+    });
+
+    console.log(`Page Depth Contract: ${result.status}`);
+    console.log(`Depth score: ${result.score}`);
+    for (const issue of result.blockingIssues) {
+      console.log(`- ${issue}`);
+    }
+
+    if (result.status !== "passed") {
+      process.exitCode = 1;
+    }
+    return;
+  }
+
   if (subcommand === "qa") {
     const pageDir = await getV2PageDir(process.cwd(), clusterSlug, pageId);
     const qaPath = path.join(pageDir, "editorial-qa-report.md");
@@ -153,6 +180,28 @@ async function readJson(filePath: string): Promise<unknown> {
   return JSON.parse(await readFile(filePath, "utf8")) as unknown;
 }
 
+async function readGeneratedSectionIds(cwd: string, clusterSlug: string, pageId: string): Promise<string[] | undefined> {
+  const config = await readOptionalConfig(cwd);
+  if (!config) return undefined;
+  const packetPath = path.resolve(cwd, config.workspace_path, "page-packets", clusterSlug, pageId, "page-packet.json");
+  if (!existsSync(packetPath)) return undefined;
+  const packet = JSON.parse(await readFile(packetPath, "utf8")) as PagePacket;
+  return packet.sections.filter((section) => section.role !== "reference").map((section) => section.id);
+}
+
+async function readOptionalConfig(cwd: string): Promise<Awaited<ReturnType<typeof readConfig>> | undefined> {
+  try {
+    return await readConfig(cwd);
+  } catch (error) {
+    if (isMissingFileError(error)) return undefined;
+    throw error;
+  }
+}
+
+function isMissingFileError(error: unknown): boolean {
+  return Boolean(error && typeof error === "object" && "code" in error && error.code === "ENOENT");
+}
+
 function printV2Help(): void {
   console.log(`SEO Page Creator Agent V2
 
@@ -161,6 +210,7 @@ Usage:
   seo-agent v2 status --cluster <slug> --page-id <id>
   seo-agent v2 validate-gates --cluster <slug> --page-id <id>
   seo-agent v2 validate-human --cluster <slug> --page-id <id>
+  seo-agent v2 validate-depth --cluster <slug> --page-id <id>
   seo-agent v2 qa --cluster <slug> --page-id <id>
   seo-agent v2 debug-bundle --cluster <slug> --page-id <id>
 `);

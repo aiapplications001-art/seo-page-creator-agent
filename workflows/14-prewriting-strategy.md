@@ -35,7 +35,8 @@ Generated files:
 - Primary CTA goal and recommended destination
 - First-fold CTA requirements
 - Mobile sticky CTA requirements
-- Sequential section plan
+- Intent pattern and structure variant
+- Sequential section plan with per-section evidence requirements
 - Reference and SERP review requirements
 - Image generation requirements
 - Approval queues by component and risk
@@ -54,22 +55,37 @@ Fast mode may skip low-risk structure approvals only when the user explicitly en
 
 ## Section Plan
 
-Use the standardized section IDs:
+Do not assume one global section sequence. The Pre-Writing Strategy must infer an intent pattern and structure variant from the selected page opportunity, then write `pageStructure.intentPattern`, `pageStructure.structureVariant`, `pageStructure.inference`, `pageStructure.researchBasis`, `pageStructure.structureUniquenessRationale`, `pageStructure.mustDifferFromPages`, and `pageStructure.sections`.
 
-```text
-S1_hero
-S2_quick_answer
-S3_context
-S4_main_content
-S5_decision_support
-S6_product_or_solution_block
-S7_trust_proof
-S8_faq
-S9_final_cta
-S10_references
-```
+Page structure must be research-derived and intentionally different per page. During batch or refresh work, compare the proposed section order, decision tools, mistake/troubleshooting pattern, tables, FAQs, superiority component, CTA placement, and CTA body against current-batch pages and historical pages from previous runs. Different titles, hooks, slugs, or paraphrased wording are not enough if the page follows the same body section pattern.
+
+Supported variants:
+
+| Intent pattern | Structure variant | Reader job |
+| --- | --- | --- |
+| `product_category` | `category_solution` | Diagnose fit, choose criteria, map to the right solution path. |
+| `comparison` | `comparison_matrix` | Compare options with methodology, criteria, matrix, and reader-fit tradeoffs. |
+| `alternatives` | `alternatives_evaluator` | Evaluate alternatives fairly and explain switching tradeoffs. |
+| `best_list` | `ranked_shortlist` | Rank options by transparent criteria and best-fit use cases. |
+| `how_to` | `step_by_step_guide` | Teach a process with prerequisites, steps, mistakes, and outcomes. |
+| `pricing` | `pricing_decision` | Explain cost drivers, pricing ranges/models, value, and hidden costs. |
+| `local` | `local_service` | Answer local availability and booking/selection questions. |
+| `informational` | `educational_guide` | Explain a topic deeply and convert knowledge into reader judgment. |
+
+`S1_hero`, `S8_faq`, `S9_final_cta`, and `S10_references` are common anchors when relevant. Middle section IDs are variant-specific. Treat section IDs as stable within the generated packet, not globally fixed across all page types.
 
 Each section can have a different role. Some sections are mainly SEO, some are user experience, some are conversion, and some are trust/reference sections.
+
+Each section must also include:
+
+- `sectionIntent`
+- `evidenceNeeded`
+- `requiredDevices`
+- `evidenceBudget.minimumFacts`
+- `evidenceBudget.minimumCitedClaims`
+- `evidenceBudget.minimumConcreteExamples`
+
+Adapters must read these fields before drafting. Do not hardcode old IDs such as `S3_context` or `S4_main_content`.
 
 ## Agent Rules
 

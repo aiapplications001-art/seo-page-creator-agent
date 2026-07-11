@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { buildPagePacketFromWorkspace } from "../src/cli/page-packet.js";
 import { writeConfig } from "../src/lib/config.js";
-import type { PreWritingStrategy } from "../src/lib/prewriting-strategy.js";
+import type { PreWritingSection, PreWritingStrategy } from "../src/lib/prewriting-strategy.js";
 
 test("builds page packet markdown and json from prewriting strategy", async () => {
   const cwd = await mkdtemp(path.join(os.tmpdir(), "seo-page-packet-"));
@@ -61,11 +61,18 @@ test("builds page packet markdown and json from prewriting strategy", async () =
       mobileSticky: { recommended: true, shortenedLabelRequired: true }
     },
     pageStructure: {
+      intentPattern: "product_category",
+      structureVariant: "category_solution",
+      inference: {
+        confidence: "high",
+        signals: ["pageType=product_category"],
+        notes: "Fixture product/category strategy."
+      },
       h1Rule: "exactly_one",
-      sections: [
+      sections: withSectionContract([
         { id: "S1_hero", purpose: "Hero", contentRole: "conversion", notes: "First fold CTA." },
         { id: "S10_references", purpose: "References", contentRole: "reference", notes: "Sources." }
-      ]
+      ])
     },
     referenceRequirements: {
       liveSerpReviewRequired: true,
@@ -109,3 +116,19 @@ test("builds page packet markdown and json from prewriting strategy", async () =
   assert.match(markdown, /# Page Packet: Acne Treatment Category Page/);
   assert.match(markdown, /## Machine-Readable JSON/);
 });
+
+function withSectionContract(
+  sections: Array<Pick<PreWritingSection, "id" | "purpose" | "contentRole" | "notes">>
+): PreWritingSection[] {
+  return sections.map((section) => ({
+    ...section,
+    sectionIntent: section.id.replace(/^S[0-9]+_/, "").replace(/_/g, " "),
+    evidenceNeeded: section.contentRole === "reference" ? ["reference URL"] : ["source-backed fact"],
+    requiredDevices: section.contentRole === "reference" ? ["reference list"] : ["editable section"],
+    evidenceBudget: {
+      minimumFacts: section.contentRole === "reference" ? 0 : 1,
+      minimumCitedClaims: section.contentRole === "reference" ? 0 : 1,
+      minimumConcreteExamples: 0
+    }
+  }));
+}
