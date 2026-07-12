@@ -149,6 +149,119 @@ export interface ContentBriefGateInput {
   judgmentChecks?: JudgmentChecks;
 }
 
+export interface PageOutlineGateInput {
+  upstreamHashes: {
+    step0AHash?: string;
+    step0BHash?: string;
+    pageJobHash?: string;
+    searchIntentHash?: string;
+    pageFormatHash?: string;
+    nextActionHash?: string;
+    serpCompetitorHash?: string;
+    topicResearchHash?: string;
+    uniqueAngleHash?: string;
+    contentBriefHash?: string;
+  };
+  pageOutlineHash?: string;
+  workingH1?: string;
+  pageFlowType?: string;
+  pageFlowReason?: string;
+  pageFlowStep8Refs?: string[];
+  readerJourneySummaryStatement?: string;
+  sectionSequenceRationale?: string;
+  h2CountException?: {
+    justified?: boolean;
+    reason?: string;
+    sourceRefs?: string[];
+  };
+  mainIntentVisibilityCheck?: {
+    visibleInFirstTwoH2s?: boolean;
+    evidenceRefs?: string[];
+  };
+  outlineSections?: Array<{
+    sectionId?: string;
+    headingText?: string;
+    sectionRole?: string;
+    mappedStep8Refs?: string[];
+    purpose?: string;
+    depthLevel?: "low" | "medium" | "high";
+    depthReason?: string;
+    expectedTreatment?: string;
+    mappedDepthRequirementRefs?: string[];
+    contentObligations?: string[];
+    h3s?: string[];
+    h3Rationale?: string;
+    assetPlacements?: string[];
+    examplePlacements?: string[];
+    internalLinkNotes?: string[];
+    ctaNotes?: string[];
+    claimEvidenceNotes?: string;
+    scopeBoundaryRisk?: boolean;
+    scopeBoundaryNotes?: string[];
+    transitionFromPrevious?: string;
+  }>;
+  queryCoveragePlan?: {
+    targetKeywordMapped?: boolean;
+    supportingQueriesMapped?: boolean;
+    doNotForceTerms?: string[];
+  };
+  assetPlacementPlan?: unknown[];
+  internalLinkPlacementPlan?: unknown[];
+  ctaPlacementPlan?: unknown[];
+  faqPlan?: {
+    decision?: "short" | "detailed" | "none";
+    routedQuestions?: unknown[];
+    noneExceptionReason?: string;
+    evidenceRefs?: string[];
+  };
+  contentBriefDeliveryProof?: {
+    allMandatoryInstructionsCovered?: boolean;
+    missingMandatoryInstructions?: string[];
+    returnedToStep8?: boolean;
+  };
+  step8RefinementPatch?: Array<{
+    refinementType?: string;
+    reason?: string;
+    strategicChange?: boolean;
+  }>;
+  outlineOriginalityCheck?: {
+    noCopiedCompetitorHeadings?: boolean;
+    noCopiedCompetitorStructure?: boolean;
+    noCopiedTableLogic?: boolean;
+  };
+  outlineScanabilityCheck?: {
+    importantAnswerEarly?: boolean;
+    noOverloadedH2s?: boolean;
+    noBuriedSafetyOrDecisionInfo?: boolean;
+    headingsScannable?: boolean;
+  };
+  headingHierarchyCheck?: {
+    singleH1?: boolean;
+    h2sNonOverlapping?: boolean;
+    h3sUsefulOnly?: boolean;
+    headingsScannable?: boolean;
+  };
+  batchOutlineIsolationCheck?: {
+    pageSpecificOutline?: boolean;
+    reusedPriorOutline?: boolean;
+    currentBatchUnique?: boolean;
+    similarityToCurrentBatch?: "low" | "medium" | "high" | "unknown";
+  };
+  outlineDeliveryProofRequirements?: {
+    step10Required?: boolean;
+    finalQaRequired?: boolean;
+  };
+  mustCarryForward?: unknown[];
+  step9OutputMustNotContain?: string[];
+  step9CompletenessChecklist?: Record<string, boolean>;
+  markdownParityChecked?: boolean;
+  pageOutlineVerdict?: {
+    status?: "pass" | "pass_with_warnings" | "fail" | "ask_user";
+    action?: string;
+  };
+  judgmentChecks?: JudgmentChecks;
+}
+
 interface JudgmentChecks {
   passed: boolean;
   notes?: string;
@@ -372,6 +485,162 @@ export function validateContentBriefGate(brief: ContentBriefGateInput): V2GateVa
   }
 
   return buildGateResult(machineIssues, brief.judgmentChecks);
+}
+
+export function validatePageOutlineGate(outline: PageOutlineGateInput): V2GateValidationResult {
+  const machineIssues: string[] = [];
+  const requiredHashes: Array<keyof PageOutlineGateInput["upstreamHashes"]> = [
+    "step0AHash",
+    "step0BHash",
+    "pageJobHash",
+    "searchIntentHash",
+    "pageFormatHash",
+    "nextActionHash",
+    "serpCompetitorHash",
+    "topicResearchHash",
+    "uniqueAngleHash",
+    "contentBriefHash"
+  ];
+  const missingHashes = requiredHashes.filter((hashName) => !hasText(outline.upstreamHashes?.[hashName]));
+
+  if (missingHashes.length > 0) {
+    machineIssues.push(`Page outline requires all upstream hashes before Step 10: ${missingHashes.join(", ")}.`);
+  }
+  if (!hasText(outline.pageOutlineHash)) machineIssues.push("Page outline must include pageOutlineHash.");
+  if (!hasText(outline.workingH1)) machineIssues.push("Page outline must include one workingH1.");
+  if (!hasText(outline.pageFlowType)) machineIssues.push("Page outline must include pageFlowType.");
+  if (!hasText(outline.pageFlowReason) || !outline.pageFlowStep8Refs?.length) {
+    machineIssues.push("Page outline must justify pageFlowType with Step 8 refs.");
+  }
+  if (!hasText(outline.readerJourneySummaryStatement)) {
+    machineIssues.push("Page outline must include readerJourneySummaryStatement.");
+  }
+  if (!hasText(outline.sectionSequenceRationale)) {
+    machineIssues.push("Page outline must include sectionSequenceRationale.");
+  }
+  if (outline.mainIntentVisibilityCheck?.visibleInFirstTwoH2s !== true) {
+    machineIssues.push("Page outline must address the main search intent within the first 1-2 H2 sections.");
+  }
+
+  const sections = outline.outlineSections ?? [];
+  const h2CountExceptionValid = outline.h2CountException?.justified === true &&
+    hasText(outline.h2CountException.reason) &&
+    Boolean(outline.h2CountException.sourceRefs?.length);
+  if ((sections.length < 8 || sections.length > 14) && !h2CountExceptionValid) {
+    machineIssues.push("Page outline must include 8-14 H2 sections unless a justified exception is recorded.");
+  }
+  if (sections.length === 0) {
+    machineIssues.push("Page outline must include outlineSections.");
+  }
+
+  sections.forEach((section, index) => {
+    const sectionLabel = section.sectionId || `section-${index + 1}`;
+    if (!hasText(section.sectionId)) machineIssues.push(`Outline section ${sectionLabel} must include sectionId.`);
+    if (!hasText(section.headingText)) machineIssues.push(`Outline section ${sectionLabel} must include headingText.`);
+    if (!hasText(section.sectionRole)) machineIssues.push(`Outline section ${sectionLabel} must include sectionRole.`);
+    if (!section.mappedStep8Refs?.length) machineIssues.push(`Outline section ${sectionLabel} must map to Step 8 refs.`);
+    if (!hasText(section.purpose)) machineIssues.push(`Outline section ${sectionLabel} must include purpose.`);
+    if (!section.depthLevel) machineIssues.push(`Outline section ${sectionLabel} must include depthLevel.`);
+    if (!hasText(section.depthReason)) machineIssues.push(`Outline section ${sectionLabel} must include depthReason.`);
+    if (!hasText(section.expectedTreatment)) machineIssues.push(`Outline section ${sectionLabel} must include expectedTreatment.`);
+    if (!section.mappedDepthRequirementRefs?.length) {
+      machineIssues.push(`Outline section ${sectionLabel} must map depth to Step 8 requirements.`);
+    }
+    if (!section.contentObligations?.length) {
+      machineIssues.push(`Outline section ${sectionLabel} must include contentObligations.`);
+    }
+    if (section.depthLevel === "high" && !section.h3s?.length && !hasText(section.h3Rationale)) {
+      machineIssues.push(`High-depth outline section ${sectionLabel} without H3s must explain h3Rationale.`);
+    }
+    if (index > 0 && !hasText(section.transitionFromPrevious)) {
+      machineIssues.push(`Outline section ${sectionLabel} must include transitionFromPrevious.`);
+    }
+    if (!hasText(section.claimEvidenceNotes)) {
+      machineIssues.push(`Outline section ${sectionLabel} must include claimEvidenceNotes.`);
+    }
+    if (section.scopeBoundaryRisk && !section.scopeBoundaryNotes?.length) {
+      machineIssues.push(`Outline section ${sectionLabel} with scope risk must include scopeBoundaryNotes.`);
+    }
+  });
+
+  if (outline.queryCoveragePlan?.targetKeywordMapped !== true || outline.queryCoveragePlan.supportingQueriesMapped !== true) {
+    machineIssues.push("Page outline must map target keyword and supporting queries to natural sections.");
+  }
+  if (!outline.queryCoveragePlan?.doNotForceTerms?.length) {
+    machineIssues.push("Page outline must include doNotForceTerms in queryCoveragePlan.");
+  }
+  if (!outline.assetPlacementPlan?.length) machineIssues.push("Page outline must include assetPlacementPlan.");
+  if (!outline.internalLinkPlacementPlan?.length) machineIssues.push("Page outline must include internalLinkPlacementPlan.");
+  if (!outline.ctaPlacementPlan?.length) machineIssues.push("Page outline must include ctaPlacementPlan.");
+
+  if (!outline.faqPlan?.decision) {
+    machineIssues.push("Page outline must include faqPlan.");
+  } else if (outline.faqPlan.decision === "none") {
+    if (!hasText(outline.faqPlan.noneExceptionReason) || !outline.faqPlan.evidenceRefs?.length) {
+      machineIssues.push("FAQ none decision requires strong exception reason and evidence refs.");
+    }
+  } else if (!outline.faqPlan.routedQuestions?.length) {
+    machineIssues.push("FAQ short or detailed decision requires routedQuestions.");
+  }
+
+  if (outline.contentBriefDeliveryProof?.allMandatoryInstructionsCovered !== true ||
+    outline.contentBriefDeliveryProof.returnedToStep8 === true ||
+    (outline.contentBriefDeliveryProof?.missingMandatoryInstructions?.length ?? 0) > 0) {
+    machineIssues.push("Page outline must prove all mandatory Step 8 instructions are represented or properly routed.");
+  }
+  if (outline.step8RefinementPatch?.some((refinement) => refinement.strategicChange === true)) {
+    machineIssues.push("Step 9 may not make strategic Step 8 refinements.");
+  }
+  if (outline.outlineOriginalityCheck?.noCopiedCompetitorHeadings !== true ||
+    outline.outlineOriginalityCheck.noCopiedCompetitorStructure !== true ||
+    outline.outlineOriginalityCheck.noCopiedTableLogic !== true) {
+    machineIssues.push("Page outline must pass competitor originality checks.");
+  }
+  if (outline.outlineScanabilityCheck?.importantAnswerEarly !== true ||
+    outline.outlineScanabilityCheck.noOverloadedH2s !== true ||
+    outline.outlineScanabilityCheck.noBuriedSafetyOrDecisionInfo !== true ||
+    outline.outlineScanabilityCheck.headingsScannable !== true) {
+    machineIssues.push("Page outline must pass outlineScanabilityCheck.");
+  }
+  if (outline.headingHierarchyCheck?.singleH1 !== true ||
+    outline.headingHierarchyCheck.h2sNonOverlapping !== true ||
+    outline.headingHierarchyCheck.h3sUsefulOnly !== true ||
+    outline.headingHierarchyCheck.headingsScannable !== true) {
+    machineIssues.push("Page outline must pass headingHierarchyCheck.");
+  }
+  if (outline.batchOutlineIsolationCheck?.pageSpecificOutline !== true ||
+    outline.batchOutlineIsolationCheck.reusedPriorOutline === true ||
+    outline.batchOutlineIsolationCheck.currentBatchUnique !== true ||
+    outline.batchOutlineIsolationCheck.similarityToCurrentBatch === "high") {
+    machineIssues.push("Page outline must pass batchOutlineIsolationCheck.");
+  }
+  if (!outline.outlineDeliveryProofRequirements?.step10Required ||
+    !outline.outlineDeliveryProofRequirements.finalQaRequired) {
+    machineIssues.push("Page outline must require Step 10 and final QA delivery proof.");
+  }
+  if (!outline.mustCarryForward?.length) machineIssues.push("Page outline must include mustCarryForward.");
+  if (!outline.step9OutputMustNotContain?.length) machineIssues.push("Page outline must include step9OutputMustNotContain.");
+  if (!outline.step9CompletenessChecklist || Object.keys(outline.step9CompletenessChecklist).length === 0) {
+    machineIssues.push("Page outline must include step9CompletenessChecklist.");
+  } else {
+    const failedChecklistItems = Object.entries(outline.step9CompletenessChecklist)
+      .filter(([, passed]) => passed !== true)
+      .map(([key]) => key);
+    if (failedChecklistItems.length > 0) {
+      machineIssues.push(`Page outline completeness checklist failed: ${failedChecklistItems.join(", ")}.`);
+    }
+  }
+  if (outline.markdownParityChecked !== true) {
+    machineIssues.push("Page outline Markdown parity must be checked.");
+  }
+  if (outline.pageOutlineVerdict?.status !== "pass" && outline.pageOutlineVerdict?.status !== "pass_with_warnings") {
+    machineIssues.push("Page outline verdict must be pass or pass_with_warnings before Step 10.");
+  }
+  if (outline.pageOutlineVerdict?.action !== "continue_to_step10") {
+    machineIssues.push("Page outline verdict action must be continue_to_step10 before drafting.");
+  }
+
+  return buildGateResult(machineIssues, outline.judgmentChecks);
 }
 
 export function allMandatoryGatesPassed(results: V2GateValidationResult[]): boolean {

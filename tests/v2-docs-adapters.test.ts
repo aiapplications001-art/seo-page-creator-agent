@@ -521,9 +521,50 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /no new research|must not start new research|performs no new research|start new research/i);
   }
 
+  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+    assert.match(doc, /Step 9|SEO Page Outline/i);
+    assert.match(doc, /seoPageOutline/);
+    assert.match(doc, /pageOutlineHash/);
+    assert.match(doc, /seo-page-outline\.json/);
+    assert.match(doc, /seo-page-outline\.md/);
+    assert.match(doc, /workingH1/);
+    assert.match(doc, /pageFlowType/);
+    assert.match(doc, /pageFlowReason/);
+    assert.match(doc, /pageFlowStep8Refs/);
+    assert.match(doc, /readerJourneySummaryStatement/);
+    assert.match(doc, /sectionSequenceRationale/);
+    assert.match(doc, /mainIntentVisibilityCheck/);
+    assert.match(doc, /outlineSections/);
+    assert.match(doc, /sectionId/);
+    assert.match(doc, /sectionRole/);
+    assert.match(doc, /contentObligations/);
+    assert.match(doc, /queryCoveragePlan/);
+    assert.match(doc, /assetPlacementPlan/);
+    assert.match(doc, /internalLinkPlacementPlan/);
+    assert.match(doc, /ctaPlacementPlan/);
+    assert.match(doc, /faqPlan/);
+    assert.match(doc, /contentBriefDeliveryProof/);
+    assert.match(doc, /step8RefinementPatch/);
+    assert.match(doc, /outlineOriginalityCheck/);
+    assert.match(doc, /outlineScanabilityCheck/);
+    assert.match(doc, /headingHierarchyCheck/);
+    assert.match(doc, /batchOutlineIsolationCheck/);
+    assert.match(doc, /outlineDeliveryProofRequirements|outlineDeliveryProof/);
+    assert.match(doc, /step9OutputMustNotContain/);
+    assert.match(doc, /step9CompletenessChecklist/);
+    assert.match(doc, /pageOutlineVerdict/);
+    assert.match(doc, /continue_to_step10/);
+    assert.match(doc, /Markdown parity|Markdown.*parity|markdownParity/i);
+    assert.match(doc, /8-14|8 to 14|eight to fourteen/i);
+    assert.match(doc, /first 1-2 H2|first 1 to 2 H2|first one to two H2/i);
+    assert.match(doc, /no new research|must not start new research|performs no new research/i);
+    assert.match(doc, /pageOutlineDeliveryProof|outlineDeliveryProof/);
+  }
+
   assert.equal(existsSync("docs/superpowers/specs/2026-07-11-step-5-serp-competitor-analysis-design.md"), true);
   assert.equal(existsSync("docs/superpowers/specs/2026-07-11-step-6-topic-research-bank-design.md"), true);
   assert.equal(existsSync("docs/superpowers/specs/2026-07-12-step-7-unique-angle-information-gain-design.md"), true);
   assert.equal(existsSync("docs/superpowers/specs/2026-07-12-step-8-seo-content-brief-design.md"), true);
+  assert.equal(existsSync("docs/superpowers/specs/2026-07-12-step-9-seo-page-outline-design.md"), true);
   assert.equal(existsSync("config/step8-practical-device-baselines.json"), true);
 });

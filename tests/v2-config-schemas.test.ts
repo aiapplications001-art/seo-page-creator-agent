@@ -61,7 +61,8 @@ test("V2 schema files expose expected schema ids", () => {
     ["schemas/v2-refresh-packet.schema.json", "refresh-packet.v2"],
     ["schemas/v2-human-editorial-brief.schema.json", "human-editorial-brief.v2"],
     ["schemas/v2-claim-first-section-plan.schema.json", "claim-first-section-plan.v2"],
-    ["schemas/v2-seo-content-brief.schema.json", "seo-content-brief.v2"]
+    ["schemas/v2-seo-content-brief.schema.json", "seo-content-brief.v2"],
+    ["schemas/v2-seo-page-outline.schema.json", "seo-page-outline.v2"]
   ];
 
   for (const [path, schemaVersion] of schemaIds) {

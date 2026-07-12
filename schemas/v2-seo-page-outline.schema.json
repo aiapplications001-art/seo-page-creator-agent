@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-seo-page-outline.schema.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "seo-page-outline.v2"
+    },
+    "upstreamHashes": {
+      "type": "object",
+      "required": [
+        "step0AHash",
+        "step0BHash",
+        "pageJobHash",
+        "searchIntentHash",
+        "pageFormatHash",
+        "nextActionHash",
+        "serpCompetitorHash",
+        "topicResearchHash",
+        "uniqueAngleHash",
+        "contentBriefHash"
+      ]
+    },
+    "pageOutlineHash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workingH1": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pageFlowType": {
+      "type": "string",
+      "enum": [
+        "beginner_to_advanced",
+        "step_by_step",
+        "problem_to_solution",
+        "decision_making",
+        "diagnosis_to_action",
+        "safety_first",
+        "comparison_to_recommendation"
+      ]
+    },
+    "outlineSections": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "faqPlan": {
+      "type": "object"
+    },
+    "contentBriefDeliveryProof": {
+      "type": "object"
+    },
+    "batchOutlineIsolationCheck": {
+      "type": "object"
+    },
+    "mustCarryForward": {
+      "type": "array"
+    },
+    "step9CompletenessChecklist": {
+      "type": "object"
+    },
+    "pageOutlineVerdict": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "upstreamHashes",
+    "pageOutlineHash",
+    "workingH1",
+    "pageFlowType",
+    "outlineSections",
+    "faqPlan",
+    "contentBriefDeliveryProof",
+    "batchOutlineIsolationCheck",
+    "mustCarryForward",
+    "step9CompletenessChecklist",
+    "pageOutlineVerdict"
+  ]
+}

@@ -6,6 +6,7 @@ import {
   validateCitationSetGate,
   validateContentBriefGate,
   validateNarrativeBriefGate,
+  validatePageOutlineGate,
   validateSerpResearchGate,
   validateSocialVideoResearchGate
 } from "../src/lib/v2/gates.js";
@@ -368,6 +369,222 @@ test("content brief gate fails on missing hashes, failed checklist, and missing 
   assert.ok(result.blockingIssues.some((issue) => issue.includes("Content brief requires all upstream hashes")));
   assert.ok(result.blockingIssues.includes("Content brief completeness checklist failed: allUpstreamHashesPresent."));
   assert.ok(result.blockingIssues.includes("Content brief Markdown parity must be checked."));
+});
+
+const completeOutlineSections = Array.from({ length: 8 }, (_, index) => ({
+  sectionId: `section-${String(index + 1).padStart(2, "0")}`,
+  headingText: index === 0 ? "Quick answer: when this routine helps or hurts" : `Evidence-backed section ${index + 1}`,
+  sectionRole: index === 0 ? "quick_answer" : index === 6 ? "faq" : "core_explanation",
+  mappedStep8Refs: [`instruction-${index + 1}`],
+  purpose: "Move the reader through the promised outline step with page-specific reasoning.",
+  depthLevel: index < 3 ? "high" as const : "medium" as const,
+  depthReason: "Depth follows Step 8 obligations and the reader's decision need.",
+  expectedTreatment: "Answer, explain, support with evidence, and keep the section scoped.",
+  mappedDepthRequirementRefs: [`depth-${index + 1}`],
+  contentObligations: ["answer", "evidence use", "scope boundary"],
+  h3s: index < 3 ? ["What to know", "What to do"] : [],
+  h3Rationale: index < 3 ? undefined : "This section is concise enough without substructure.",
+  assetPlacements: index === 3 ? ["primary matrix placeholder"] : [],
+  examplePlacements: ["one page-specific example"],
+  internalLinkNotes: ["Use broad section-level link guidance only."],
+  ctaNotes: index === 7 ? ["Soft next action near section end."] : [],
+  claimEvidenceNotes: "Use Step 6/8 source guidance and soften high-risk claims.",
+  scopeBoundaryRisk: index === 4,
+  scopeBoundaryNotes: index === 4 ? ["Do not turn this into a product roundup."] : [],
+  transitionFromPrevious: index === 0 ? undefined : "Continue from the prior reader question into the next needed decision."
+}));
+
+test("page outline gate passes a complete Step 9 blueprint", () => {
+  const result = validatePageOutlineGate({
+    upstreamHashes: {
+      step0AHash: "0a",
+      step0BHash: "0b",
+      pageJobHash: "job",
+      searchIntentHash: "intent",
+      pageFormatHash: "format",
+      nextActionHash: "next",
+      serpCompetitorHash: "serp",
+      topicResearchHash: "research",
+      uniqueAngleHash: "angle",
+      contentBriefHash: "brief"
+    },
+    pageOutlineHash: "outline",
+    workingH1: "How to Build a Safe, Evidence-Backed Routine",
+    pageFlowType: "problem_to_solution",
+    pageFlowReason: "The reader needs the concern answered early, then needs context, decision support, troubleshooting, and next action.",
+    pageFlowStep8Refs: ["contentBriefSummaryStatement", "readerOutcomePromise"],
+    readerJourneySummaryStatement: "This outline answers the concern early, then guides fit, risks, troubleshooting, and a safer next step.",
+    sectionSequenceRationale: "The order follows the search problem before context so the primary concern is not buried.",
+    mainIntentVisibilityCheck: {
+      visibleInFirstTwoH2s: true,
+      evidenceRefs: ["searchIntentContract.satisfactionCondition"]
+    },
+    outlineSections: completeOutlineSections,
+    queryCoveragePlan: {
+      targetKeywordMapped: true,
+      supportingQueriesMapped: true,
+      doNotForceTerms: ["best product", "cheap price"]
+    },
+    assetPlacementPlan: ["Place the primary decision matrix in section-04; Step 10 writes rows."],
+    internalLinkPlacementPlan: ["Use one contextual internal link in section-03."],
+    ctaPlacementPlan: ["Use a soft next action after the checklist/summary."],
+    faqPlan: {
+      decision: "short",
+      routedQuestions: ["Will this make acne worse?", "When should I stop?"]
+    },
+    contentBriefDeliveryProof: {
+      allMandatoryInstructionsCovered: true,
+      missingMandatoryInstructions: [],
+      returnedToStep8: false
+    },
+    step8RefinementPatch: [
+      {
+        refinementType: "clarify_writer_instruction",
+        reason: "Merged duplicate brief instructions into one outline obligation.",
+        strategicChange: false
+      }
+    ],
+    outlineOriginalityCheck: {
+      noCopiedCompetitorHeadings: true,
+      noCopiedCompetitorStructure: true,
+      noCopiedTableLogic: true
+    },
+    outlineScanabilityCheck: {
+      importantAnswerEarly: true,
+      noOverloadedH2s: true,
+      noBuriedSafetyOrDecisionInfo: true,
+      headingsScannable: true
+    },
+    headingHierarchyCheck: {
+      singleH1: true,
+      h2sNonOverlapping: true,
+      h3sUsefulOnly: true,
+      headingsScannable: true
+    },
+    batchOutlineIsolationCheck: {
+      pageSpecificOutline: true,
+      reusedPriorOutline: false,
+      currentBatchUnique: true,
+      similarityToCurrentBatch: "low"
+    },
+    outlineDeliveryProofRequirements: {
+      step10Required: true,
+      finalQaRequired: true
+    },
+    mustCarryForward: ["pageOutlineHash", "section IDs", "asset placement", "FAQ plan"],
+    step9OutputMustNotContain: ["final page copy", "metadata", "image prompts", "exact asset rows"],
+    step9CompletenessChecklist: {
+      allUpstreamHashesPresent: true,
+      contentBriefDeliveryProofComplete: true,
+      mainIntentVisibleEarly: true,
+      allH2sMappedToStep8: true,
+      noStep9BoundaryViolation: true
+    },
+    markdownParityChecked: true,
+    pageOutlineVerdict: {
+      status: "pass",
+      action: "continue_to_step10"
+    },
+    judgmentChecks: {
+      passed: true
+    }
+  });
+
+  assert.equal(result.status, "passed");
+  assert.equal(result.machineChecksPassed, true);
+});
+
+test("page outline gate fails missing hashes, hidden intent, duplicate outline, and boundary issues", () => {
+  const result = validatePageOutlineGate({
+    upstreamHashes: {
+      contentBriefHash: "brief"
+    },
+    pageOutlineHash: "",
+    workingH1: "",
+    pageFlowType: "problem_to_solution",
+    pageFlowReason: "Thin reason.",
+    pageFlowStep8Refs: [],
+    readerJourneySummaryStatement: "",
+    sectionSequenceRationale: "",
+    mainIntentVisibilityCheck: {
+      visibleInFirstTwoH2s: false
+    },
+    outlineSections: [
+      {
+        sectionId: "section-01",
+        headingText: "Background",
+        sectionRole: "context",
+        mappedStep8Refs: [],
+        purpose: "Too generic.",
+        depthLevel: "high",
+        contentObligations: []
+      }
+    ],
+    queryCoveragePlan: {
+      targetKeywordMapped: false,
+      supportingQueriesMapped: false,
+      doNotForceTerms: []
+    },
+    faqPlan: {
+      decision: "none"
+    },
+    contentBriefDeliveryProof: {
+      allMandatoryInstructionsCovered: false,
+      missingMandatoryInstructions: ["I1"],
+      returnedToStep8: false
+    },
+    step8RefinementPatch: [
+      {
+        refinementType: "change_unique_angle",
+        reason: "Strategic rewrite.",
+        strategicChange: true
+      }
+    ],
+    outlineOriginalityCheck: {
+      noCopiedCompetitorHeadings: false,
+      noCopiedCompetitorStructure: false,
+      noCopiedTableLogic: false
+    },
+    outlineScanabilityCheck: {
+      importantAnswerEarly: false,
+      noOverloadedH2s: true,
+      noBuriedSafetyOrDecisionInfo: false,
+      headingsScannable: true
+    },
+    headingHierarchyCheck: {
+      singleH1: false,
+      h2sNonOverlapping: false,
+      h3sUsefulOnly: false,
+      headingsScannable: false
+    },
+    batchOutlineIsolationCheck: {
+      pageSpecificOutline: false,
+      reusedPriorOutline: true,
+      currentBatchUnique: false,
+      similarityToCurrentBatch: "high"
+    },
+    outlineDeliveryProofRequirements: {
+      step10Required: false,
+      finalQaRequired: false
+    },
+    step9CompletenessChecklist: {
+      mainIntentVisibleEarly: false
+    },
+    markdownParityChecked: false,
+    pageOutlineVerdict: {
+      status: "fail",
+      action: "repair_step9"
+    },
+    judgmentChecks: {
+      passed: true
+    }
+  });
+
+  assert.equal(result.status, "failed");
+  assert.ok(result.blockingIssues.some((issue) => issue.includes("Page outline requires all upstream hashes")));
+  assert.ok(result.blockingIssues.includes("Page outline must address the main search intent within the first 1-2 H2 sections."));
+  assert.ok(result.blockingIssues.includes("Page outline must pass batchOutlineIsolationCheck."));
+  assert.ok(result.blockingIssues.includes("Page outline Markdown parity must be checked."));
 });
 
 test("allMandatoryGatesPassed requires every gate to pass", () => {

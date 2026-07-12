@@ -222,4 +222,37 @@ and prove page-specificity through `batchBriefIsolationCheck` and
 `return_to_0B`, `return_to_onboarding`, `ask_user`, or `skip_page`.
 Downstream QA must include `contentBriefDeliveryProof` and every Step 9 or later
 artifact must carry `contentBriefHash`.
+
+Step 9 must freeze the SEO Page Outline as `seoPageOutline` before Step 10,
+final copy, images, commit, deploy, or publish. It saves
+`seo-page-outline.json` and `seo-page-outline.md`, freezes `pageOutlineHash`,
+carries all upstream hashes including `contentBriefHash`, and includes
+`workingH1`, `pageFlowType`, `pageFlowReason`, `pageFlowStep8Refs`,
+`readerJourneySummaryStatement`, `sectionSequenceRationale`,
+`mainIntentVisibilityCheck`, `outlineSections`, `queryCoveragePlan`,
+`assetPlacementPlan`, `internalLinkPlacementPlan`, `ctaPlacementPlan`,
+`faqPlan`, `contentBriefDeliveryProof`, optional `step8RefinementPatch`,
+`outlineOriginalityCheck`, `outlineScanabilityCheck`, `headingHierarchyCheck`,
+`batchOutlineIsolationCheck`, `outlineDeliveryProofRequirements`,
+`mustCarryForward`, `step9OutputMustNotContain`,
+`step9CompletenessChecklist`, `step9RepairLog`, and `pageOutlineVerdict`.
+
+Explain that Step 9 is the blueprint gate and performs no new research. Normal
+pages use 8-14 H2 sections unless justified, and the main intent must be visible
+in the first 1-2 H2 sections. Only H2s get `sectionId`; H3s are nested without
+IDs. Every H2 must include `sectionRole`, `mappedStep8Refs`, `depthLevel`,
+`depthReason`, `expectedTreatment`, `mappedDepthRequirementRefs`,
+`contentObligations`, query mapping, claim/evidence notes, transition logic, and
+scope boundaries when relevant. `faqPlan` is required as short or detailed
+unless a strong evidence-backed exception supports none.
+
+Step 9 must not output final paragraphs, exact CTA wording, metadata, image
+prompts, exact asset rows or branches, citation display strategy, new facts, new
+claims, copied competitor headings/tables/examples, or draft copy. It returns
+`continue_to_step10`, `repair_step9`, `return_to_step8`, `return_to_step7`,
+`return_to_step6`, `return_to_step5`, `return_to_step4`, `return_to_step3`,
+`return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or
+`skip_page`. Downstream QA must include `pageOutlineDeliveryProof` or
+`outlineDeliveryProof`, and every Step 10 or later artifact must carry
+`pageOutlineHash`.
 """

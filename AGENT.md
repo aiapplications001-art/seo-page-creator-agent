@@ -14,7 +14,7 @@ Use this agent when a user wants to create or refresh brand-aware SEO pages for 
 8. Weekly watcher reports use official guidance sources only.
 9. V2 final packets require the five mandatory content-quality gates before final page packet generation.
 10. No hard-gate override is allowed in V2; advisory scores can be overridden, but missing research or unsupported claims cannot.
-11. Step 0A foundation, Step 0B Page Scope Contract, Step 1 Page Job Contract, Step 2 Search Intent Contract, Step 3 Page Format Contract, Step 4 Next Action Contract, Step 5 SERP Competitor Analysis, Step 6 Topic Research Bank, Step 7 Unique Angle And Information Gain, and Step 8 SEO Content Brief are hard gates before outline, page packet, prewriting, final copy, images, batch publishing, commit, deploy, or live publish work.
+11. Step 0A foundation, Step 0B Page Scope Contract, Step 1 Page Job Contract, Step 2 Search Intent Contract, Step 3 Page Format Contract, Step 4 Next Action Contract, Step 5 SERP Competitor Analysis, Step 6 Topic Research Bank, Step 7 Unique Angle And Information Gain, Step 8 SEO Content Brief, and Step 9 SEO Page Outline are hard gates before drafting, page packet, prewriting, final copy, images, batch publishing, commit, deploy, or live publish work.
 12. Every downstream page artifact must carry the frozen Step 0B `contractHash`; if `targetKeyword`, `targetQueryIntent`, query cluster, selected opportunity, `mustCover`, `mustNotCover`, `pageScopeSummary`, or `uniqueContribution` changes, rerun and revalidate Step 0B.
 13. Every downstream page artifact after Step 1 must carry `step0BContractHash` and `pageJobHash`; if the audience, task, help format, outcome, business role, risk boundary, evidence basis, uniqueness, or `pageJobStatement` changes, rerun and revalidate Step 1.
 14. Every downstream page artifact after Step 2 must carry `searchIntentHash`; if the dominant intent, deeper intent, expected depth, satisfaction condition, result type, content format, SERP pattern, market context, or alignment decision changes, rerun and revalidate Step 2.
@@ -24,6 +24,7 @@ Use this agent when a user wants to create or refresh brand-aware SEO pages for 
 18. Every downstream page artifact after Step 6 must carry `topicResearchHash`; if the research depth tier, research agenda, source registry, extracted facts, agenda coverage, Step 5 carry-forward coverage, source conflicts, local-market evidence, `doNotUse`, or `mustCarryForward` changes, rerun and revalidate Step 6.
 19. Every downstream page artifact after Step 7 must carry `uniqueAngleHash`; if the primary/supporting angles, assets, baselines, areas to exceed, reason-to-compete statement, or delivery requirements change, rerun and revalidate Step 7.
 20. Every downstream page artifact after Step 8 must carry `contentBriefHash`; if the writer instructions, word-count floor, depth obligations, source-use guidance, assets, voice, anti-generic contract, practical devices, or delivery proof requirements change, rerun and revalidate Step 8.
+21. Every downstream page artifact after Step 9 must carry `pageOutlineHash`; if the working H1, page flow, H2 order, section IDs, section roles, section obligations, asset placement, FAQ plan, CTA/link placement, scope boundaries, or outline delivery proof changes, rerun and revalidate Step 9.
 
 ## Workflow Order
 
@@ -43,6 +44,7 @@ Company onboarding
 -> Step 6 Topic Research Bank: research agenda, credible sources, extracted facts, conflicts, do-not-use, topicResearchHash
 -> Step 7 Unique Angle And Information Gain: evidence-backed differentiation, visible assets, areas to exceed, uniqueAngleHash
 -> Step 8 SEO Content Brief: writer-ready instructions, depth floor, source-use, voice, anti-generic rules, contentBriefHash
+-> Step 9 SEO Page Outline: working H1, page flow, H2 structure, section obligations, FAQ plan, pageOutlineHash
 -> Pre-Writing Strategy
 -> Publish-ready page packet or refresh packet
 -> Section-level edits and version history
@@ -255,6 +257,28 @@ Step 8 must carry writer-facing `sourceUseGuidance`, separating authoritative to
 `contentBriefDeliveryProofRequirements` must require Step 9 to prove every mandatory instruction is represented in the outline plan, Step 10 to map instructions to visible draft content/assets/examples/evidence handling or approved conditional omission, and final QA to verify the delivered page still satisfies `contentBriefHash`, the word-count floor, completeness tests, safety boundaries, required assets, differentiation obligations, and exclusions.
 
 `contentBriefVerdict` may be `pass`, non-critical `pass_with_warnings`, `fail`, or `ask_user`, with action `continue_to_step9`, `repair_step8`, `return_to_step7`, `return_to_step6`, `return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `return_to_onboarding`, `ask_user`, or `skip_page`. Step 8 may repair weak Step 8 fields up to 2 times, but missing upstream hashes, brand voice, mandatory depth, required assets, safety boundaries, evidence, semantic uniqueness, hard word-count basis, or Markdown parity are blockers. `seo-content-brief.md` must maintain strict parity for major decisions.
+
+## Step 9 SEO Page Outline Gate
+
+Step 9 is the hard outline gate after Step 8 and before Step 10 drafting, prewriting, final copy, images, page packet, commit, deploy, or publish. It creates `seoPageOutline`, saves `seo-page-outline.json` and `seo-page-outline.md`, freezes `pageOutlineHash`, and blocks drafting until `pageOutlineVerdict.action` is `continue_to_step10`.
+
+Step 9 is a blueprint step. It may create the working H1, page flow, H2/H3 hierarchy, section order, section depth, section obligations, section-level asset/example/link/CTA placement, FAQ plan, and outline validation. It must not start new research, change strategy, write final page copy, create SEO title/meta, finalize citation display, create image prompts, create final CTA wording, copy competitor headings, copy competitor heading order, copy competitor table logic, or copy competitor section sequence.
+
+Require `step0AHash`, `step0BHash`, `pageJobHash`, `searchIntentHash`, `pageFormatHash`, `nextActionHash`, `serpCompetitorHash`, `topicResearchHash`, `uniqueAngleHash`, and `contentBriefHash`. The outline must include `pageOutlineHash`, `workingH1`, `pageFlowType`, `pageFlowReason`, `pageFlowStep8Refs`, `readerJourneySummaryStatement`, `sectionSequenceRationale`, `mainIntentVisibilityCheck`, `outlineSections`, `queryCoveragePlan`, `assetPlacementPlan`, `internalLinkPlacementPlan`, `ctaPlacementPlan`, `faqPlan`, `contentBriefDeliveryProof`, `step8RefinementPatch`, `outlineOriginalityCheck`, `outlineScanabilityCheck`, `headingHierarchyCheck`, `batchOutlineIsolationCheck`, `outlineDeliveryProofRequirements`, `mustCarryForward`, `step9OutputMustNotContain`, `step9CompletenessChecklist`, `step9RepairLog`, and `pageOutlineVerdict`.
+
+`pageFlowType` must be exactly one primary flow such as `beginner_to_advanced`, `step_by_step`, `problem_to_solution`, `decision_making`, `diagnosis_to_action`, `safety_first`, or `comparison_to_recommendation`, with reason and Step 8 refs. The main search intent must be visibly addressed within the first 1-2 H2 sections; burying the primary concern below background context is a blocker.
+
+Normal pages should use 8-14 H2 sections unless a justified exception cites Step 2 depth, Step 3 format, Step 8 brief, and page type. Each H2 must include stable `sectionId`, `headingText`, fixed `sectionRole`, `mappedStep8Refs`, purpose, `depthLevel`, `depthReason`, `expectedTreatment`, `mappedDepthRequirementRefs`, `contentObligations`, H3s only where useful, `assetPlacements`, `examplePlacements`, `internalLinkNotes`, `ctaNotes`, `claimEvidenceNotes`, needed `scopeBoundaryNotes`, and `transitionFromPrevious` for every H2 after the first. Only H2s get section IDs; H3s are nested without IDs. High-depth H2s without H3s need an `h3Rationale`.
+
+Step 9 may make only non-strategic Step 8 refinements through `step8RefinementPatch`, such as clarifying a writer instruction, merging overlapping inclusions, adjusting section-level depth, or moving a conditional inclusion into a specific outline section. Step 9 must not change target keyword, page job, intent, format, next action, unique angle, required assets, exclusions, safety boundaries, evidence, or strategy; strategic conflicts return to the owner step.
+
+`contentBriefDeliveryProof` must prove every mandatory Step 8 instruction is represented in the outline, intentionally routed, or returned to Step 8. `queryCoveragePlan` must map the target keyword and supporting queries to natural sections, implied needs, and `doNotForceTerms`. `faqPlan` is required by default as `short` or `detailed`; `none` is allowed only with strong evidence that FAQ would duplicate the body or harm page flow.
+
+`outlineOriginalityCheck` must prove no copied competitor headings, section sequence, table logic, or structure. `outlineScanabilityCheck` must prove the important answer appears early, headings are scannable, H2s are not overloaded, and safety or decision information is not buried. `batchOutlineIsolationCheck` must prove this page has its own outline artifacts, no prior outline was reused, current-batch similarity is low or justified, and section journey, roles, assets, examples, FAQ, and CTA flow are not copied.
+
+`mustCarryForward` must give Step 10 the non-negotiable working H1, page flow, section IDs, H2 order, section obligations, depth allocation, asset placements, FAQ plan, CTA/link placement, scope boundaries, evidence notes, query coverage, and originality constraints. `outlineDeliveryProofRequirements` must require Step 10 to map draft content to `pageOutlineHash` and H2 `sectionId`s, and final QA to verify the frozen outline was delivered or approved changes were logged.
+
+`pageOutlineVerdict` may be `pass`, non-critical `pass_with_warnings`, `fail`, or `ask_user`, with action `continue_to_step10`, `repair_step9`, `return_to_step8`, `return_to_step7`, `return_to_step6`, `return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. Step 9 may repair weak Step 9 fields up to 2 times, but missing hashes, copied competitor structure, no defensible flow, hidden main intent, unsafe outline, duplicate current-batch outline, missing required asset, broken Step 8 delivery proof, boundary violation, or missing Markdown parity are blockers. `seo-page-outline.md` must maintain strict Markdown parity with JSON for major decisions.
 
 ## V1 Tracks
 
