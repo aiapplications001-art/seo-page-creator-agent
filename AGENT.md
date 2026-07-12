@@ -14,7 +14,7 @@ Use this agent when a user wants to create or refresh brand-aware SEO pages for 
 8. Weekly watcher reports use official guidance sources only.
 9. V2 final packets require the five mandatory content-quality gates before final page packet generation.
 10. No hard-gate override is allowed in V2; advisory scores can be overridden, but missing research or unsupported claims cannot.
-11. Step 0A foundation, Step 0B Page Scope Contract, Step 1 Page Job Contract, Step 2 Search Intent Contract, Step 3 Page Format Contract, Step 4 Next Action Contract, Step 5 SERP Competitor Analysis, and Step 6 Topic Research Bank are hard gates before any page packet, prewriting, final copy, images, batch publishing, commit, deploy, or live publish work.
+11. Step 0A foundation, Step 0B Page Scope Contract, Step 1 Page Job Contract, Step 2 Search Intent Contract, Step 3 Page Format Contract, Step 4 Next Action Contract, Step 5 SERP Competitor Analysis, Step 6 Topic Research Bank, and Step 7 Unique Angle And Information Gain are hard gates before any page packet, prewriting, final copy, images, batch publishing, commit, deploy, or live publish work.
 12. Every downstream page artifact must carry the frozen Step 0B `contractHash`; if `targetKeyword`, `targetQueryIntent`, query cluster, selected opportunity, `mustCover`, `mustNotCover`, `pageScopeSummary`, or `uniqueContribution` changes, rerun and revalidate Step 0B.
 13. Every downstream page artifact after Step 1 must carry `step0BContractHash` and `pageJobHash`; if the audience, task, help format, outcome, business role, risk boundary, evidence basis, uniqueness, or `pageJobStatement` changes, rerun and revalidate Step 1.
 14. Every downstream page artifact after Step 2 must carry `searchIntentHash`; if the dominant intent, deeper intent, expected depth, satisfaction condition, result type, content format, SERP pattern, market context, or alignment decision changes, rerun and revalidate Step 2.
@@ -22,6 +22,7 @@ Use this agent when a user wants to create or refresh brand-aware SEO pages for 
 16. Every downstream page artifact after Step 4 must carry `nextActionHash`; if the user journey stage, primary next action, secondary next action, CTA strength, internal journey path, or next-action statement changes, rerun and revalidate Step 4.
 17. Every downstream page artifact after Step 5 must carry `serpCompetitorHash`; if the SERP context, competitor set, SERP strength, minimum bar, opportunity gaps, cannibalization result, differentiation requirement, or direction validation changes, rerun and revalidate Step 5.
 18. Every downstream page artifact after Step 6 must carry `topicResearchHash`; if the research depth tier, research agenda, source registry, extracted facts, agenda coverage, Step 5 carry-forward coverage, source conflicts, local-market evidence, `doNotUse`, or `mustCarryForward` changes, rerun and revalidate Step 6.
+19. Every downstream page artifact after Step 7 must carry `uniqueAngleHash`; if the primary/supporting angles, assets, baselines, areas to exceed, reason-to-compete statement, or delivery requirements change, rerun and revalidate Step 7.
 
 ## Workflow Order
 
@@ -39,6 +40,7 @@ Company onboarding
 -> Step 4 Next Action Contract: user journey stage, primary/secondary next actions, CTA strength, internal journey path, nextActionHash
 -> Step 5 SERP Competitor Analysis: primary SERP, supporting-query SERPs, competitor bar, gaps, market fit, serpCompetitorHash
 -> Step 6 Topic Research Bank: research agenda, credible sources, extracted facts, conflicts, do-not-use, topicResearchHash
+-> Step 7 Unique Angle And Information Gain: evidence-backed differentiation, visible assets, areas to exceed, uniqueAngleHash
 -> Pre-Writing Strategy
 -> Publish-ready page packet or refresh packet
 -> Section-level edits and version history
@@ -215,6 +217,20 @@ Step 6 must create `sourceConflictNotes` when credible sources disagree, especia
 `topicResearchVerdict` may be `pass`, non-critical `pass_with_warnings`, `fail`, or `ask_user`, with action `continue_to_step7`, `return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. Step 6 may repair weak Step 6 fields up to 2 times, but no credible sources, no authoritative support for critical claims, unresolved critical research gaps, no required local evidence, copied source material, or major Step 0B-5 contradictions are not auto-repairable.
 
 `mustCarryForward` must include only non-ignorable research conclusions: core facts, safety boundaries, market/product constraints, common mistakes, reader questions, claims needing citation or softening, conflicts/uncertainties, and Step 5 minimum-bar items validated by topic research. All downstream artifacts must carry `topicResearchHash`; final copy or page-packet QA must include `topicResearchDeliveryProof` proving each must-carry-forward item was used visibly, used in a table/checklist/decision tool, converted into a citation/safety note, intentionally rejected with a clear reason, or routed to another page/step.
+
+## Step 7 Unique Angle And Information Gain Gate
+
+Step 7 is a hard synthesis gate after Step 6 and before Step 8, prewriting, structure, final copy, images, page packet, commit, deploy, or publish. It performs no new research. It creates `uniqueAngleInformationGain`, saves `unique-angle-information-gain.json` and `unique-angle-information-gain.md`, and freezes `uniqueAngleHash`.
+
+The contract must include all upstream hashes plus `primaryImprovementAngle`, 1-3 `supportingImprovementAngles`, `step5GapRouting`, `step6OpportunityRouting`, `informationGainAssets`, `baselineToMatch`, `areasToExceed`, `informationGainStatement`, `differentiationStatement`, `whyThisPageDeservesToCompeteStatement`, `informationGainQualificationCheck`, `formatCompatibilityCheck`, `safetyAndBrandFitCheck`, `originalityContract`, `multiSurfaceEvidenceCoverage`, `uniqueAngleUniquenessCheck`, `mustCarryForward`, `step7OutputMustNotContain`, `step7CompletenessChecklist`, `uniqueAngleRepairLog`, and `uniqueAngleVerdict`.
+
+Every page needs one mandatory primary asset, one mandatory supporting asset, and one conditional optional supporting asset. Every asset needs `accessibleContentFallback`. The primary asset requires at least 2 Step 5 refs and 3 Step 6 evidence items from at least 2 credible sources; the mandatory supporting asset needs 2 Step 6 items plus Step 5 or audience/search evidence. The primary asset must pass the evidence + synthesis + action test and map to a top intent dimension and Step 2 satisfaction condition.
+
+Require at least 2 `baselineToMatch` items and 5-7 distinct `areasToExceed`. Collectively prove primary SERP, credible topic research, secondary-query/long-tail, and audience-language coverage when available. Every Step 5 gap and relevant Step 6 opportunity must be explicitly routed. Mandatory assets must pass `formatCompatibilityCheck` and `safetyAndBrandFitCheck`.
+
+`uniqueAngleUniquenessCheck` is a hard current-batch and accessible-history check across angles, asset logic, evidence mapping, and reader outcome. Reusing an asset type is allowed; reusing its reasoning or decision logic is not. `originalityContract` bans copied competitor logic. `step7OutputMustNotContain` prohibits final outline, headings, section order, detailed asset content, final prose, CTA wording, metadata, image prompts, citation-display strategy, new research, and unsupported claims.
+
+`uniqueAngleVerdict` may be `pass`, narrow non-critical `pass_with_warnings`, `fail`, or `ask_user`, with action `continue_to_step8`, `return_to_step6`, `return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. Weak fields may be repaired up to 2 times; missing evidence, unsafe/incompatible differentiation, or substantial duplication returns to the owner step, asks, or skips. `step7CompletenessChecklist` must validate substance, not only JSON presence. Final QA must include `informationGainDeliveryProof`; missing required proof blocks publishing.
 
 ## V1 Tracks
 

@@ -454,6 +454,40 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /topicResearchDeliveryProof/);
   }
 
+  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+    assert.match(doc, /Step 7|Unique Angle And Information Gain/i);
+    assert.match(doc, /uniqueAngleInformationGain/);
+    assert.match(doc, /uniqueAngleHash/);
+    assert.match(doc, /unique-angle-information-gain\.json/);
+    assert.match(doc, /unique-angle-information-gain\.md/);
+    assert.match(doc, /primaryImprovementAngle/);
+    assert.match(doc, /supportingImprovementAngles/);
+    assert.match(doc, /step5GapRouting/);
+    assert.match(doc, /step6OpportunityRouting/);
+    assert.match(doc, /informationGainAssets/);
+    assert.match(doc, /accessibleContentFallback/);
+    assert.match(doc, /baselineToMatch/);
+    assert.match(doc, /areasToExceed/);
+    assert.match(doc, /whyThisPageDeservesToCompeteStatement/);
+    assert.match(doc, /informationGainQualificationCheck/);
+    assert.match(doc, /formatCompatibilityCheck/);
+    assert.match(doc, /safetyAndBrandFitCheck/);
+    assert.match(doc, /originalityContract/);
+    assert.match(doc, /multiSurfaceEvidenceCoverage/);
+    assert.match(doc, /uniqueAngleUniquenessCheck/);
+    assert.match(doc, /step7OutputMustNotContain/);
+    assert.match(doc, /step7CompletenessChecklist/);
+    assert.match(doc, /uniqueAngleRepairLog/);
+    assert.match(doc, /uniqueAngleVerdict/);
+    assert.match(doc, /continue_to_step8/);
+    assert.match(doc, /5-7|5 to 7|five to seven/i);
+    assert.match(doc, /2 Step 5|two Step 5/i);
+    assert.match(doc, /3 Step 6|three Step 6/i);
+    assert.match(doc, /no new research|must not start new research|performs no new research/i);
+    assert.match(doc, /informationGainDeliveryProof/);
+  }
+
   assert.equal(existsSync("docs/superpowers/specs/2026-07-11-step-5-serp-competitor-analysis-design.md"), true);
   assert.equal(existsSync("docs/superpowers/specs/2026-07-11-step-6-topic-research-bank-design.md"), true);
+  assert.equal(existsSync("docs/superpowers/specs/2026-07-12-step-7-unique-angle-information-gain-design.md"), true);
 });

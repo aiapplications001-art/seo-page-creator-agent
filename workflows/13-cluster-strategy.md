@@ -486,6 +486,28 @@ Step 6 must not produce final outline, H1/H2/H3 structure, final unique angle, r
 
 `batchTopicResearchIsolationCheck` must prove the Step 6 artifact is page-specific. Every page must create its own topic research bank. Batch runners cannot reuse another page's Step 6 artifact unless Step 0B-5 hashes are identical. If two pages produce highly similar research agendas, facts, examples, mistakes, or `mustCarryForward`, trigger uniqueness warning or repair. Shared sources are allowed, but extracted facts and page-use mapping must be page-specific.
 
+## Step 7: Unique Angle And Information Gain
+
+Step 7 is a hard blocker after Step 6 and before Step 8 content briefing, Step 9 structure, prewriting, final copy, images, page packet, commit, deploy, or publish. It performs no new research. Save the machine contract as `unique-angle-information-gain.json`, the human review as `unique-angle-information-gain.md`, and freeze `uniqueAngleHash`.
+
+`uniqueAngleInformationGain` must carry every upstream hash and include `primaryImprovementAngle`, 1-3 `supportingImprovementAngles`, `step5GapRouting`, `step6OpportunityRouting`, `informationGainAssets`, `baselineToMatch`, `areasToExceed`, `informationGainStatement`, `differentiationStatement`, `whyThisPageDeservesToCompeteStatement`, `informationGainQualificationCheck`, `formatCompatibilityCheck`, `safetyAndBrandFitCheck`, `originalityContract`, `multiSurfaceEvidenceCoverage`, `uniqueAngleUniquenessCheck`, `mustCarryForward`, `step7OutputMustNotContain`, `step7CompletenessChecklist`, `uniqueAngleRepairLog`, and `uniqueAngleVerdict`.
+
+Require one mandatory primary asset, one mandatory supporting asset, and one conditional optional supporting asset. Every asset must define purpose, inputs, output, visible format, reader action value, evidence mapping, boundaries, delivery requirements, and `accessibleContentFallback`. The primary asset requires at least 2 Step 5 references and 3 Step 6 evidence items from at least 2 credible sources. The mandatory supporting asset requires at least 2 Step 6 items plus Step 5 or audience/search evidence. Objection, FAQ, mistake, or troubleshooting assets need audience-language evidence when available; sensitive logic needs authoritative support.
+
+The primary asset must pass the evidence + synthesis + action test through `informationGainQualificationCheck`. Use `empty_gap` only for a proven useful absence and `material_improvement` only when the asset measurably improves decision usefulness, local fit, safety, clarity, evidence, or usability. Mere absence, attractive formatting, or ordinary SERP coverage is not information gain.
+
+Require at least 2 evidence-linked `baselineToMatch` requirements and 5-7 functionally distinct `areasToExceed`, including the primary angle, primary asset, mandatory supporting asset, and at least 2 additional improvements. More than 7 needs a Step 2/5 evidence-backed exception. `multiSurfaceEvidenceCoverage` must collectively include primary SERP, credible Step 6 research, a secondary-query or long-tail insight, and an audience/search-language insight when available.
+
+Route every Step 5 gap through `address_in_primary_angle`, `address_in_supporting_asset`, `briefly_support`, `separate_page_candidate`, `reject_as_irrelevant`, or `return_to_step5`. Route every relevant Step 6 opportunity through `use_in_primary_angle`, `use_in_primary_asset`, `use_in_supporting_asset`, `support_normal_content`, `route_to_later_step`, `separate_page_candidate`, `reject_with_reason`, or `return_to_step6`. Each route needs reason, evidence, reader value, page impact, and delivery-proof status.
+
+`formatCompatibilityCheck` and `safetyAndBrandFitCheck` are hard gates. `originalityContract` prohibits copied competitor wording, headings, examples, tables, frameworks, decision logic, section sequences, and close paraphrases. `uniqueAngleUniquenessCheck` must compare current-batch and accessible historical angles, asset logic, evidence mapping, and reader outcomes; reusing an asset type is allowed, but reusing its reasoning is not.
+
+`step7OutputMustNotContain` prohibits final outline, H1/H2/H3 headings, section order, detailed asset content, final prose, final CTA wording, metadata, image prompts, citation-display strategy, new research, and unsupported claims. `step7CompletenessChecklist` must substantively validate every required field rather than only JSON presence.
+
+`uniqueAngleVerdict.status` may be `pass`, `pass_with_warnings`, `fail`, or `ask_user`; actions are `continue_to_step8`, `return_to_step6`, `return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. Only environmental, optional-asset, or genuinely unavailable non-critical evidence limitations may pass with warnings. Allow up to 2 repairs for weak Step 7 fields; do not auto-repair missing evidence, unsafe/incompatible differentiation, or substantial duplication.
+
+All downstream artifacts must carry `uniqueAngleHash`. Final copy or page-packet QA must include `informationGainDeliveryProof` mapping visible delivery to the primary angle, primary and mandatory supporting assets, required baselines, all areas to exceed, and `whyThisPageDeservesToCompeteStatement`. The optional asset needs delivery or an evidence-linked approved omission reason. Missing required proof blocks publishing.
+
 ## Strategy Categories
 
 The strategy may classify opportunities as:
@@ -528,7 +550,7 @@ Fail or repair when two pages differ only by keyword wording, share the same pag
 
 Step 0B may include an optional `componentOpportunityHint` only when the query cluster obviously implies a reader aid. Required superiority components are not decided here; they are custom-created later by the SERP Superiority Gate.
 
-In strict batch mode, process one page as: select one opportunity -> Step 0B -> Step 1 -> Step 2 -> Step 3 -> Step 4 -> Step 5 -> create `current-page.lock` -> Step 6 Topic Research Bank -> Step 7 and downstream page work. Do not create `current-page.lock` until Step 5 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step6`. Do not start Step 7, prewriting, final copy, images, commit, deploy, or publishing until Step 6 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step7`.
+In strict batch mode, process one page as: select one opportunity -> Step 0B -> Step 1 -> Step 2 -> Step 3 -> Step 4 -> Step 5 -> create `current-page.lock` -> Step 6 Topic Research Bank -> Step 7 Unique Angle And Information Gain -> Step 8 and downstream page work. Do not create `current-page.lock` until Step 5 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step6`. Do not start Step 8, prewriting, final copy, images, commit, deploy, or publishing until Step 7 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step8`.
 
 ## Source-Backed Inference Notes
 
