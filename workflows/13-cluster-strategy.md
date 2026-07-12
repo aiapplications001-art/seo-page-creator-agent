@@ -508,6 +508,36 @@ Route every Step 5 gap through `address_in_primary_angle`, `address_in_supportin
 
 All downstream artifacts must carry `uniqueAngleHash`. Final copy or page-packet QA must include `informationGainDeliveryProof` mapping visible delivery to the primary angle, primary and mandatory supporting assets, required baselines, all areas to exceed, and `whyThisPageDeservesToCompeteStatement`. The optional asset needs delivery or an evidence-linked approved omission reason. Missing required proof blocks publishing.
 
+## Step 8: SEO Content Brief
+
+Step 8 is a hard blocker after Step 7 and before Step 9 outline creation, prewriting, final copy, images, page packet, commit, deploy, or publish. It is the writer-ready compiler for Steps 0A through 7. Save the machine contract as `seo-content-brief.json`, the human review as `seo-content-brief.md`, and freeze `contentBriefHash`.
+
+`seoContentBrief` must carry `step0AHash`, `step0BHash`, `pageJobHash`, `searchIntentHash`, `pageFormatHash`, `nextActionHash`, `serpCompetitorHash`, `topicResearchHash`, and `uniqueAngleHash`. Missing or invalid upstream hashes are a hard blocker; speculative briefs are forbidden.
+
+The brief must include `contentBriefSummaryStatement`, `readerOutcomePromise`, `provisionalWorkingTitle`, `targetWordCountContract`, `depthRequirements`, `depthBoundaries`, `instructionRegistry`, `upstreamCoverageMatrix`, `requiredInclusions`, `conditionalInclusions`, `exclusions`, `queryCoverageContract`, `sourceUseGuidance`, `assetBriefingContract`, `voiceAndQualityContract`, `readabilityAndScanabilityRequirements`, `antiGenericContract`, `synthesisRequirement`, `brandFitBoundaries`, `marketLocalizationRequirements`, `recencySensitivityCheck`, `readerObjectionHandling`, `internalLinkGuidance`, `practicalDeviceRequirements`, `minimumCompletenessStandard`, `draftRepairGuidance`, `openQuestionsAndAssumptions`, `batchBriefIsolationCheck`, `semanticBriefUniquenessCheck`, `contentBriefDeliveryProofRequirements`, `mustCarryForward`, `step8OutputMustNotContain`, `step8CompletenessChecklist`, `contentBriefRepairLog`, and `contentBriefVerdict`.
+
+Step 8 may lightly translate upstream strategy into writer-ready instructions, but it must not change strategy, start new research, invent missing evidence, create final H1/H2/H3 headings, decide section order, write final prose, create metadata, image prompts, exact CTA wording, or exact citation placement. The non-final `provisionalWorkingTitle` may identify the page only when it does not add new scope or promise.
+
+`targetWordCountContract` must include hard `minimumWordCount`, soft `targetWordCountRange`, `rangeBasis`, and `rangeFlexibility`. The floor is evidence-derived from Step 2 depth, Step 5 competitor depth, Step 6 evidence volume, Step 3 format, Step 7 assets, and Step 0B exclusions. Drafts below the floor fail; filler is forbidden.
+
+`depthRequirements` must normally include 3-7 `highDepthRequirements`, 2-6 `supportingDepthRequirements`, and at least 2 `keepBriefOrExclude` items. Each high-depth requirement needs what, why, evidence refs, completeness test, and relevant depth devices. `depthBoundaries` must explicitly say what to keep brief, exclude, or route elsewhere so the page does not become bloated.
+
+Every `instructionRegistry` item needs `instructionId`, `instructionType`, `writerInstruction`, `priority`, `sourceRefs`, `scopeBoundary`, `step9Use`, `step10Use`, and `deliveryTest`. Priority must be `mandatory`, `conditional`, `supporting`, or `prohibited`. `upstreamCoverageMatrix` must map every Step 0A-7 `mustCarryForward` item and delivery obligation to a Step 8 instruction, conditional instruction, exclusion, or owner-step return.
+
+`sourceUseGuidance` must tell the writer which claims need visible support, softening, qualification, avoidance, or illustrative framing. It must preserve the Step 6 separation between authoritative topic evidence and audience/search-language evidence. `assetBriefingContract` must brief Step 7 assets with purpose, reader input/output, required information categories, evidence refs, accessible fallback, content boundaries, and delivery test, but not exact rows, branches, labels, wording, or placement.
+
+`practicalDeviceRequirements` must read `config/step8-practical-device-baselines.json`, then record page-specific device minimums, replacements, reasons, and evidence. Codex, Gemini, and Antigravity adapters must not maintain separate baseline lists.
+
+`voiceAndQualityContract`, `brandFitBoundaries`, `readabilityAndScanabilityRequirements`, `antiGenericContract`, and `synthesisRequirement` are mandatory. `recencySensitivityCheck` is mandatory for every page; detailed freshness instructions are mandatory when `recencySensitive` is true. `marketLocalizationRequirements` are mandatory when the page is market-sensitive, especially India pages. `readerObjectionHandling` is mandatory when Step 6 or Step 7 found objections, fears, or confusion.
+
+`batchBriefIsolationCheck` must prove the page has its own brief and no prior brief was reused. Shared schema, sources, and config are allowed; shared page promise, depth logic, examples, mistakes, assets, instructions, or anti-generic risks are not. `semanticBriefUniquenessCheck` is a hard current-batch gate; historical gaps may pass with warnings only when inaccessible.
+
+`seo-content-brief.md` must maintain strict Markdown parity with `seo-content-brief.json` for major decisions, while JSON remains the gate. `step8OutputMustNotContain` must forbid final headings, detailed outline, section order, final copy, exact CTA wording, metadata, image prompts, exact asset rows or branches, new facts/research, silent upstream strategy changes, keyword-density targets, and copied source or competitor wording/structure.
+
+`contentBriefDeliveryProofRequirements` must require Step 9 to prove every mandatory instruction is represented in the outline plan, Step 10 to map every mandatory instruction to visible draft content/assets/examples/evidence handling or approved conditional omission, and final QA to verify `contentBriefHash`, minimum word count, completeness tests, safety boundaries, required assets, differentiation obligations, and exclusions.
+
+`contentBriefVerdict.status` may be `pass`, `pass_with_warnings`, `fail`, or `ask_user`; actions are `continue_to_step9`, `repair_step8`, `return_to_step7`, `return_to_step6`, `return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `return_to_onboarding`, `ask_user`, or `skip_page`. Allow up to 2 repairs for weak Step 8 fields only. Do not repair missing upstream contracts, missing brand voice, unresolved safety, missing evidence, required assets, semantic duplication, current-batch duplication, hard word-count basis, or strategy conflicts.
+
 ## Strategy Categories
 
 The strategy may classify opportunities as:
@@ -550,7 +580,7 @@ Fail or repair when two pages differ only by keyword wording, share the same pag
 
 Step 0B may include an optional `componentOpportunityHint` only when the query cluster obviously implies a reader aid. Required superiority components are not decided here; they are custom-created later by the SERP Superiority Gate.
 
-In strict batch mode, process one page as: select one opportunity -> Step 0B -> Step 1 -> Step 2 -> Step 3 -> Step 4 -> Step 5 -> create `current-page.lock` -> Step 6 Topic Research Bank -> Step 7 Unique Angle And Information Gain -> Step 8 and downstream page work. Do not create `current-page.lock` until Step 5 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step6`. Do not start Step 8, prewriting, final copy, images, commit, deploy, or publishing until Step 7 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step8`.
+In strict batch mode, process one page as: select one opportunity -> Step 0B -> Step 1 -> Step 2 -> Step 3 -> Step 4 -> Step 5 -> create `current-page.lock` -> Step 6 Topic Research Bank -> Step 7 Unique Angle And Information Gain -> Step 8 SEO Content Brief -> Step 9 outline and downstream page work. Do not create `current-page.lock` until Step 5 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step6`. Do not start Step 8 until Step 7 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step8`. Do not start Step 9, prewriting, final copy, images, commit, deploy, or publishing until Step 8 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step9`.
 
 ## Source-Backed Inference Notes
 

@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "step8-practical-device-baselines.v1",
+  "description": "Shared Step 8 practical-device baselines. Adapters must read this config and record page-specific adjustments in seo-content-brief.json instead of maintaining separate prompt-only lists.",
+  "defaultRules": {
+    "minimumDevices": 2,
+    "allDevicesNeedEvidenceOrIllustrativeLabel": true,
+    "pageSpecificAdjustmentRequired": true,
+    "doNotUseAsUniversalChecklist": true
+  },
+  "pageTypeBaselines": {
+    "guide": {
+      "minimumExamples": 2,
+      "minimumMistakes": 2,
+      "minimumCaveats": 2,
+      "requiredDeviceTypes": ["example", "checklist_or_process", "mistake_or_troubleshooting"],
+      "reason": "Guides need enough practical support to turn instruction into usable action."
+    },
+    "tutorial": {
+      "minimumExamples": 2,
+      "minimumMistakes": 2,
+      "minimumCaveats": 1,
+      "requiredDeviceTypes": ["step_sequence", "example", "common_mistake"],
+      "reason": "Tutorials need clear sequencing plus practical failure handling."
+    },
+    "comparison": {
+      "minimumExamples": 2,
+      "minimumMistakes": 1,
+      "minimumCaveats": 2,
+      "requiredDeviceTypes": ["comparison_table", "scenario_or_use_case", "tradeoff"],
+      "reason": "Comparison pages need visible trade-offs and scenario-based decision support."
+    },
+    "safety_explainer": {
+      "minimumExamples": 1,
+      "minimumMistakes": 2,
+      "minimumCaveats": 3,
+      "requiredDeviceTypes": ["safety_boundary", "when_to_stop_or_seek_help", "myth_or_risk_clarification"],
+      "reason": "Safety explainers must make limits, uncertainty, and unsafe framings visible."
+    },
+    "pricing": {
+      "minimumExamples": 2,
+      "minimumMistakes": 1,
+      "minimumCaveats": 2,
+      "requiredDeviceTypes": ["cost_scenario", "included_vs_excluded", "price_change_caveat"],
+      "reason": "Pricing pages need current-context boundaries and real decision scenarios."
+    },
+    "local": {
+      "minimumExamples": 2,
+      "minimumMistakes": 1,
+      "minimumCaveats": 2,
+      "requiredDeviceTypes": ["local_context", "eligibility_or_fit", "next_step_boundary"],
+      "reason": "Local pages need market-specific examples and clear local assumption boundaries."
+    },
+    "alternatives": {
+      "minimumExamples": 2,
+      "minimumMistakes": 1,
+      "minimumCaveats": 2,
+      "requiredDeviceTypes": ["alternative_fit_matrix", "switching_reason", "not_for_scenario"],
+      "reason": "Alternatives pages need fit-based routing instead of generic option lists."
+    },
+    "product_category": {
+      "minimumExamples": 2,
+      "minimumMistakes": 2,
+      "minimumCaveats": 2,
+      "requiredDeviceTypes": ["fit_criteria", "avoid_if", "market_or_product_context"],
+      "reason": "Product/category pages need suitability boundaries before recommendation language."
+    },
+    "how_to": {
+      "minimumExamples": 2,
+      "minimumMistakes": 2,
+      "minimumCaveats": 1,
+      "requiredDeviceTypes": ["step_sequence", "before_you_start", "troubleshooting"],
+      "reason": "How-to pages need action clarity plus recovery paths for common failure points."
+    },
+    "definition_or_concept": {
+      "minimumExamples": 2,
+      "minimumMistakes": 1,
+      "minimumCaveats": 1,
+      "requiredDeviceTypes": ["plain_language_definition", "example", "what_it_is_not"],
+      "reason": "Concept pages need examples and boundaries so definitions do not stay abstract."
+    }
+  }
+}

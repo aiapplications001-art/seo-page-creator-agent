@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-seo-content-brief.schema.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "seo-content-brief.v2"
+    },
+    "upstreamHashes": {
+      "type": "object",
+      "required": [
+        "step0AHash",
+        "step0BHash",
+        "pageJobHash",
+        "searchIntentHash",
+        "pageFormatHash",
+        "nextActionHash",
+        "serpCompetitorHash",
+        "topicResearchHash",
+        "uniqueAngleHash"
+      ]
+    },
+    "contentBriefHash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contentBriefSummaryStatement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "readerOutcomePromise": {
+      "type": "string",
+      "minLength": 1
+    },
+    "targetWordCountContract": {
+      "type": "object"
+    },
+    "depthRequirements": {
+      "type": "object"
+    },
+    "instructionRegistry": {
+      "type": "array"
+    },
+    "upstreamCoverageMatrix": {
+      "type": "array"
+    },
+    "sourceUseGuidance": {
+      "type": "array"
+    },
+    "assetBriefingContract": {
+      "type": "array"
+    },
+    "voiceAndQualityContract": {
+      "type": "object"
+    },
+    "antiGenericContract": {
+      "type": "object"
+    },
+    "practicalDeviceRequirements": {
+      "type": "object"
+    },
+    "contentBriefDeliveryProofRequirements": {
+      "type": "object"
+    },
+    "step8CompletenessChecklist": {
+      "type": "object"
+    },
+    "contentBriefVerdict": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "upstreamHashes",
+    "contentBriefHash",
+    "contentBriefSummaryStatement",
+    "readerOutcomePromise",
+    "targetWordCountContract",
+    "depthRequirements",
+    "instructionRegistry",
+    "upstreamCoverageMatrix",
+    "sourceUseGuidance",
+    "assetBriefingContract",
+    "voiceAndQualityContract",
+    "antiGenericContract",
+    "practicalDeviceRequirements",
+    "contentBriefDeliveryProofRequirements",
+    "step8CompletenessChecklist",
+    "contentBriefVerdict"
+  ]
+}

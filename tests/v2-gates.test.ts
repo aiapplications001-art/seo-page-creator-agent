@@ -4,6 +4,7 @@ import {
   allMandatoryGatesPassed,
   validateAudienceDefinitionGate,
   validateCitationSetGate,
+  validateContentBriefGate,
   validateNarrativeBriefGate,
   validateSerpResearchGate,
   validateSocialVideoResearchGate
@@ -222,6 +223,151 @@ test("citation set gate fails when high or critical claims lack source support",
   assert.equal(failed.status, "failed");
   assert.ok(failed.blockingIssues.includes("High-strength claims require source support."));
   assert.ok(failed.blockingIssues.includes("Critical claims require explicit approval and source support."));
+});
+
+test("content brief gate passes only when Step 8 compiler contract is complete", () => {
+  const result = validateContentBriefGate({
+    upstreamHashes: {
+      step0AHash: "0a",
+      step0BHash: "0b",
+      pageJobHash: "job",
+      searchIntentHash: "intent",
+      pageFormatHash: "format",
+      nextActionHash: "next",
+      serpCompetitorHash: "serp",
+      topicResearchHash: "research",
+      uniqueAngleHash: "angle"
+    },
+    contentBriefSummaryStatement: "Create a researched India-focused guide with a hard floor, safety boundaries, and unique decision support.",
+    readerOutcomePromise: "After reading, the reader can make the intended decision without product-roundup drift.",
+    targetWordCountContract: {
+      minimumWordCount: 1800,
+      targetWordCountRange: { min: 1800, max: 2400 },
+      rangeBasis: "Step 2 depth, Step 5 competitor depth, Step 6 evidence, and Step 7 assets.",
+      rangeFlexibility: "Go longer only for evidence-backed completeness."
+    },
+    depthRequirements: {
+      highDepthRequirements: ["primary task", "safety boundary", "decision support"],
+      supportingDepthRequirements: ["examples", "mistakes"],
+      keepBriefOrExclude: ["product prices", "full ingredient encyclopedia"]
+    },
+    instructionRegistry: [
+      {
+        instructionId: "I1",
+        priority: "mandatory",
+        writerInstruction: "Answer the primary intent plainly near the top.",
+        sourceRefs: ["searchIntentContract.satisfactionCondition"],
+        deliveryTest: "Step 9 and Step 10 prove the answer is visible."
+      },
+      {
+        instructionId: "I2",
+        priority: "prohibited",
+        writerInstruction: "Do not turn this into a product roundup.",
+        sourceRefs: ["step0B.mustNotCover"],
+        deliveryTest: "Final QA confirms no roundup drift."
+      }
+    ],
+    upstreamCoverageMatrix: ["step0A-7 carry-forward mapped"],
+    sourceUseGuidance: ["Audience-language sources cannot support medical truth claims."],
+    assetBriefingContract: ["Primary asset purpose, inputs, output, fallback, and delivery test."],
+    voiceAndQualityContract: { voice: "category-manager-with-editorial-empathy" },
+    readabilityAndScanabilityRequirements: ["Use short paragraphs and scannable answer blocks."],
+    antiGenericContract: {
+      genericFailureRisks: ["Could become reusable cleansing advice."],
+      pageSpecificityRequirements: ["Preserve India-market acne routine context."],
+      genericPhrasesOrMovesToAvoid: ["choose the right product"]
+    },
+    synthesisRequirement: "Combine competitor gaps and topic research into reader decisions, not source-by-source summary.",
+    brandFitBoundaries: { allowed: "soft brand bridge", prohibited: "diagnosis or aggressive sales framing" },
+    recencySensitivityCheck: {
+      recencySensitive: true,
+      freshnessRequirements: ["Use recent support for safety and local product-context claims."]
+    },
+    marketLocalizationRequirements: {
+      marketSensitive: true,
+      requirements: ["Preserve India-specific availability and climate assumptions."]
+    },
+    readerObjectionHandling: {
+      required: true,
+      objections: ["Will this worsen acne?"]
+    },
+    practicalDeviceRequirements: {
+      sharedBaselineConfigVersion: "step8-practical-device-baselines.v1",
+      pageSpecificMinimums: ["one decision table", "two examples"]
+    },
+    minimumCompletenessStandard: ["Every mandatory instruction must be planned, drafted, and verified."],
+    draftRepairGuidance: ["Repair under-depth with evidence-backed substance, not filler."],
+    batchBriefIsolationCheck: {
+      pageSpecificBrief: true,
+      reusedPriorBrief: false,
+      similarityToCurrentBatch: "low"
+    },
+    semanticBriefUniquenessCheck: {
+      currentBatchUnique: true,
+      historicalUniquenessChecked: true
+    },
+    contentBriefDeliveryProofRequirements: {
+      step9Required: true,
+      step10Required: true,
+      finalQaRequired: true
+    },
+    mustCarryForward: ["contentBriefHash", "hard floor", "required asset"],
+    step8OutputMustNotContain: ["final H1/H2/H3", "final copy", "image prompts"],
+    step8CompletenessChecklist: {
+      allUpstreamHashesPresent: true,
+      instructionRegistryComplete: true,
+      noStep8BoundaryViolation: true
+    },
+    markdownParityChecked: true,
+    judgmentChecks: {
+      passed: true
+    }
+  });
+
+  assert.equal(result.status, "passed");
+  assert.equal(result.machineChecksPassed, true);
+});
+
+test("content brief gate fails on missing hashes, failed checklist, and missing parity", () => {
+  const result = validateContentBriefGate({
+    upstreamHashes: {
+      step0BHash: "0b"
+    },
+    contentBriefSummaryStatement: "Thin brief.",
+    targetWordCountContract: {
+      minimumWordCount: 0
+    },
+    depthRequirements: {
+      highDepthRequirements: [],
+      supportingDepthRequirements: [],
+      keepBriefOrExclude: []
+    },
+    instructionRegistry: [],
+    practicalDeviceRequirements: {},
+    batchBriefIsolationCheck: {
+      pageSpecificBrief: false,
+      reusedPriorBrief: true,
+      similarityToCurrentBatch: "high"
+    },
+    semanticBriefUniquenessCheck: {
+      currentBatchUnique: false
+    },
+    contentBriefDeliveryProofRequirements: {
+      step9Required: true
+    },
+    step8CompletenessChecklist: {
+      allUpstreamHashesPresent: false
+    },
+    markdownParityChecked: false,
+    judgmentChecks: {
+      passed: true
+    }
+  });
+
+  assert.equal(result.status, "failed");
+  assert.ok(result.blockingIssues.some((issue) => issue.includes("Content brief requires all upstream hashes")));
+  assert.ok(result.blockingIssues.includes("Content brief completeness checklist failed: allUpstreamHashesPresent."));
+  assert.ok(result.blockingIssues.includes("Content brief Markdown parity must be checked."));
 });
 
 test("allMandatoryGatesPassed requires every gate to pass", () => {

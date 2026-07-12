@@ -63,6 +63,92 @@ export interface CitationSetGateInput {
   judgmentChecks?: JudgmentChecks;
 }
 
+export interface ContentBriefGateInput {
+  upstreamHashes: {
+    step0AHash?: string;
+    step0BHash?: string;
+    pageJobHash?: string;
+    searchIntentHash?: string;
+    pageFormatHash?: string;
+    nextActionHash?: string;
+    serpCompetitorHash?: string;
+    topicResearchHash?: string;
+    uniqueAngleHash?: string;
+  };
+  contentBriefSummaryStatement?: string;
+  readerOutcomePromise?: string;
+  targetWordCountContract?: {
+    minimumWordCount?: number;
+    targetWordCountRange?: {
+      min?: number;
+      max?: number;
+    };
+    rangeBasis?: string;
+    rangeFlexibility?: string;
+  };
+  depthRequirements?: {
+    highDepthRequirements?: unknown[];
+    supportingDepthRequirements?: unknown[];
+    keepBriefOrExclude?: unknown[];
+  };
+  instructionRegistry?: Array<{
+    instructionId?: string;
+    priority?: "mandatory" | "conditional" | "supporting" | "prohibited";
+    writerInstruction?: string;
+    sourceRefs?: string[];
+    deliveryTest?: string;
+  }>;
+  upstreamCoverageMatrix?: unknown[];
+  sourceUseGuidance?: unknown[];
+  assetBriefingContract?: unknown[];
+  voiceAndQualityContract?: Record<string, unknown>;
+  readabilityAndScanabilityRequirements?: unknown[];
+  antiGenericContract?: {
+    genericFailureRisks?: unknown[];
+    pageSpecificityRequirements?: unknown[];
+    genericPhrasesOrMovesToAvoid?: unknown[];
+  };
+  synthesisRequirement?: string;
+  brandFitBoundaries?: Record<string, unknown>;
+  recencySensitivityCheck?: {
+    recencySensitive?: boolean;
+    freshnessRequirements?: unknown[];
+  };
+  marketLocalizationRequirements?: {
+    marketSensitive?: boolean;
+    requirements?: unknown[];
+  };
+  readerObjectionHandling?: {
+    required?: boolean;
+    objections?: unknown[];
+  };
+  practicalDeviceRequirements?: {
+    sharedBaselineConfigVersion?: string;
+    pageSpecificMinimums?: unknown[];
+  };
+  minimumCompletenessStandard?: unknown[];
+  draftRepairGuidance?: unknown[];
+  batchBriefIsolationCheck?: {
+    pageSpecificBrief?: boolean;
+    reusedPriorBrief?: boolean;
+    similarityToCurrentBatch?: "low" | "medium" | "high" | "unknown";
+  };
+  semanticBriefUniquenessCheck?: {
+    currentBatchUnique?: boolean;
+    historicalUniquenessChecked?: boolean;
+  };
+  contentBriefDeliveryProofRequirements?: {
+    step9Required?: boolean;
+    step10Required?: boolean;
+    finalQaRequired?: boolean;
+  };
+  mustCarryForward?: unknown[];
+  step8OutputMustNotContain?: string[];
+  step8CompletenessChecklist?: Record<string, boolean>;
+  markdownParityChecked?: boolean;
+  judgmentChecks?: JudgmentChecks;
+}
+
 interface JudgmentChecks {
   passed: boolean;
   notes?: string;
@@ -145,6 +231,147 @@ export function validateCitationSetGate(citationSet: CitationSetGateInput): V2Ga
   if (criticalClaimWithoutApprovalAndSource) machineIssues.push("Critical claims require explicit approval and source support.");
 
   return buildGateResult(machineIssues, citationSet.judgmentChecks);
+}
+
+export function validateContentBriefGate(brief: ContentBriefGateInput): V2GateValidationResult {
+  const machineIssues: string[] = [];
+  const requiredHashes: Array<keyof ContentBriefGateInput["upstreamHashes"]> = [
+    "step0AHash",
+    "step0BHash",
+    "pageJobHash",
+    "searchIntentHash",
+    "pageFormatHash",
+    "nextActionHash",
+    "serpCompetitorHash",
+    "topicResearchHash",
+    "uniqueAngleHash"
+  ];
+  const missingHashes = requiredHashes.filter((hashName) => !hasText(brief.upstreamHashes?.[hashName]));
+
+  if (missingHashes.length > 0) {
+    machineIssues.push(`Content brief requires all upstream hashes before Step 9: ${missingHashes.join(", ")}.`);
+  }
+  if (!hasText(brief.contentBriefSummaryStatement)) {
+    machineIssues.push("Content brief must include contentBriefSummaryStatement.");
+  }
+  if (!hasText(brief.readerOutcomePromise)) {
+    machineIssues.push("Content brief must include readerOutcomePromise.");
+  }
+  if (!brief.targetWordCountContract?.minimumWordCount || brief.targetWordCountContract.minimumWordCount <= 0) {
+    machineIssues.push("Content brief must include a positive minimumWordCount.");
+  }
+  if (!brief.targetWordCountContract?.targetWordCountRange?.min || !brief.targetWordCountContract.targetWordCountRange.max) {
+    machineIssues.push("Content brief must include targetWordCountRange.");
+  }
+  if (!hasText(brief.targetWordCountContract?.rangeBasis)) {
+    machineIssues.push("Content brief must justify the word-count range basis.");
+  }
+  if ((brief.depthRequirements?.highDepthRequirements?.length ?? 0) < 3) {
+    machineIssues.push("Content brief requires at least 3 highDepthRequirements.");
+  }
+  if ((brief.depthRequirements?.supportingDepthRequirements?.length ?? 0) < 2) {
+    machineIssues.push("Content brief requires at least 2 supportingDepthRequirements.");
+  }
+  if ((brief.depthRequirements?.keepBriefOrExclude?.length ?? 0) < 2) {
+    machineIssues.push("Content brief requires at least 2 keepBriefOrExclude depth boundaries.");
+  }
+  if (!brief.instructionRegistry?.length) {
+    machineIssues.push("Content brief must include instructionRegistry.");
+  } else {
+    const mandatoryInstruction = brief.instructionRegistry.some((instruction) => instruction.priority === "mandatory");
+    const prohibitedInstruction = brief.instructionRegistry.some((instruction) => instruction.priority === "prohibited");
+    const incompleteInstruction = brief.instructionRegistry.some((instruction) =>
+      !hasText(instruction.instructionId) ||
+      !hasText(instruction.writerInstruction) ||
+      !instruction.sourceRefs?.length ||
+      !hasText(instruction.deliveryTest)
+    );
+    if (!mandatoryInstruction) machineIssues.push("Content brief instructionRegistry must include at least one mandatory instruction.");
+    if (!prohibitedInstruction) machineIssues.push("Content brief instructionRegistry must include at least one prohibited instruction.");
+    if (incompleteInstruction) machineIssues.push("Content brief instructions must include id, instruction, source refs, and delivery test.");
+  }
+  if (!brief.upstreamCoverageMatrix?.length) {
+    machineIssues.push("Content brief must include upstreamCoverageMatrix.");
+  }
+  if (!brief.sourceUseGuidance?.length) {
+    machineIssues.push("Content brief must include sourceUseGuidance.");
+  }
+  if (!brief.assetBriefingContract?.length) {
+    machineIssues.push("Content brief must include assetBriefingContract.");
+  }
+  if (!brief.voiceAndQualityContract || Object.keys(brief.voiceAndQualityContract).length === 0) {
+    machineIssues.push("Content brief must include voiceAndQualityContract.");
+  }
+  if (!brief.readabilityAndScanabilityRequirements?.length) {
+    machineIssues.push("Content brief must include readabilityAndScanabilityRequirements.");
+  }
+  if (!brief.antiGenericContract?.genericFailureRisks?.length ||
+    !brief.antiGenericContract.pageSpecificityRequirements?.length ||
+    !brief.antiGenericContract.genericPhrasesOrMovesToAvoid?.length) {
+    machineIssues.push("Content brief must include a complete antiGenericContract.");
+  }
+  if (!hasText(brief.synthesisRequirement)) {
+    machineIssues.push("Content brief must include synthesisRequirement.");
+  }
+  if (!brief.brandFitBoundaries || Object.keys(brief.brandFitBoundaries).length === 0) {
+    machineIssues.push("Content brief must include brandFitBoundaries.");
+  }
+  if (!brief.recencySensitivityCheck) {
+    machineIssues.push("Content brief must include recencySensitivityCheck.");
+  }
+  if (brief.recencySensitivityCheck?.recencySensitive && !brief.recencySensitivityCheck.freshnessRequirements?.length) {
+    machineIssues.push("Recency-sensitive briefs require freshnessRequirements.");
+  }
+  if (brief.marketLocalizationRequirements?.marketSensitive && !brief.marketLocalizationRequirements.requirements?.length) {
+    machineIssues.push("Market-sensitive briefs require marketLocalizationRequirements.");
+  }
+  if (brief.readerObjectionHandling?.required && !brief.readerObjectionHandling.objections?.length) {
+    machineIssues.push("Briefs with reader objections require readerObjectionHandling objections.");
+  }
+  if (!hasText(brief.practicalDeviceRequirements?.sharedBaselineConfigVersion)) {
+    machineIssues.push("Content brief must reference the shared practical-device baseline config version.");
+  }
+  if (!brief.practicalDeviceRequirements?.pageSpecificMinimums?.length) {
+    machineIssues.push("Content brief must include page-specific practical device minimums.");
+  }
+  if (!brief.minimumCompletenessStandard?.length) {
+    machineIssues.push("Content brief must include minimumCompletenessStandard.");
+  }
+  if (!brief.draftRepairGuidance?.length) {
+    machineIssues.push("Content brief must include draftRepairGuidance.");
+  }
+  if (brief.batchBriefIsolationCheck?.pageSpecificBrief !== true || brief.batchBriefIsolationCheck.reusedPriorBrief === true) {
+    machineIssues.push("Content brief must pass batchBriefIsolationCheck.");
+  }
+  if (brief.semanticBriefUniquenessCheck?.currentBatchUnique !== true) {
+    machineIssues.push("Content brief must pass current-batch semantic uniqueness.");
+  }
+  if (!brief.contentBriefDeliveryProofRequirements?.step9Required ||
+    !brief.contentBriefDeliveryProofRequirements.step10Required ||
+    !brief.contentBriefDeliveryProofRequirements.finalQaRequired) {
+    machineIssues.push("Content brief must require Step 9, Step 10, and final QA delivery proof.");
+  }
+  if (!brief.mustCarryForward?.length) {
+    machineIssues.push("Content brief must include mustCarryForward.");
+  }
+  if (!brief.step8OutputMustNotContain?.length) {
+    machineIssues.push("Content brief must include step8OutputMustNotContain.");
+  }
+  if (!brief.step8CompletenessChecklist || Object.keys(brief.step8CompletenessChecklist).length === 0) {
+    machineIssues.push("Content brief must include step8CompletenessChecklist.");
+  } else {
+    const failedChecklistItems = Object.entries(brief.step8CompletenessChecklist)
+      .filter(([, passed]) => passed !== true)
+      .map(([key]) => key);
+    if (failedChecklistItems.length > 0) {
+      machineIssues.push(`Content brief completeness checklist failed: ${failedChecklistItems.join(", ")}.`);
+    }
+  }
+  if (brief.markdownParityChecked !== true) {
+    machineIssues.push("Content brief Markdown parity must be checked.");
+  }
+
+  return buildGateResult(machineIssues, brief.judgmentChecks);
 }
 
 export function allMandatoryGatesPassed(results: V2GateValidationResult[]): boolean {

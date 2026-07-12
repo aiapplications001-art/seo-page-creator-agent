@@ -487,7 +487,43 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /informationGainDeliveryProof/);
   }
 
+  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+    assert.match(doc, /Step 8|SEO Content Brief/i);
+    assert.match(doc, /seoContentBrief/);
+    assert.match(doc, /contentBriefHash/);
+    assert.match(doc, /seo-content-brief\.json/);
+    assert.match(doc, /seo-content-brief\.md/);
+    assert.match(doc, /contentBriefSummaryStatement/);
+    assert.match(doc, /readerOutcomePromise/);
+    assert.match(doc, /targetWordCountContract/);
+    assert.match(doc, /minimumWordCount/);
+    assert.match(doc, /depthRequirements/);
+    assert.match(doc, /depthBoundaries/);
+    assert.match(doc, /instructionRegistry/);
+    assert.match(doc, /upstreamCoverageMatrix/);
+    assert.match(doc, /sourceUseGuidance/);
+    assert.match(doc, /assetBriefingContract/);
+    assert.match(doc, /voiceAndQualityContract/);
+    assert.match(doc, /antiGenericContract/);
+    assert.match(doc, /synthesisRequirement/);
+    assert.match(doc, /brandFitBoundaries/);
+    assert.match(doc, /recencySensitivityCheck/);
+    assert.match(doc, /practicalDeviceRequirements/);
+    assert.match(doc, /batchBriefIsolationCheck/);
+    assert.match(doc, /semanticBriefUniquenessCheck/);
+    assert.match(doc, /contentBriefDeliveryProofRequirements|contentBriefDeliveryProof/);
+    assert.match(doc, /step8OutputMustNotContain/);
+    assert.match(doc, /step8CompletenessChecklist/);
+    assert.match(doc, /contentBriefVerdict/);
+    assert.match(doc, /continue_to_step9/);
+    assert.match(doc, /Markdown parity|Markdown.*parity|markdownParity/i);
+    assert.match(doc, /step8-practical-device-baselines\.json/);
+    assert.match(doc, /no new research|must not start new research|performs no new research|start new research/i);
+  }
+
   assert.equal(existsSync("docs/superpowers/specs/2026-07-11-step-5-serp-competitor-analysis-design.md"), true);
   assert.equal(existsSync("docs/superpowers/specs/2026-07-11-step-6-topic-research-bank-design.md"), true);
   assert.equal(existsSync("docs/superpowers/specs/2026-07-12-step-7-unique-angle-information-gain-design.md"), true);
+  assert.equal(existsSync("docs/superpowers/specs/2026-07-12-step-8-seo-content-brief-design.md"), true);
+  assert.equal(existsSync("config/step8-practical-device-baselines.json"), true);
 });

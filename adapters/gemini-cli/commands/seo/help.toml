@@ -4,7 +4,7 @@ Read AGENT.md and summarize the recommended SEO Page Creator Agent flow:
 onboard -> optional site scan -> cluster -> page -> edit-section -> rescore -> watcher.
 Explain prerequisites for each command and where artifacts are stored.
 
-For `/seo:page`, explain that Step 0A, Step 0B, Step 1, Step 2, Step 3, Step 4, Step 5, and Step 6 from
+For `/seo:page`, explain that Step 0A, Step 0B, Step 1, Step 2, Step 3, Step 4, Step 5, Step 6, Step 7, and Step 8 from
 `workflows/13-cluster-strategy.md` must pass before page generation.
 
 Step 0A Foundation must create the compact search-opportunity artifact with
@@ -185,4 +185,41 @@ order, detailed asset content, final prose, CTA wording, metadata, image prompts
 citation-display strategy, new research, or unsupported claims. Downstream QA
 must include `informationGainDeliveryProof` and every downstream artifact must
 carry `uniqueAngleHash`.
+
+Step 8 must freeze the SEO Content Brief as `seoContentBrief` before Step 9,
+prewriting, structure, final copy, images, commit, deploy, or publish. It saves
+`seo-content-brief.json` and `seo-content-brief.md`, freezes
+`contentBriefHash`, carries `step0AHash`, `step0BHash`, `pageJobHash`,
+`searchIntentHash`, `pageFormatHash`, `nextActionHash`, `serpCompetitorHash`,
+`topicResearchHash`, and `uniqueAngleHash`, and includes
+`contentBriefSummaryStatement`, `readerOutcomePromise`,
+`provisionalWorkingTitle`, `targetWordCountContract`, `depthRequirements`,
+`depthBoundaries`, `instructionRegistry`, `upstreamCoverageMatrix`,
+`requiredInclusions`, `conditionalInclusions`, `exclusions`,
+`queryCoverageContract`, `sourceUseGuidance`, `assetBriefingContract`,
+`voiceAndQualityContract`, `readabilityAndScanabilityRequirements`,
+`antiGenericContract`, `synthesisRequirement`, `brandFitBoundaries`,
+`marketLocalizationRequirements`, `recencySensitivityCheck`,
+`readerObjectionHandling`, `internalLinkGuidance`,
+`practicalDeviceRequirements`, `minimumCompletenessStandard`,
+`draftRepairGuidance`, `batchBriefIsolationCheck`,
+`semanticBriefUniquenessCheck`, `contentBriefDeliveryProofRequirements`,
+`mustCarryForward`, `step8OutputMustNotContain`,
+`step8CompletenessChecklist`, `contentBriefRepairLog`, and
+`contentBriefVerdict`.
+
+Explain that Step 8 is a compiler, not an outline or draft step. It must not
+start new research, change upstream strategy, invent missing evidence, create
+final H1/H2/H3s, decide section order, write final prose, create metadata,
+image prompts, exact CTA wording, or exact citation placement. It must use
+`config/step8-practical-device-baselines.json`, enforce a hard
+`minimumWordCount`, maintain strict Markdown parity for major decisions, block
+generic brief logic through `antiGenericContract` and `synthesisRequirement`,
+and prove page-specificity through `batchBriefIsolationCheck` and
+`semanticBriefUniquenessCheck`. It returns `continue_to_step9`,
+`repair_step8`, `return_to_step7`, `return_to_step6`, `return_to_step5`,
+`return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`,
+`return_to_0B`, `return_to_onboarding`, `ask_user`, or `skip_page`.
+Downstream QA must include `contentBriefDeliveryProof` and every Step 9 or later
+artifact must carry `contentBriefHash`.
 """

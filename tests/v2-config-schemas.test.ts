@@ -11,6 +11,7 @@ test("V2 editable config files define required defaults", () => {
   const claims = json("config/claim-rewrite-patterns.json");
   const images = json("config/image-prompt-profiles.json");
   const humanEditorial = json("config/human-editorial-rules.json");
+  const step8PracticalDevices = json("config/step8-practical-device-baselines.json");
 
   assert.equal(generic.schemaVersion, "generic-phrase-patterns.v1");
   assert.ok(generic.hardFailInOpening.includes("in today's fast-paced world"));
@@ -40,6 +41,11 @@ test("V2 editable config files define required defaults", () => {
   assert.equal(humanEditorial.pageTypeDepth.comparison.depth, "decision_relevant");
   assert.ok(humanEditorial.humanDevices.some((device: { id: string }) => device.id === "blended_common_mistakes"));
   assert.ok(humanEditorial.examples.some((example: { id: string }) => example.id === "acne_decision_first_background"));
+
+  assert.equal(step8PracticalDevices.schemaVersion, "step8-practical-device-baselines.v1");
+  assert.equal(step8PracticalDevices.defaultRules.pageSpecificAdjustmentRequired, true);
+  assert.ok(step8PracticalDevices.pageTypeBaselines.guide.requiredDeviceTypes.includes("example"));
+  assert.ok(step8PracticalDevices.pageTypeBaselines.safety_explainer.requiredDeviceTypes.includes("safety_boundary"));
 });
 
 test("V2 schema files expose expected schema ids", () => {
@@ -54,7 +60,8 @@ test("V2 schema files expose expected schema ids", () => {
     ["schemas/v2-section-version-history.schema.json", "section-version-history.v2"],
     ["schemas/v2-refresh-packet.schema.json", "refresh-packet.v2"],
     ["schemas/v2-human-editorial-brief.schema.json", "human-editorial-brief.v2"],
-    ["schemas/v2-claim-first-section-plan.schema.json", "claim-first-section-plan.v2"]
+    ["schemas/v2-claim-first-section-plan.schema.json", "claim-first-section-plan.v2"],
+    ["schemas/v2-seo-content-brief.schema.json", "seo-content-brief.v2"]
   ];
 
   for (const [path, schemaVersion] of schemaIds) {

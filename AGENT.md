@@ -14,7 +14,7 @@ Use this agent when a user wants to create or refresh brand-aware SEO pages for 
 8. Weekly watcher reports use official guidance sources only.
 9. V2 final packets require the five mandatory content-quality gates before final page packet generation.
 10. No hard-gate override is allowed in V2; advisory scores can be overridden, but missing research or unsupported claims cannot.
-11. Step 0A foundation, Step 0B Page Scope Contract, Step 1 Page Job Contract, Step 2 Search Intent Contract, Step 3 Page Format Contract, Step 4 Next Action Contract, Step 5 SERP Competitor Analysis, Step 6 Topic Research Bank, and Step 7 Unique Angle And Information Gain are hard gates before any page packet, prewriting, final copy, images, batch publishing, commit, deploy, or live publish work.
+11. Step 0A foundation, Step 0B Page Scope Contract, Step 1 Page Job Contract, Step 2 Search Intent Contract, Step 3 Page Format Contract, Step 4 Next Action Contract, Step 5 SERP Competitor Analysis, Step 6 Topic Research Bank, Step 7 Unique Angle And Information Gain, and Step 8 SEO Content Brief are hard gates before outline, page packet, prewriting, final copy, images, batch publishing, commit, deploy, or live publish work.
 12. Every downstream page artifact must carry the frozen Step 0B `contractHash`; if `targetKeyword`, `targetQueryIntent`, query cluster, selected opportunity, `mustCover`, `mustNotCover`, `pageScopeSummary`, or `uniqueContribution` changes, rerun and revalidate Step 0B.
 13. Every downstream page artifact after Step 1 must carry `step0BContractHash` and `pageJobHash`; if the audience, task, help format, outcome, business role, risk boundary, evidence basis, uniqueness, or `pageJobStatement` changes, rerun and revalidate Step 1.
 14. Every downstream page artifact after Step 2 must carry `searchIntentHash`; if the dominant intent, deeper intent, expected depth, satisfaction condition, result type, content format, SERP pattern, market context, or alignment decision changes, rerun and revalidate Step 2.
@@ -23,6 +23,7 @@ Use this agent when a user wants to create or refresh brand-aware SEO pages for 
 17. Every downstream page artifact after Step 5 must carry `serpCompetitorHash`; if the SERP context, competitor set, SERP strength, minimum bar, opportunity gaps, cannibalization result, differentiation requirement, or direction validation changes, rerun and revalidate Step 5.
 18. Every downstream page artifact after Step 6 must carry `topicResearchHash`; if the research depth tier, research agenda, source registry, extracted facts, agenda coverage, Step 5 carry-forward coverage, source conflicts, local-market evidence, `doNotUse`, or `mustCarryForward` changes, rerun and revalidate Step 6.
 19. Every downstream page artifact after Step 7 must carry `uniqueAngleHash`; if the primary/supporting angles, assets, baselines, areas to exceed, reason-to-compete statement, or delivery requirements change, rerun and revalidate Step 7.
+20. Every downstream page artifact after Step 8 must carry `contentBriefHash`; if the writer instructions, word-count floor, depth obligations, source-use guidance, assets, voice, anti-generic contract, practical devices, or delivery proof requirements change, rerun and revalidate Step 8.
 
 ## Workflow Order
 
@@ -41,6 +42,7 @@ Company onboarding
 -> Step 5 SERP Competitor Analysis: primary SERP, supporting-query SERPs, competitor bar, gaps, market fit, serpCompetitorHash
 -> Step 6 Topic Research Bank: research agenda, credible sources, extracted facts, conflicts, do-not-use, topicResearchHash
 -> Step 7 Unique Angle And Information Gain: evidence-backed differentiation, visible assets, areas to exceed, uniqueAngleHash
+-> Step 8 SEO Content Brief: writer-ready instructions, depth floor, source-use, voice, anti-generic rules, contentBriefHash
 -> Pre-Writing Strategy
 -> Publish-ready page packet or refresh packet
 -> Section-level edits and version history
@@ -231,6 +233,28 @@ Require at least 2 `baselineToMatch` items and 5-7 distinct `areasToExceed`. Col
 `uniqueAngleUniquenessCheck` is a hard current-batch and accessible-history check across angles, asset logic, evidence mapping, and reader outcome. Reusing an asset type is allowed; reusing its reasoning or decision logic is not. `originalityContract` bans copied competitor logic. `step7OutputMustNotContain` prohibits final outline, headings, section order, detailed asset content, final prose, CTA wording, metadata, image prompts, citation-display strategy, new research, and unsupported claims.
 
 `uniqueAngleVerdict` may be `pass`, narrow non-critical `pass_with_warnings`, `fail`, or `ask_user`, with action `continue_to_step8`, `return_to_step6`, `return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. Weak fields may be repaired up to 2 times; missing evidence, unsafe/incompatible differentiation, or substantial duplication returns to the owner step, asks, or skips. `step7CompletenessChecklist` must validate substance, not only JSON presence. Final QA must include `informationGainDeliveryProof`; missing required proof blocks publishing.
+
+## Step 8 SEO Content Brief Gate
+
+Step 8 is the hard writer-brief gate after Step 7 and before Step 9 outline creation. It creates `seoContentBrief`, saves `seo-content-brief.json` and `seo-content-brief.md`, freezes `contentBriefHash`, and blocks outline, prewriting, final copy, images, page packet, commit, deploy, or publishing until `contentBriefVerdict.action` is `continue_to_step9`.
+
+Step 8 is a compiler. It may translate upstream decisions into writer-ready instructions, but it must not change strategy, start new research, invent missing evidence, create final H1/H2/H3s, decide section order, write final prose, create metadata, image prompts, exact citation placement, or exact CTA wording. If any required upstream contract is missing or invalid, Step 8 must hard-fail and route to the owner step, ask the user, or skip the page in batch mode.
+
+Require `step0AHash`, `step0BHash`, `pageJobHash`, `searchIntentHash`, `pageFormatHash`, `nextActionHash`, `serpCompetitorHash`, `topicResearchHash`, and `uniqueAngleHash`. The brief must include `contentBriefSummaryStatement`, `readerOutcomePromise`, `provisionalWorkingTitle`, `targetWordCountContract`, `depthRequirements`, `depthBoundaries`, `instructionRegistry`, `upstreamCoverageMatrix`, `requiredInclusions`, `conditionalInclusions`, `exclusions`, `queryCoverageContract`, `sourceUseGuidance`, `assetBriefingContract`, `voiceAndQualityContract`, `readabilityAndScanabilityRequirements`, `antiGenericContract`, `synthesisRequirement`, `brandFitBoundaries`, `marketLocalizationRequirements`, `recencySensitivityCheck`, `readerObjectionHandling`, `internalLinkGuidance`, `practicalDeviceRequirements`, `minimumCompletenessStandard`, `draftRepairGuidance`, `batchBriefIsolationCheck`, `semanticBriefUniquenessCheck`, `contentBriefDeliveryProofRequirements`, `mustCarryForward`, `step8OutputMustNotContain`, `step8CompletenessChecklist`, `contentBriefRepairLog`, and `contentBriefVerdict`.
+
+`targetWordCountContract` must define a hard `minimumWordCount`, `targetWordCountRange`, `rangeBasis`, and `rangeFlexibility`; drafts below the floor fail and filler is forbidden. `depthRequirements` must normally include 3-7 `highDepthRequirements`, 2-6 `supportingDepthRequirements`, and at least 2 `keepBriefOrExclude` items. `depthBoundaries` must explicitly say what to keep brief, exclude, or route elsewhere.
+
+`instructionRegistry` is mandatory. Every instruction needs `instructionId`, `instructionType`, `writerInstruction`, priority `mandatory`, `conditional`, `supporting`, or `prohibited`, `sourceRefs`, `scopeBoundary`, `step9Use`, `step10Use`, and `deliveryTest`. `upstreamCoverageMatrix` must map every Step 0A-7 `mustCarryForward` item and required delivery obligation to a Step 8 instruction, conditional instruction, exclusion, or owner-step return.
+
+Step 8 must carry writer-facing `sourceUseGuidance`, separating authoritative topic evidence from audience/search-language evidence. It must define `assetBriefingContract` for Step 7 assets with accessible fallback but not exact rows, branches, labels, wording, or placement. It must use `config/step8-practical-device-baselines.json` for shared practical-device baselines, then record page-specific minimums, replacements, reasons, and evidence. Adapters must not maintain separate baseline lists.
+
+`voiceAndQualityContract`, `brandFitBoundaries`, `antiGenericContract`, and `synthesisRequirement` are mandatory. Market-sensitive pages require `marketLocalizationRequirements`; every page requires `recencySensitivityCheck`, with detailed freshness instructions when `recencySensitive` is true. Reader objections are required when Step 6 or Step 7 found objections, fears, or confusion.
+
+`batchBriefIsolationCheck` and `semanticBriefUniquenessCheck` must prove this page did not reuse another page's brief logic. Shared schema, sources, and config are allowed; shared page promise, depth logic, examples, mistakes, assets, instructions, or anti-generic risks are not. Current-batch duplication is a blocker.
+
+`contentBriefDeliveryProofRequirements` must require Step 9 to prove every mandatory instruction is represented in the outline plan, Step 10 to map instructions to visible draft content/assets/examples/evidence handling or approved conditional omission, and final QA to verify the delivered page still satisfies `contentBriefHash`, the word-count floor, completeness tests, safety boundaries, required assets, differentiation obligations, and exclusions.
+
+`contentBriefVerdict` may be `pass`, non-critical `pass_with_warnings`, `fail`, or `ask_user`, with action `continue_to_step9`, `repair_step8`, `return_to_step7`, `return_to_step6`, `return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `return_to_onboarding`, `ask_user`, or `skip_page`. Step 8 may repair weak Step 8 fields up to 2 times, but missing upstream hashes, brand voice, mandatory depth, required assets, safety boundaries, evidence, semantic uniqueness, hard word-count basis, or Markdown parity are blockers. `seo-content-brief.md` must maintain strict parity for major decisions.
 
 ## V1 Tracks
 
