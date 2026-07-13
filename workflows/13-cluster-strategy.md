@@ -566,6 +566,32 @@ Step 9 performs no new research. `step9OutputMustNotContain` must forbid final p
 
 All Step 10 and later artifacts must carry `pageOutlineHash`. Step 10 must provide `pageOutlineDeliveryProof` mapping every section ID, required asset, FAQ decision, mandatory brief instruction, exclusion, and broad CTA/link placement to visible draft content or an approved owner-step return. Final QA must verify the delivered page still follows the frozen `pageOutlineHash`.
 
+## Step 10: SEO First Draft
+
+Step 10 is a hard blocker after Step 9 and before Step 11 on-page SEO optimization, final copy, images, page packet, commit, deploy, or publish. It writes the first full draft from the frozen outline. Save the machine contract as `seo-first-draft.json`, the human review as `seo-first-draft.md`, and freeze `firstDraftHash`.
+
+`seoFirstDraft` must carry `step0AHash`, `step0BHash`, `pageJobHash`, `searchIntentHash`, `pageFormatHash`, `nextActionHash`, `serpCompetitorHash`, `topicResearchHash`, `uniqueAngleHash`, `contentBriefHash`, and `pageOutlineHash`. Missing or stale hashes are hard blockers; drafts generated against stale outlines are forbidden.
+
+The draft must include `draftSummaryStatement`, the working `h1`, `wordCountContract`, `draftSections`, `introductionQualityGate`, `sectionExpansionGate`, `draftCompletenessProof`, `requiredAssetDelivery`, `draftClaimSafetyCheck`, `naturalQueryCoverageCheck`, `draftReadabilityScanabilityGate`, `faqDraftDelivery`, `ctaInternalLinkDelivery`, `voiceAndBrandFitCheck`, `draftUniquenessCheck`, `antiGenericDraftGate`, `firstDraftDeliveryProofRequirements`, `mustCarryForward`, `step10OutputMustNotContain`, `step10CompletenessChecklist`, `firstDraftRepairLog`, and `firstDraftVerdict`.
+
+`draftSections` must be structured section-by-section. Each section needs `sectionId`, heading, actual draft copy, Step 9 `outlineRefs`, evidence refs when the section is high-depth, safety, recommendation, comparison, troubleshooting, example-heavy, asset/component, claim-heavy, factual, medical, finance, legal, product, market, pricing, or safety related, plus `depthProof`, `examplesUsed`, `contentObligationsFulfilled`, claim/safety notes when relevant, and CTA/internal-link delivery when planned. Light transition or summary sections may use only brief/outline refs only when they introduce no new factual claims.
+
+Step 10 must follow the frozen `pageOutlineHash`. It may not directly change the outline; structural conflicts return to Step 9. It may not invent new factual, medical, safety, finance, legal, product, market, pricing, competitor, or trend claims. Needed unsupported claims return to Step 6. Illustrative examples are allowed only when marked `illustrative_only` or derived from Step 6, Step 8, or Step 9 evidence.
+
+`introductionQualityGate` must prove the intro starts with the reader's real problem or task, confirms intent, states the page promise, sets scope, avoids generic filler, and leads into the page. `sectionExpansionGate` must prove high-depth/core sections include the needed definition or explanation, why it matters, how-to/process/decision rule, example/scenario, caveat/mistake/edge case when relevant, and transition.
+
+The draft must meet Step 8 `minimumWordCount`; it may exceed the target range when useful, but padding and repetition are forbidden. Required assets must appear as usable text, table, checklist, flow, matrix, framework, decision rule, or accessible fallback. Planned FAQ must be drafted. CTA/internal-link copy must appear where planned with non-final wording and Step 4/8 boundaries respected.
+
+`draftClaimSafetyCheck` must prove risky claims are supported, softened, avoided, or routed; audience-language evidence is not used as factual proof; sensitive boundaries are respected; and new factual claims are routed to Step 6. `naturalQueryCoverageCheck` must prove the target keyword meaning and supporting query needs are covered naturally without keyword stuffing or density targets.
+
+`antiGenericDraftGate` blocks placeholder or generic prose such as "This section should explain", "Use this section to", "It is important to", "choose the right product" without specifics, or contextless "consult a professional". `draftUniquenessCheck` must block repeated intros, section bodies, examples, tables, FAQ answers, CTA copy, asset logic, and same-page-in-different-words patterns across current batch and accessible history.
+
+`seo-first-draft.md` must maintain Markdown parity with `seo-first-draft.json` for H1/H2/H3s, section copy, assets, FAQs, CTA/link draft, warnings, open issues, summary statement, and verdict. JSON remains the gate.
+
+`firstDraftVerdict.status` may be `pass`, `pass_with_warnings`, `fail`, or `ask_user`; actions are `continue_to_step11`, `repair_step10`, `return_to_step9`, `return_to_step8`, `return_to_step7`, `return_to_step6`, `return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. Allow up to 3 repairs for weak Step 10 fields only. Do not repair missing or invalid outline, structural conflict, missing evidence, new factual claims needing research, unsupported risky claims, unsafe advice, missing hashes, required asset undefined upstream, Step 8/9 contradiction, duplicate page concept, or current-batch draft duplication.
+
+`mustCarryForward` must include `firstDraftHash`, section IDs, required assets delivered, claims needing citation or softening, unresolved polish notes, CTA/internal-link draft notes, FAQ delivery notes, query coverage notes, uniqueness warnings, and proof requirements. Step 11 and final QA must include `firstDraftDeliveryProof` proving they preserved or intentionally improved section content, assets, claim handling, CTA/internal links, FAQ content, intro promise, high-depth substance, anti-generic requirements, and completeness.
+
 ## Strategy Categories
 
 The strategy may classify opportunities as:
@@ -608,7 +634,7 @@ Fail or repair when two pages differ only by keyword wording, share the same pag
 
 Step 0B may include an optional `componentOpportunityHint` only when the query cluster obviously implies a reader aid. Required superiority components are not decided here; they are custom-created later by the SERP Superiority Gate.
 
-In strict batch mode, process one page as: select one opportunity -> Step 0B -> Step 1 -> Step 2 -> Step 3 -> Step 4 -> Step 5 -> create `current-page.lock` -> Step 6 Topic Research Bank -> Step 7 Unique Angle And Information Gain -> Step 8 SEO Content Brief -> Step 9 SEO Page Outline -> Step 10 drafting and downstream page work. Do not create `current-page.lock` until Step 5 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step6`. Do not start Step 8 until Step 7 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step8`. Do not start Step 9 until Step 8 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step9`. Do not start Step 10, final copy, images, commit, deploy, or publishing until Step 9 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step10`.
+In strict batch mode, process one page as: select one opportunity -> Step 0B -> Step 1 -> Step 2 -> Step 3 -> Step 4 -> Step 5 -> create `current-page.lock` -> Step 6 Topic Research Bank -> Step 7 Unique Angle And Information Gain -> Step 8 SEO Content Brief -> Step 9 SEO Page Outline -> Step 10 SEO First Draft -> Step 11 on-page SEO optimization and downstream page work. Do not create `current-page.lock` until Step 5 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step6`. Do not start Step 8 until Step 7 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step8`. Do not start Step 9 until Step 8 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step9`. Do not start Step 10, final copy, images, commit, deploy, or publishing until Step 9 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step10`. Do not start Step 11, final copy, images, commit, deploy, or publishing until Step 10 returns `pass` or non-critical `pass_with_warnings` with action `continue_to_step11`.
 
 ## Source-Backed Inference Notes
 

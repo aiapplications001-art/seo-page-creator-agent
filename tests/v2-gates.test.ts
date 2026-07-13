@@ -5,6 +5,7 @@ import {
   validateAudienceDefinitionGate,
   validateCitationSetGate,
   validateContentBriefGate,
+  validateFirstDraftGate,
   validateNarrativeBriefGate,
   validatePageOutlineGate,
   validateSerpResearchGate,
@@ -585,6 +586,296 @@ test("page outline gate fails missing hashes, hidden intent, duplicate outline, 
   assert.ok(result.blockingIssues.includes("Page outline must address the main search intent within the first 1-2 H2 sections."));
   assert.ok(result.blockingIssues.includes("Page outline must pass batchOutlineIsolationCheck."));
   assert.ok(result.blockingIssues.includes("Page outline Markdown parity must be checked."));
+});
+
+const completeDraftSections = Array.from({ length: 8 }, (_, index) => ({
+  sectionId: `section-${String(index + 1).padStart(2, "0")}`,
+  heading: index === 0 ? "Quick answer: when this routine helps or hurts" : `Drafted section ${index + 1}`,
+  draftCopy: "This is page-specific drafted prose that answers the mapped section obligation with concrete evidence, practical guidance, and no placeholder instructions.",
+  outlineRefs: [`outline-section-${index + 1}`],
+  evidenceRefs: index < 4 ? [`source-${index + 1}`] : [],
+  evidenceRequirementLevel: index < 4 ? "evidence_required" as const : "brief_or_outline_only" as const,
+  noNewFactualClaims: true,
+  newFactualClaimsRouted: false,
+  depthProof: {
+    depthLevel: index < 3 ? "high" as const : "medium" as const,
+    complete: true,
+    includesDefinitionOrExplanation: true,
+    includesWhyItMatters: true,
+    includesHowToOrDecisionRule: true,
+    includesExampleOrScenario: true,
+    includesCautionMistakeOrCaveat: true,
+    includesTransition: true
+  },
+  examplesUsed: [
+    {
+      example: "A page-specific illustrative scenario grounded in the outline.",
+      illustrativeOnly: index >= 4,
+      derivedFromEvidence: index < 4,
+      sourceRefs: index < 4 ? [`source-${index + 1}`] : []
+    }
+  ],
+  contentObligationsFulfilled: ["answer", "evidence", "scope boundary"],
+  requiredAssetDelivered: index === 3,
+  claimSafetyNotes: "Risky claims are softened or evidence-backed.",
+  ctaOrInternalLinkDelivered: index === 7,
+  openIssues: [],
+  genericProseDetected: false,
+  placeholderDetected: false
+}));
+
+test("first draft gate passes a complete Step 10 structured draft", () => {
+  const result = validateFirstDraftGate({
+    upstreamHashes: {
+      step0AHash: "0a",
+      step0BHash: "0b",
+      pageJobHash: "job",
+      searchIntentHash: "intent",
+      pageFormatHash: "format",
+      nextActionHash: "next",
+      serpCompetitorHash: "serp",
+      topicResearchHash: "research",
+      uniqueAngleHash: "angle",
+      contentBriefHash: "brief",
+      pageOutlineHash: "outline"
+    },
+    firstDraftHash: "draft",
+    draftSummaryStatement: "The draft answers the main concern early, follows the outline, includes the required matrix and FAQ, and leaves SEO polishing for Step 11.",
+    h1: "How to Build a Safe, Evidence-Backed Routine",
+    wordCountContract: {
+      minimumWordCount: 1800,
+      actualWordCount: 2100,
+      targetWordCountRange: { min: 1800, max: 2400 },
+      noPaddingOrRepetition: true
+    },
+    draftSections: completeDraftSections,
+    introductionQualityGate: {
+      startsWithReaderProblem: true,
+      confirmsIntent: true,
+      statesPagePromise: true,
+      setsScope: true,
+      avoidsGenericFiller: true,
+      leadsIntoPage: true
+    },
+    sectionExpansionGate: {
+      highDepthCoreSectionsPassed: true,
+      weakSectionIds: []
+    },
+    draftCompletenessProof: {
+      pageJobSatisfied: true,
+      searchIntentSatisfied: true,
+      contentBriefSatisfied: true,
+      pageOutlineSatisfied: true,
+      satisfactionConditionMet: true,
+      wrongPageRisksAvoided: true,
+      exclusionsRespected: true
+    },
+    requiredAssetDelivery: {
+      allRequiredAssetsDelivered: true,
+      placeholderOnlyAssets: []
+    },
+    draftClaimSafetyCheck: {
+      riskyClaimsHandled: true,
+      audienceLanguageNotUsedAsFactualProof: true,
+      sensitiveBoundariesRespected: true,
+      newFactualClaimsRoutedToStep6: true,
+      unsupportedRiskyClaims: []
+    },
+    naturalQueryCoverageCheck: {
+      targetKeywordMeaningCovered: true,
+      supportingQueryNeedsCovered: true,
+      noKeywordStuffing: true,
+      noDensityTargets: true,
+      scopeBoundariesRespected: true
+    },
+    draftReadabilityScanabilityGate: {
+      shortParagraphs: true,
+      noWallsOfText: true,
+      usefulListsOrTables: true,
+      clearTransitions: true,
+      visibleWarningsDecisionsNextActions: true,
+      noBuriedPrimaryAnswer: true,
+      sectionFlowMatchesStep9: true
+    },
+    faqDraftDelivery: {
+      requiredByStep9: true,
+      draftedWhenPlanned: true,
+      placeholderOnly: false
+    },
+    ctaInternalLinkDelivery: {
+      draftedWherePlanned: true,
+      nonFinalWordingMarked: true,
+      placeholdersOnly: false,
+      followsBoundaries: true
+    },
+    voiceAndBrandFitCheck: {
+      followsVoiceAndQualityContract: true,
+      avoidsGenericAiProse: true,
+      readerFirst: true,
+      naturalBrandConnection: true,
+      respectsBrandFitBoundaries: true
+    },
+    draftUniquenessCheck: {
+      currentBatchUnique: true,
+      historicalCheckedOrWarning: true,
+      repeatedIntro: false,
+      repeatedSectionBodyPattern: false,
+      repeatedExamples: false,
+      repeatedAssetsOrFaqOrCta: false
+    },
+    antiGenericDraftGate: {
+      passed: true,
+      bannedPhrasesFound: [],
+      placeholdersFound: []
+    },
+    firstDraftDeliveryProofRequirements: {
+      step11Required: true,
+      finalQaRequired: true
+    },
+    mustCarryForward: ["firstDraftHash", "section IDs", "required assets", "claims needing citation"],
+    step10OutputMustNotContain: ["final metadata", "new research", "image prompts", "placeholders"],
+    step10CompletenessChecklist: {
+      upstreamHashesPresent: true,
+      outlineFollowed: true,
+      allSectionsDrafted: true,
+      introGatePassed: true,
+      highDepthExpansionPassed: true,
+      assetsDelivered: true,
+      faqDrafted: true,
+      claimSafetyChecked: true,
+      wordCountFloorMet: true,
+      antiGenericGatePassed: true,
+      markdownParityPassed: true
+    },
+    markdownParityChecked: true,
+    firstDraftVerdict: {
+      status: "pass",
+      action: "continue_to_step11",
+      confidence: "high"
+    },
+    repairAttemptsUsed: 1,
+    judgmentChecks: {
+      passed: true
+    }
+  });
+
+  assert.equal(result.status, "passed");
+  assert.equal(result.machineChecksPassed, true);
+});
+
+test("first draft gate fails generic prose, weak intro, unsupported claims, and missing asset delivery", () => {
+  const result = validateFirstDraftGate({
+    upstreamHashes: {
+      pageOutlineHash: "outline"
+    },
+    firstDraftHash: "",
+    draftSummaryStatement: "",
+    h1: "",
+    wordCountContract: {
+      minimumWordCount: 1800,
+      actualWordCount: 1200,
+      noPaddingOrRepetition: false
+    },
+    draftSections: [
+      {
+        sectionId: "section-01",
+        heading: "Background",
+        draftCopy: "This section should explain why the topic is important.",
+        outlineRefs: [],
+        evidenceRequirementLevel: "evidence_required",
+        noNewFactualClaims: false,
+        newFactualClaimsRouted: false,
+        depthProof: {
+          depthLevel: "high",
+          complete: false
+        },
+        examplesUsed: [
+          {
+            example: "Generic example"
+          }
+        ],
+        contentObligationsFulfilled: [],
+        genericProseDetected: true,
+        placeholderDetected: true
+      }
+    ],
+    introductionQualityGate: {
+      startsWithReaderProblem: false
+    },
+    sectionExpansionGate: {
+      highDepthCoreSectionsPassed: false,
+      weakSectionIds: ["section-01"]
+    },
+    draftCompletenessProof: {
+      pageJobSatisfied: false
+    },
+    requiredAssetDelivery: {
+      allRequiredAssetsDelivered: false,
+      placeholderOnlyAssets: ["matrix"]
+    },
+    draftClaimSafetyCheck: {
+      riskyClaimsHandled: false,
+      audienceLanguageNotUsedAsFactualProof: false,
+      sensitiveBoundariesRespected: false,
+      newFactualClaimsRoutedToStep6: false,
+      unsupportedRiskyClaims: ["cures acne"]
+    },
+    naturalQueryCoverageCheck: {
+      targetKeywordMeaningCovered: false
+    },
+    draftReadabilityScanabilityGate: {
+      shortParagraphs: false
+    },
+    faqDraftDelivery: {
+      requiredByStep9: true,
+      draftedWhenPlanned: false,
+      placeholderOnly: true
+    },
+    ctaInternalLinkDelivery: {
+      draftedWherePlanned: false,
+      placeholdersOnly: true,
+      followsBoundaries: false
+    },
+    voiceAndBrandFitCheck: {
+      followsVoiceAndQualityContract: false
+    },
+    draftUniquenessCheck: {
+      currentBatchUnique: false,
+      historicalCheckedOrWarning: false,
+      repeatedIntro: true,
+      repeatedSectionBodyPattern: true,
+      repeatedExamples: true,
+      repeatedAssetsOrFaqOrCta: true
+    },
+    antiGenericDraftGate: {
+      passed: false,
+      bannedPhrasesFound: ["This section should explain"],
+      placeholdersFound: ["Use this section to"]
+    },
+    firstDraftDeliveryProofRequirements: {
+      step11Required: false,
+      finalQaRequired: false
+    },
+    step10CompletenessChecklist: {
+      introGatePassed: false
+    },
+    markdownParityChecked: false,
+    firstDraftVerdict: {
+      status: "fail",
+      action: "repair_step10"
+    },
+    repairAttemptsUsed: 4,
+    judgmentChecks: {
+      passed: true
+    }
+  });
+
+  assert.equal(result.status, "failed");
+  assert.ok(result.blockingIssues.some((issue) => issue.includes("First draft requires all upstream hashes")));
+  assert.ok(result.blockingIssues.includes("First draft introductionQualityGate must pass."));
+  assert.ok(result.blockingIssues.includes("First draft must deliver all required assets as usable text/table/checklist/flow content."));
+  assert.ok(result.blockingIssues.includes("First draft must pass antiGenericDraftGate."));
+  assert.ok(result.blockingIssues.includes("Step 10 repairs are limited to 3 attempts."));
 });
 
 test("allMandatoryGatesPassed requires every gate to pass", () => {

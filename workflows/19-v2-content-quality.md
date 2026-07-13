@@ -8,7 +8,7 @@ V2.1 adds a human editorial layer before final copy. The Human Editorial Brief a
 
 ## Required Upstream Contract
 
-Before downstream V2 research, drafting, final copy, image, commit, deploy, or publishing work begins, the cluster must have passing Step 0A through Step 9 contracts from `workflows/13-cluster-strategy.md`, ending with Step 9 SEO Page Outline.
+Before downstream V2 research, drafting, final copy, image, commit, deploy, or publishing work begins, the cluster must have passing Step 0A through Step 10 contracts from `workflows/13-cluster-strategy.md`, ending with Step 10 SEO First Draft before Step 11 optimization begins.
 
 The Step 0A foundation artifact must include:
 
@@ -378,6 +378,46 @@ Every major section must meet or exceed its generated `evidenceBudget`. If an ol
 Variant-specific proof is mandatory: comparison pages need methodology and matrix evidence, best-list pages need ranking criteria, pricing pages need cost drivers and price/source caveats, local pages need local availability or service-area proof, and how-to pages need step rationale plus safety or escalation boundaries.
 
 If the Page Depth Contract fails during repair, add new research before rewriting prose. A repair that only rephrases shallow copy is not a valid repair.
+
+## Step 10 SEO First Draft Gate
+
+Before final-copy expansion or Step 11 on-page SEO optimization, the host adapter must create `seoFirstDraft` as `seo-first-draft.json` and `seo-first-draft.md`, freeze `firstDraftHash`, and prove the draft follows the frozen `pageOutlineHash`.
+
+Step 10 is the drafting step, not the optimization step. It writes actual section-by-section prose in `draftSections`, including required assets, FAQ answers, and draft CTA/internal-link copy. It must not change the outline, start new research, invent factual claims, create metadata, finalize citation display, create image prompts, or leave placeholders.
+
+Every first draft must include:
+
+- `draftSummaryStatement`
+- `wordCountContract` with Step 8 `minimumWordCount`, actual word count, and no-padding proof
+- `draftSections` with `sectionId`, heading, draft copy, outline refs, evidence refs when required, `depthProof`, examples, obligations fulfilled, and claim/CTA/link notes
+- `introductionQualityGate`
+- `sectionExpansionGate`
+- `draftCompletenessProof`
+- `requiredAssetDelivery`
+- `draftClaimSafetyCheck`
+- `naturalQueryCoverageCheck`
+- `draftReadabilityScanabilityGate`
+- `faqDraftDelivery`
+- `ctaInternalLinkDelivery`
+- `voiceAndBrandFitCheck`
+- `draftUniquenessCheck`
+- `antiGenericDraftGate`
+- `firstDraftDeliveryProofRequirements`
+- `step10OutputMustNotContain`
+- `step10CompletenessChecklist`
+- `firstDraftVerdict`
+
+High-depth, safety, recommendation, comparison, troubleshooting, example-heavy, asset/component, claim-heavy, factual, medical, finance, legal, product, market, pricing, or safety sections require evidence refs. New factual claims must return to Step 6. Audience-language evidence cannot be used as factual proof.
+
+The intro must start with the reader's real problem or task, confirm intent, state the page promise, set scope, avoid generic filler, and lead into the page. High-depth/core sections must expand with definition or explanation, why it matters, process or decision rule, example/scenario, caveat or mistake when relevant, and transition.
+
+Required assets must be visibly delivered as text, table, checklist, flow, matrix, framework, decision rule, or accessible fallback. Planned FAQ must be drafted. Draft CTA/internal-link copy must appear where planned and remain non-final for later optimization.
+
+`antiGenericDraftGate` rejects placeholder and generic prose such as "This section should explain", "Use this section to", "It is important to", vague "choose the right product", and contextless "consult a professional". `draftUniquenessCheck` rejects repeated intros, body patterns, examples, tables, FAQ answers, CTA copy, and asset logic across current-batch and accessible historical pages.
+
+`firstDraftVerdict.status` may be `pass`, narrow `pass_with_warnings`, `fail`, or `ask_user`; the only onward action is `continue_to_step11`. Step 10 may repair weak draft fields up to 3 times. Missing evidence, unsupported risky claims, unsafe advice, structural conflicts, missing hashes, below-floor word count, current-batch duplication, or required assets undefined upstream return to the owner step, ask, or skip.
+
+Step 11 and final QA must include `firstDraftDeliveryProof`, proving section content, required assets, claim handling, FAQ, CTA/internal links, intro promise, high-depth substance, anti-generic rules, and completeness were preserved or intentionally improved.
 
 ## Final Copy Draft Gate
 

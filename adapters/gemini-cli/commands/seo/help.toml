@@ -4,7 +4,7 @@ Read AGENT.md and summarize the recommended SEO Page Creator Agent flow:
 onboard -> optional site scan -> cluster -> page -> edit-section -> rescore -> watcher.
 Explain prerequisites for each command and where artifacts are stored.
 
-For `/seo:page`, explain that Step 0A, Step 0B, Step 1, Step 2, Step 3, Step 4, Step 5, Step 6, Step 7, and Step 8 from
+For `/seo:page`, explain that Step 0A, Step 0B, Step 1, Step 2, Step 3, Step 4, Step 5, Step 6, Step 7, Step 8, Step 9, and Step 10 from
 `workflows/13-cluster-strategy.md` must pass before page generation.
 
 Step 0A Foundation must create the compact search-opportunity artifact with
@@ -218,6 +218,46 @@ generic brief logic through `antiGenericContract` and `synthesisRequirement`,
 and prove page-specificity through `batchBriefIsolationCheck` and
 `semanticBriefUniquenessCheck`. It returns `continue_to_step9`,
 `repair_step8`, `return_to_step7`, `return_to_step6`, `return_to_step5`,
+`return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`,
+`return_to_0B`, `return_to_onboarding`, `ask_user`, or `skip_page`.
+
+Step 9 must freeze the SEO Page Outline as `seoPageOutline` before Step 10.
+It must save `seo-page-outline.json` and `seo-page-outline.md`, freeze
+`pageOutlineHash`, include `workingH1`, `pageFlowType`,
+`sectionSequenceRationale`, `mainIntentVisibilityCheck`, `outlineSections`,
+`queryCoveragePlan`, `assetPlacementPlan`, `internalLinkPlacementPlan`,
+`ctaPlacementPlan`, `faqPlan`, `contentBriefDeliveryProof`,
+`outlineOriginalityCheck`, `outlineScanabilityCheck`,
+`batchOutlineIsolationCheck`, `step9CompletenessChecklist`, Markdown parity,
+and return `continue_to_step10`.
+
+Step 10 must freeze the SEO First Draft as `seoFirstDraft` before Step 11
+on-page SEO optimization or downstream publishing work. It must save
+`seo-first-draft.json` and `seo-first-draft.md`, freeze `firstDraftHash`,
+carry `contentBriefHash` and `pageOutlineHash`, and include
+`draftSummaryStatement`, `h1`, `wordCountContract`, section-by-section
+`draftSections`, `introductionQualityGate`, `sectionExpansionGate`,
+`draftCompletenessProof`, `requiredAssetDelivery`, `draftClaimSafetyCheck`,
+`naturalQueryCoverageCheck`, `draftReadabilityScanabilityGate`,
+`faqDraftDelivery`, `ctaInternalLinkDelivery`, `voiceAndBrandFitCheck`,
+`draftUniquenessCheck`, `antiGenericDraftGate`,
+`firstDraftDeliveryProofRequirements`, `step10OutputMustNotContain`,
+`step10CompletenessChecklist`,
+Markdown parity, and `firstDraftVerdict`.
+
+Explain that Step 10 writes actual draft prose but must not change the outline,
+start new research, add new factual claims, create final SEO title/meta,
+finalize citation display, create image prompts, or leave placeholders.
+High-depth, safety, recommendation, comparison, troubleshooting,
+asset/component, claim-heavy, medical, product, market, pricing, or safety
+sections require evidence refs. Required assets, planned FAQ answers, and draft
+CTA/internal-link copy must be visible. `antiGenericDraftGate` blocks placeholder
+prose like "This section should explain", "Use this section to",
+"It is important to", vague "choose the right product", or contextless
+"consult a professional". Step 10 returns `continue_to_step11`,
+`repair_step10`, owner-step returns, `ask_user`, or `skip_page`, and final QA
+must include `firstDraftDeliveryProof`. `firstDraftVerdict` may be `pass`,
+narrow `pass_with_warnings`, `fail`, or `ask_user`.
 `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`,
 `return_to_0B`, `return_to_onboarding`, `ask_user`, or `skip_page`.
 Downstream QA must include `contentBriefDeliveryProof` and every Step 9 or later

@@ -262,6 +262,162 @@ export interface PageOutlineGateInput {
   judgmentChecks?: JudgmentChecks;
 }
 
+export interface FirstDraftGateInput {
+  upstreamHashes: {
+    step0AHash?: string;
+    step0BHash?: string;
+    pageJobHash?: string;
+    searchIntentHash?: string;
+    pageFormatHash?: string;
+    nextActionHash?: string;
+    serpCompetitorHash?: string;
+    topicResearchHash?: string;
+    uniqueAngleHash?: string;
+    contentBriefHash?: string;
+    pageOutlineHash?: string;
+  };
+  firstDraftHash?: string;
+  draftSummaryStatement?: string;
+  h1?: string;
+  wordCountContract?: {
+    minimumWordCount?: number;
+    actualWordCount?: number;
+    targetWordCountRange?: {
+      min?: number;
+      max?: number;
+    };
+    noPaddingOrRepetition?: boolean;
+  };
+  draftSections?: Array<{
+    sectionId?: string;
+    heading?: string;
+    draftCopy?: string;
+    outlineRefs?: string[];
+    evidenceRefs?: string[];
+    evidenceRequirementLevel?: "brief_or_outline_only" | "evidence_required";
+    noNewFactualClaims?: boolean;
+    newFactualClaimsRouted?: boolean;
+    depthProof?: {
+      depthLevel?: "low" | "medium" | "high";
+      complete?: boolean;
+      includesDefinitionOrExplanation?: boolean;
+      includesWhyItMatters?: boolean;
+      includesHowToOrDecisionRule?: boolean;
+      includesExampleOrScenario?: boolean;
+      includesCautionMistakeOrCaveat?: boolean;
+      includesTransition?: boolean;
+      missingExpectedPartsReason?: string;
+    };
+    examplesUsed?: Array<{
+      example?: string;
+      sourceRefs?: string[];
+      illustrativeOnly?: boolean;
+      derivedFromEvidence?: boolean;
+    }>;
+    contentObligationsFulfilled?: string[];
+    requiredAssetDelivered?: boolean;
+    claimSafetyNotes?: string;
+    ctaOrInternalLinkDelivered?: boolean;
+    openIssues?: string[];
+    genericProseDetected?: boolean;
+    placeholderDetected?: boolean;
+  }>;
+  introductionQualityGate?: {
+    startsWithReaderProblem?: boolean;
+    confirmsIntent?: boolean;
+    statesPagePromise?: boolean;
+    setsScope?: boolean;
+    avoidsGenericFiller?: boolean;
+    leadsIntoPage?: boolean;
+  };
+  sectionExpansionGate?: {
+    highDepthCoreSectionsPassed?: boolean;
+    weakSectionIds?: string[];
+  };
+  draftCompletenessProof?: {
+    pageJobSatisfied?: boolean;
+    searchIntentSatisfied?: boolean;
+    contentBriefSatisfied?: boolean;
+    pageOutlineSatisfied?: boolean;
+    satisfactionConditionMet?: boolean;
+    wrongPageRisksAvoided?: boolean;
+    exclusionsRespected?: boolean;
+  };
+  requiredAssetDelivery?: {
+    allRequiredAssetsDelivered?: boolean;
+    placeholderOnlyAssets?: string[];
+  };
+  draftClaimSafetyCheck?: {
+    riskyClaimsHandled?: boolean;
+    audienceLanguageNotUsedAsFactualProof?: boolean;
+    sensitiveBoundariesRespected?: boolean;
+    newFactualClaimsRoutedToStep6?: boolean;
+    unsupportedRiskyClaims?: string[];
+  };
+  naturalQueryCoverageCheck?: {
+    targetKeywordMeaningCovered?: boolean;
+    supportingQueryNeedsCovered?: boolean;
+    noKeywordStuffing?: boolean;
+    noDensityTargets?: boolean;
+    scopeBoundariesRespected?: boolean;
+  };
+  draftReadabilityScanabilityGate?: {
+    shortParagraphs?: boolean;
+    noWallsOfText?: boolean;
+    usefulListsOrTables?: boolean;
+    clearTransitions?: boolean;
+    visibleWarningsDecisionsNextActions?: boolean;
+    noBuriedPrimaryAnswer?: boolean;
+    sectionFlowMatchesStep9?: boolean;
+  };
+  faqDraftDelivery?: {
+    requiredByStep9?: boolean;
+    draftedWhenPlanned?: boolean;
+    placeholderOnly?: boolean;
+  };
+  ctaInternalLinkDelivery?: {
+    draftedWherePlanned?: boolean;
+    nonFinalWordingMarked?: boolean;
+    placeholdersOnly?: boolean;
+    followsBoundaries?: boolean;
+  };
+  voiceAndBrandFitCheck?: {
+    followsVoiceAndQualityContract?: boolean;
+    avoidsGenericAiProse?: boolean;
+    readerFirst?: boolean;
+    naturalBrandConnection?: boolean;
+    respectsBrandFitBoundaries?: boolean;
+  };
+  draftUniquenessCheck?: {
+    currentBatchUnique?: boolean;
+    historicalCheckedOrWarning?: boolean;
+    repeatedIntro?: boolean;
+    repeatedSectionBodyPattern?: boolean;
+    repeatedExamples?: boolean;
+    repeatedAssetsOrFaqOrCta?: boolean;
+  };
+  antiGenericDraftGate?: {
+    passed?: boolean;
+    bannedPhrasesFound?: string[];
+    placeholdersFound?: string[];
+  };
+  firstDraftDeliveryProofRequirements?: {
+    step11Required?: boolean;
+    finalQaRequired?: boolean;
+  };
+  mustCarryForward?: unknown[];
+  step10OutputMustNotContain?: string[];
+  step10CompletenessChecklist?: Record<string, boolean>;
+  markdownParityChecked?: boolean;
+  firstDraftVerdict?: {
+    status?: "pass" | "pass_with_warnings" | "fail" | "ask_user";
+    action?: string;
+    confidence?: "low" | "medium" | "high";
+  };
+  repairAttemptsUsed?: number;
+  judgmentChecks?: JudgmentChecks;
+}
+
 interface JudgmentChecks {
   passed: boolean;
   notes?: string;
@@ -641,6 +797,188 @@ export function validatePageOutlineGate(outline: PageOutlineGateInput): V2GateVa
   }
 
   return buildGateResult(machineIssues, outline.judgmentChecks);
+}
+
+export function validateFirstDraftGate(draft: FirstDraftGateInput): V2GateValidationResult {
+  const machineIssues: string[] = [];
+  const requiredHashes: Array<keyof FirstDraftGateInput["upstreamHashes"]> = [
+    "step0AHash",
+    "step0BHash",
+    "pageJobHash",
+    "searchIntentHash",
+    "pageFormatHash",
+    "nextActionHash",
+    "serpCompetitorHash",
+    "topicResearchHash",
+    "uniqueAngleHash",
+    "contentBriefHash",
+    "pageOutlineHash"
+  ];
+  const missingHashes = requiredHashes.filter((hashName) => !hasText(draft.upstreamHashes?.[hashName]));
+
+  if (missingHashes.length > 0) {
+    machineIssues.push(`First draft requires all upstream hashes before Step 11: ${missingHashes.join(", ")}.`);
+  }
+  if (!hasText(draft.firstDraftHash)) machineIssues.push("First draft must include firstDraftHash.");
+  if (!hasText(draft.draftSummaryStatement)) machineIssues.push("First draft must include draftSummaryStatement.");
+  if (!hasText(draft.h1)) machineIssues.push("First draft must include the working H1 used for drafting.");
+
+  const minimumWordCount = draft.wordCountContract?.minimumWordCount ?? 0;
+  const actualWordCount = draft.wordCountContract?.actualWordCount ?? 0;
+  if (minimumWordCount <= 0) machineIssues.push("First draft must inherit a positive minimumWordCount.");
+  if (actualWordCount < minimumWordCount) {
+    machineIssues.push("First draft actualWordCount must meet or exceed the Step 8 minimumWordCount.");
+  }
+  if (draft.wordCountContract?.noPaddingOrRepetition !== true) {
+    machineIssues.push("First draft must prove the word-count floor was met without padding or repetition.");
+  }
+
+  const sections = draft.draftSections ?? [];
+  if (sections.length === 0) machineIssues.push("First draft must include draftSections.");
+  sections.forEach((section, index) => {
+    const sectionLabel = section.sectionId || `section-${index + 1}`;
+    if (!hasText(section.sectionId)) machineIssues.push(`Draft section ${sectionLabel} must include sectionId.`);
+    if (!hasText(section.heading)) machineIssues.push(`Draft section ${sectionLabel} must include heading.`);
+    if (!hasText(section.draftCopy)) machineIssues.push(`Draft section ${sectionLabel} must include draftCopy.`);
+    if (!section.outlineRefs?.length) machineIssues.push(`Draft section ${sectionLabel} must reference the Step 9 outline.`);
+    if (!section.contentObligationsFulfilled?.length) {
+      machineIssues.push(`Draft section ${sectionLabel} must list contentObligationsFulfilled.`);
+    }
+    if (section.evidenceRequirementLevel === "evidence_required" && !section.evidenceRefs?.length) {
+      machineIssues.push(`Draft section ${sectionLabel} requires evidenceRefs.`);
+    }
+    if (section.noNewFactualClaims !== true && section.newFactualClaimsRouted !== true) {
+      machineIssues.push(`Draft section ${sectionLabel} must avoid new factual claims or route them to Step 6.`);
+    }
+    if (section.depthProof?.depthLevel === "high") {
+      const highDepthComplete = section.depthProof.complete === true &&
+        section.depthProof.includesDefinitionOrExplanation === true &&
+        section.depthProof.includesWhyItMatters === true &&
+        section.depthProof.includesHowToOrDecisionRule === true &&
+        section.depthProof.includesExampleOrScenario === true &&
+        section.depthProof.includesCautionMistakeOrCaveat === true &&
+        section.depthProof.includesTransition === true;
+      if (!highDepthComplete && !hasText(section.depthProof.missingExpectedPartsReason)) {
+        machineIssues.push(`High-depth draft section ${sectionLabel} must pass expansion proof or explain missing expected parts.`);
+      }
+    }
+    if (section.examplesUsed?.some((example) =>
+      !hasText(example.example) ||
+      (example.illustrativeOnly !== true && example.derivedFromEvidence !== true && !example.sourceRefs?.length)
+    )) {
+      machineIssues.push(`Draft section ${sectionLabel} examples must be evidence-derived or marked illustrative_only.`);
+    }
+    if (section.genericProseDetected === true || section.placeholderDetected === true) {
+      machineIssues.push(`Draft section ${sectionLabel} must not contain generic or placeholder prose.`);
+    }
+  });
+
+  const intro = draft.introductionQualityGate;
+  if (intro?.startsWithReaderProblem !== true ||
+    intro?.confirmsIntent !== true ||
+    intro?.statesPagePromise !== true ||
+    intro?.setsScope !== true ||
+    intro?.avoidsGenericFiller !== true ||
+    intro?.leadsIntoPage !== true) {
+    machineIssues.push("First draft introductionQualityGate must pass.");
+  }
+  if (draft.sectionExpansionGate?.highDepthCoreSectionsPassed !== true ||
+    (draft.sectionExpansionGate?.weakSectionIds?.length ?? 0) > 0) {
+    machineIssues.push("First draft must pass sectionExpansionGate for high-depth/core sections.");
+  }
+  if (draft.draftCompletenessProof?.pageJobSatisfied !== true ||
+    draft.draftCompletenessProof.searchIntentSatisfied !== true ||
+    draft.draftCompletenessProof.contentBriefSatisfied !== true ||
+    draft.draftCompletenessProof.pageOutlineSatisfied !== true ||
+    draft.draftCompletenessProof.satisfactionConditionMet !== true ||
+    draft.draftCompletenessProof.wrongPageRisksAvoided !== true ||
+    draft.draftCompletenessProof.exclusionsRespected !== true) {
+    machineIssues.push("First draft must prove page job, intent, brief, outline, satisfaction, and exclusions are satisfied.");
+  }
+  if (draft.requiredAssetDelivery?.allRequiredAssetsDelivered !== true ||
+    (draft.requiredAssetDelivery?.placeholderOnlyAssets?.length ?? 0) > 0) {
+    machineIssues.push("First draft must deliver all required assets as usable text/table/checklist/flow content.");
+  }
+  if (draft.draftClaimSafetyCheck?.riskyClaimsHandled !== true ||
+    draft.draftClaimSafetyCheck.audienceLanguageNotUsedAsFactualProof !== true ||
+    draft.draftClaimSafetyCheck.sensitiveBoundariesRespected !== true ||
+    draft.draftClaimSafetyCheck.newFactualClaimsRoutedToStep6 !== true ||
+    (draft.draftClaimSafetyCheck?.unsupportedRiskyClaims?.length ?? 0) > 0) {
+    machineIssues.push("First draft must pass draftClaimSafetyCheck.");
+  }
+  if (draft.naturalQueryCoverageCheck?.targetKeywordMeaningCovered !== true ||
+    draft.naturalQueryCoverageCheck.supportingQueryNeedsCovered !== true ||
+    draft.naturalQueryCoverageCheck.noKeywordStuffing !== true ||
+    draft.naturalQueryCoverageCheck.noDensityTargets !== true ||
+    draft.naturalQueryCoverageCheck.scopeBoundariesRespected !== true) {
+    machineIssues.push("First draft must pass naturalQueryCoverageCheck.");
+  }
+  if (draft.draftReadabilityScanabilityGate?.shortParagraphs !== true ||
+    draft.draftReadabilityScanabilityGate.noWallsOfText !== true ||
+    draft.draftReadabilityScanabilityGate.usefulListsOrTables !== true ||
+    draft.draftReadabilityScanabilityGate.clearTransitions !== true ||
+    draft.draftReadabilityScanabilityGate.visibleWarningsDecisionsNextActions !== true ||
+    draft.draftReadabilityScanabilityGate.noBuriedPrimaryAnswer !== true ||
+    draft.draftReadabilityScanabilityGate.sectionFlowMatchesStep9 !== true) {
+    machineIssues.push("First draft must pass draftReadabilityScanabilityGate.");
+  }
+  if (draft.faqDraftDelivery?.requiredByStep9 === true &&
+    (draft.faqDraftDelivery.draftedWhenPlanned !== true || draft.faqDraftDelivery.placeholderOnly === true)) {
+    machineIssues.push("First draft must write usable FAQ answers when Step 9 planned FAQ.");
+  }
+  if (draft.ctaInternalLinkDelivery?.draftedWherePlanned !== true ||
+    draft.ctaInternalLinkDelivery.nonFinalWordingMarked !== true ||
+    draft.ctaInternalLinkDelivery.placeholdersOnly === true ||
+    draft.ctaInternalLinkDelivery.followsBoundaries !== true) {
+    machineIssues.push("First draft must deliver draft CTA/internal-link copy where planned without violating boundaries.");
+  }
+  if (draft.voiceAndBrandFitCheck?.followsVoiceAndQualityContract !== true ||
+    draft.voiceAndBrandFitCheck.avoidsGenericAiProse !== true ||
+    draft.voiceAndBrandFitCheck.readerFirst !== true ||
+    draft.voiceAndBrandFitCheck.naturalBrandConnection !== true ||
+    draft.voiceAndBrandFitCheck.respectsBrandFitBoundaries !== true) {
+    machineIssues.push("First draft must pass voiceAndBrandFitCheck.");
+  }
+  if (draft.draftUniquenessCheck?.currentBatchUnique !== true ||
+    draft.draftUniquenessCheck.historicalCheckedOrWarning !== true ||
+    draft.draftUniquenessCheck.repeatedIntro === true ||
+    draft.draftUniquenessCheck.repeatedSectionBodyPattern === true ||
+    draft.draftUniquenessCheck.repeatedExamples === true ||
+    draft.draftUniquenessCheck.repeatedAssetsOrFaqOrCta === true) {
+    machineIssues.push("First draft must pass draftUniquenessCheck.");
+  }
+  if (draft.antiGenericDraftGate?.passed !== true ||
+    (draft.antiGenericDraftGate?.bannedPhrasesFound?.length ?? 0) > 0 ||
+    (draft.antiGenericDraftGate?.placeholdersFound?.length ?? 0) > 0) {
+    machineIssues.push("First draft must pass antiGenericDraftGate.");
+  }
+  if (!draft.firstDraftDeliveryProofRequirements?.step11Required ||
+    !draft.firstDraftDeliveryProofRequirements.finalQaRequired) {
+    machineIssues.push("First draft must require Step 11 and final QA delivery proof.");
+  }
+  if (!draft.mustCarryForward?.length) machineIssues.push("First draft must include mustCarryForward.");
+  if (!draft.step10OutputMustNotContain?.length) machineIssues.push("First draft must include step10OutputMustNotContain.");
+  if (!draft.step10CompletenessChecklist || Object.keys(draft.step10CompletenessChecklist).length === 0) {
+    machineIssues.push("First draft must include step10CompletenessChecklist.");
+  } else {
+    const failedChecklistItems = Object.entries(draft.step10CompletenessChecklist)
+      .filter(([, passed]) => passed !== true)
+      .map(([key]) => key);
+    if (failedChecklistItems.length > 0) {
+      machineIssues.push(`First draft completeness checklist failed: ${failedChecklistItems.join(", ")}.`);
+    }
+  }
+  if (draft.markdownParityChecked !== true) machineIssues.push("First draft Markdown parity must be checked.");
+  if (draft.firstDraftVerdict?.status !== "pass" && draft.firstDraftVerdict?.status !== "pass_with_warnings") {
+    machineIssues.push("First draft verdict must be pass or pass_with_warnings before Step 11.");
+  }
+  if (draft.firstDraftVerdict?.action !== "continue_to_step11") {
+    machineIssues.push("First draft verdict action must be continue_to_step11 before SEO optimization.");
+  }
+  if (!draft.firstDraftVerdict?.confidence) machineIssues.push("First draft verdict must include confidence.");
+  if ((draft.repairAttemptsUsed ?? 0) > 3) machineIssues.push("Step 10 repairs are limited to 3 attempts.");
+
+  return buildGateResult(machineIssues, draft.judgmentChecks);
 }
 
 export function allMandatoryGatesPassed(results: V2GateValidationResult[]): boolean {

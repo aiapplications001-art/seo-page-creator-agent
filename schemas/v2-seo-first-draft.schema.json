@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-seo-first-draft.schema.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "seo-first-draft.v2"
+    },
+    "upstreamHashes": {
+      "type": "object",
+      "required": [
+        "step0AHash",
+        "step0BHash",
+        "pageJobHash",
+        "searchIntentHash",
+        "pageFormatHash",
+        "nextActionHash",
+        "serpCompetitorHash",
+        "topicResearchHash",
+        "uniqueAngleHash",
+        "contentBriefHash",
+        "pageOutlineHash"
+      ]
+    },
+    "firstDraftHash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "draftSummaryStatement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "h1": {
+      "type": "string",
+      "minLength": 1
+    },
+    "wordCountContract": {
+      "type": "object"
+    },
+    "draftSections": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "introductionQualityGate": {
+      "type": "object"
+    },
+    "sectionExpansionGate": {
+      "type": "object"
+    },
+    "draftCompletenessProof": {
+      "type": "object"
+    },
+    "requiredAssetDelivery": {
+      "type": "object"
+    },
+    "draftClaimSafetyCheck": {
+      "type": "object"
+    },
+    "naturalQueryCoverageCheck": {
+      "type": "object"
+    },
+    "draftReadabilityScanabilityGate": {
+      "type": "object"
+    },
+    "faqDraftDelivery": {
+      "type": "object"
+    },
+    "ctaInternalLinkDelivery": {
+      "type": "object"
+    },
+    "voiceAndBrandFitCheck": {
+      "type": "object"
+    },
+    "draftUniquenessCheck": {
+      "type": "object"
+    },
+    "antiGenericDraftGate": {
+      "type": "object"
+    },
+    "firstDraftDeliveryProofRequirements": {
+      "type": "object"
+    },
+    "mustCarryForward": {
+      "type": "array"
+    },
+    "step10OutputMustNotContain": {
+      "type": "array"
+    },
+    "step10CompletenessChecklist": {
+      "type": "object"
+    },
+    "firstDraftVerdict": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "upstreamHashes",
+    "firstDraftHash",
+    "draftSummaryStatement",
+    "h1",
+    "wordCountContract",
+    "draftSections",
+    "introductionQualityGate",
+    "sectionExpansionGate",
+    "draftCompletenessProof",
+    "requiredAssetDelivery",
+    "draftClaimSafetyCheck",
+    "naturalQueryCoverageCheck",
+    "draftReadabilityScanabilityGate",
+    "faqDraftDelivery",
+    "ctaInternalLinkDelivery",
+    "voiceAndBrandFitCheck",
+    "draftUniquenessCheck",
+    "antiGenericDraftGate",
+    "firstDraftDeliveryProofRequirements",
+    "mustCarryForward",
+    "step10OutputMustNotContain",
+    "step10CompletenessChecklist",
+    "firstDraftVerdict"
+  ]
+}

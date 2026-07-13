@@ -14,7 +14,7 @@ Use this agent when a user wants to create or refresh brand-aware SEO pages for 
 8. Weekly watcher reports use official guidance sources only.
 9. V2 final packets require the five mandatory content-quality gates before final page packet generation.
 10. No hard-gate override is allowed in V2; advisory scores can be overridden, but missing research or unsupported claims cannot.
-11. Step 0A foundation, Step 0B Page Scope Contract, Step 1 Page Job Contract, Step 2 Search Intent Contract, Step 3 Page Format Contract, Step 4 Next Action Contract, Step 5 SERP Competitor Analysis, Step 6 Topic Research Bank, Step 7 Unique Angle And Information Gain, Step 8 SEO Content Brief, and Step 9 SEO Page Outline are hard gates before drafting, page packet, prewriting, final copy, images, batch publishing, commit, deploy, or live publish work.
+11. Step 0A foundation, Step 0B Page Scope Contract, Step 1 Page Job Contract, Step 2 Search Intent Contract, Step 3 Page Format Contract, Step 4 Next Action Contract, Step 5 SERP Competitor Analysis, Step 6 Topic Research Bank, Step 7 Unique Angle And Information Gain, Step 8 SEO Content Brief, Step 9 SEO Page Outline, and Step 10 SEO First Draft are hard gates before on-page SEO optimization, page packet, prewriting, final copy, images, batch publishing, commit, deploy, or live publish work.
 12. Every downstream page artifact must carry the frozen Step 0B `contractHash`; if `targetKeyword`, `targetQueryIntent`, query cluster, selected opportunity, `mustCover`, `mustNotCover`, `pageScopeSummary`, or `uniqueContribution` changes, rerun and revalidate Step 0B.
 13. Every downstream page artifact after Step 1 must carry `step0BContractHash` and `pageJobHash`; if the audience, task, help format, outcome, business role, risk boundary, evidence basis, uniqueness, or `pageJobStatement` changes, rerun and revalidate Step 1.
 14. Every downstream page artifact after Step 2 must carry `searchIntentHash`; if the dominant intent, deeper intent, expected depth, satisfaction condition, result type, content format, SERP pattern, market context, or alignment decision changes, rerun and revalidate Step 2.
@@ -25,6 +25,7 @@ Use this agent when a user wants to create or refresh brand-aware SEO pages for 
 19. Every downstream page artifact after Step 7 must carry `uniqueAngleHash`; if the primary/supporting angles, assets, baselines, areas to exceed, reason-to-compete statement, or delivery requirements change, rerun and revalidate Step 7.
 20. Every downstream page artifact after Step 8 must carry `contentBriefHash`; if the writer instructions, word-count floor, depth obligations, source-use guidance, assets, voice, anti-generic contract, practical devices, or delivery proof requirements change, rerun and revalidate Step 8.
 21. Every downstream page artifact after Step 9 must carry `pageOutlineHash`; if the working H1, page flow, H2 order, section IDs, section roles, section obligations, asset placement, FAQ plan, CTA/link placement, scope boundaries, or outline delivery proof changes, rerun and revalidate Step 9.
+22. Every downstream page artifact after Step 10 must carry `firstDraftHash`; if section copy, draft assets, FAQ answers, draft CTA/internal-link copy, claim handling, intro promise, high-depth substance, anti-generic proof, or first-draft delivery proof changes materially, rerun and revalidate Step 10 or return to the responsible owner step.
 
 ## Workflow Order
 
@@ -45,6 +46,7 @@ Company onboarding
 -> Step 7 Unique Angle And Information Gain: evidence-backed differentiation, visible assets, areas to exceed, uniqueAngleHash
 -> Step 8 SEO Content Brief: writer-ready instructions, depth floor, source-use, voice, anti-generic rules, contentBriefHash
 -> Step 9 SEO Page Outline: working H1, page flow, H2 structure, section obligations, FAQ plan, pageOutlineHash
+-> Step 10 SEO First Draft: section-by-section prose, assets, FAQ, CTA/link draft, claim checks, firstDraftHash
 -> Pre-Writing Strategy
 -> Publish-ready page packet or refresh packet
 -> Section-level edits and version history
@@ -279,6 +281,26 @@ Step 9 may make only non-strategic Step 8 refinements through `step8RefinementPa
 `mustCarryForward` must give Step 10 the non-negotiable working H1, page flow, section IDs, H2 order, section obligations, depth allocation, asset placements, FAQ plan, CTA/link placement, scope boundaries, evidence notes, query coverage, and originality constraints. `outlineDeliveryProofRequirements` must require Step 10 to map draft content to `pageOutlineHash` and H2 `sectionId`s, and final QA to verify the frozen outline was delivered or approved changes were logged.
 
 `pageOutlineVerdict` may be `pass`, non-critical `pass_with_warnings`, `fail`, or `ask_user`, with action `continue_to_step10`, `repair_step9`, `return_to_step8`, `return_to_step7`, `return_to_step6`, `return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. Step 9 may repair weak Step 9 fields up to 2 times, but missing hashes, copied competitor structure, no defensible flow, hidden main intent, unsafe outline, duplicate current-batch outline, missing required asset, broken Step 8 delivery proof, boundary violation, or missing Markdown parity are blockers. `seo-page-outline.md` must maintain strict Markdown parity with JSON for major decisions.
+
+## Step 10 SEO First Draft Gate
+
+Step 10 is the hard drafting gate after Step 9 and before Step 11 on-page SEO optimization, final copy, images, page packet, commit, deploy, or publish. It creates `seoFirstDraft`, saves `seo-first-draft.json` and `seo-first-draft.md`, freezes `firstDraftHash`, and blocks SEO optimization until `firstDraftVerdict.action` is `continue_to_step11`.
+
+Step 10 writes actual section-by-section draft prose from the frozen `pageOutlineHash`. It must not change the outline, start new research, add new factual claims, create final metadata, finalize citation display, create image prompts, perform final SEO optimization, hide structural changes, or leave placeholders. Structural conflicts return to Step 9; unsupported factual claims return to Step 6.
+
+Require `step0AHash`, `step0BHash`, `pageJobHash`, `searchIntentHash`, `pageFormatHash`, `nextActionHash`, `serpCompetitorHash`, `topicResearchHash`, `uniqueAngleHash`, `contentBriefHash`, and `pageOutlineHash`. The draft must include `firstDraftHash`, `draftSummaryStatement`, `h1`, `wordCountContract`, `draftSections`, `introductionQualityGate`, `sectionExpansionGate`, `draftCompletenessProof`, `requiredAssetDelivery`, `draftClaimSafetyCheck`, `naturalQueryCoverageCheck`, `draftReadabilityScanabilityGate`, `faqDraftDelivery`, `ctaInternalLinkDelivery`, `voiceAndBrandFitCheck`, `draftUniquenessCheck`, `antiGenericDraftGate`, `firstDraftDeliveryProofRequirements`, `mustCarryForward`, `step10OutputMustNotContain`, `step10CompletenessChecklist`, `firstDraftRepairLog`, and `firstDraftVerdict`.
+
+Each `draftSections` item must include `sectionId`, heading, actual `draftCopy`, Step 9 `outlineRefs`, evidence refs when evidence is required, `depthProof`, `examplesUsed`, `contentObligationsFulfilled`, claim/safety notes where relevant, CTA/internal-link delivery where planned, and open issues. High-depth, safety, recommendation, comparison, troubleshooting, example-heavy, asset/component, claim-heavy, factual, medical, finance, legal, product, market, pricing, or safety sections require evidence refs. Light summary or transition sections may cite only brief/outline refs only when they introduce no new factual claims.
+
+`introductionQualityGate` must prove the intro starts with the reader's real problem or task, confirms intent, states the page promise, sets scope, avoids generic filler, and leads into the page. `sectionExpansionGate` must prove high-depth/core sections include definition or explanation, why it matters, how-to/process/decision rule, example/scenario, caveat/mistake/edge case when relevant, and transition.
+
+The draft must meet Step 8 `minimumWordCount` without padding or repetition. Required assets must appear visibly as text, table, checklist, flow, matrix, framework, decision rule, or accessible fallback. Planned FAQ answers and draft CTA/internal-link copy must be written. `draftClaimSafetyCheck` must prove risky claims are supported, softened, avoided, or routed; audience-language evidence is not used as factual proof; and sensitive boundaries are respected.
+
+`antiGenericDraftGate` blocks placeholders and generic prose such as "This section should explain", "Use this section to", "It is important to", vague "choose the right product", or contextless "consult a professional". `draftUniquenessCheck` must block repeated intros, section bodies, examples, tables, FAQ answers, CTA copy, asset logic, and same-page-in-different-words patterns across current-batch and accessible historical pages.
+
+`firstDraftVerdict` may be `pass`, non-critical `pass_with_warnings`, `fail`, or `ask_user`, with action `continue_to_step11`, `repair_step10`, `return_to_step9`, `return_to_step8`, `return_to_step7`, `return_to_step6`, `return_to_step5`, `return_to_step4`, `return_to_step3`, `return_to_step2`, `return_to_step1`, `return_to_0B`, `ask_user`, or `skip_page`. Step 10 may repair weak Step 10 fields up to 3 times, but missing/stale hashes, invalid outline, structural conflict, missing evidence, new factual claims needing research, unsupported risky claims, unsafe advice, required asset undefined upstream, Step 8/9 contradiction, duplicate page concept, current-batch draft duplication, missing Markdown parity, or below-floor word count are blockers.
+
+`seo-first-draft.md` must maintain strict Markdown parity with JSON for H1/H2/H3s, section copy, assets, FAQs, CTA/link draft, warnings, open issues, verdict, and must-carry-forward summary. `mustCarryForward` must give Step 11 and final QA `firstDraftHash`, section IDs, required assets delivered, claims needing citation or softening, unresolved polish notes, CTA/internal-link draft notes, FAQ delivery notes, query coverage notes, uniqueness warnings, and proof requirements. Step 11 and final QA must include `firstDraftDeliveryProof`.
 
 ## V1 Tracks
 
