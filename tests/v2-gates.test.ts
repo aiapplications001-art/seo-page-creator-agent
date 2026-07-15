@@ -7,6 +7,7 @@ import {
   validateContentBriefGate,
   validateFirstDraftGate,
   validateNarrativeBriefGate,
+  validateOnPageSeoGate,
   validatePageOutlineGate,
   validateSerpResearchGate,
   validateSocialVideoResearchGate
@@ -876,6 +877,368 @@ test("first draft gate fails generic prose, weak intro, unsupported claims, and 
   assert.ok(result.blockingIssues.includes("First draft must deliver all required assets as usable text/table/checklist/flow content."));
   assert.ok(result.blockingIssues.includes("First draft must pass antiGenericDraftGate."));
   assert.ok(result.blockingIssues.includes("Step 10 repairs are limited to 3 attempts."));
+});
+
+test("on-page SEO gate passes a complete Step 11 optimized draft", () => {
+  const result = validateOnPageSeoGate({
+    upstreamHashes: {
+      step0AHash: "0a",
+      step0BHash: "0b",
+      pageJobHash: "job",
+      searchIntentHash: "intent",
+      pageFormatHash: "format",
+      nextActionHash: "next",
+      serpCompetitorHash: "serp",
+      topicResearchHash: "research",
+      uniqueAngleHash: "angle",
+      contentBriefHash: "brief",
+      pageOutlineHash: "outline",
+      firstDraftHash: "draft"
+    },
+    onPageSeoHash: "seo",
+    onPageSeoSummaryStatement: "The optimized draft answers the core scar-care question in the intro and first section, sharpens headings, improves topical completeness, preserves safety caveats, and keeps keyword coverage natural.",
+    optimizedDraft: {
+      optimizedH1: "Tretinoin for Acne Scars: What It Can and Cannot Do",
+      sections: [
+        {
+          sectionId: "section-01",
+          optimizedHeading: "Can tretinoin actually help acne scars?",
+          optimizedCopy: "Tretinoin may help texture and post-acne marks for some readers, but it cannot remodel deep pitted scars in the way procedures can.",
+          firstDraftRefs: ["draft-section-01"],
+          pageOutlineRefs: ["outline-section-01"],
+          changeRefs: ["change-01"],
+          requiredDepthPreserved: true,
+          answerPlacementImprovedOrPreserved: true,
+          naturalQueryCoverageImprovedOrPreserved: true,
+          genericOptimizationDetected: false,
+          keywordStuffingDetected: false,
+          unsupportedNewClaims: []
+        },
+        {
+          sectionId: "section-02",
+          optimizedHeading: "How to set safer expectations before using tretinoin",
+          optimizedCopy: "The section keeps the routine advice focused on expectations, irritation boundaries, and dermatologist support instead of promising scar removal.",
+          firstDraftRefs: ["draft-section-02"],
+          pageOutlineRefs: ["outline-section-02"],
+          changeRefs: ["change-02"],
+          requiredDepthPreserved: true,
+          answerPlacementImprovedOrPreserved: true,
+          naturalQueryCoverageImprovedOrPreserved: true,
+          genericOptimizationDetected: false,
+          keywordStuffingDetected: false,
+          unsupportedNewClaims: []
+        }
+      ]
+    },
+    seoChangeLog: [
+      {
+        changeType: "intro_edit",
+        description: "Moved the scar-limitation answer into the opening.",
+        whyItImprovesIntentOrFocus: "Readers searching tretinoin for acne scars need the realistic boundary before routine detail.",
+        protectedUpstreamRefs: ["searchIntentHash", "contentBriefHash", "pageOutlineHash"]
+      },
+      {
+        changeType: "heading_edit",
+        description: "Changed a vague benefits heading into a direct scar-fit question.",
+        whyItImprovesIntentOrFocus: "The heading now matches the reader's decision need and supports scanning.",
+        protectedUpstreamRefs: ["pageOutlineHash", "firstDraftHash"]
+      }
+    ],
+    unresolvedOwnerStepItems: [],
+    intentAlignmentCheck: {
+      stillMatchesSearchIntent: true,
+      pageJobStillSatisfied: true,
+      expectedDepthPreserved: true,
+      pageTypeFormatPreserved: true,
+      noIntentDrift: true
+    },
+    h1OptimizationCheck: {
+      clearSpecificH1: true,
+      naturalKeywordOrVariation: true,
+      matchesPageJobIntentAndScope: true,
+      avoidsVagueCleverWording: true
+    },
+    introOptimizationGate: {
+      startsCloseToReaderProblem: true,
+      confirmsQueryIntent: true,
+      naturalTopicOrKeywordMention: true,
+      setsScope: true,
+      previewsUsefulOutcome: true,
+      avoidsGenericFiller: true,
+      leadsIntoFirstSection: true
+    },
+    headingOptimizationCheck: {
+      h1H2H3WordingOptimized: true,
+      step9SectionSetPreserved: true,
+      hierarchyPreserved: true,
+      headingsScannable: true,
+      noKeywordOnlyHeadings: true,
+      returnToStep9Required: false
+    },
+    topicalCompletenessMap: [
+      {
+        requiredTopicOrReaderNeed: "Realistic tretinoin scar expectations",
+        currentCoverage: "Expanded in the intro and first section.",
+        depthNeeded: "high",
+        status: "complete",
+        action: "increase",
+        upstreamRefs: ["step6-evidence-1", "step8-depth-1"],
+        evidenceRefs: ["medical-source-1"],
+        deliveryProof: "Delivered in section-01."
+      },
+      {
+        requiredTopicOrReaderNeed: "Procedure boundary for pitted scars",
+        currentCoverage: "Kept brief and linked as separate clinical decision context.",
+        depthNeeded: "moderate",
+        status: "complete",
+        action: "link",
+        upstreamRefs: ["step5-gap-1", "step8-exclusion-2"],
+        evidenceRefs: ["medical-source-2"],
+        deliveryProof: "Delivered in section-02."
+      }
+    ],
+    naturalQueryCoverageContract: {
+      targetKeywordRepresentedNaturally: true,
+      supportingQueriesMappedToReaderNeeds: true,
+      highSignalPlacementAppropriate: true,
+      noKeywordDensityTargets: true,
+      noAwkwardExactMatchRepetition: true,
+      noForcedSynonyms: true,
+      noScopeExpansionForKeywords: true
+    },
+    sectionRelevanceCheck: {
+      allSectionsSupportPageJob: true,
+      noGenericSections: true,
+      noOffIntentSections: true,
+      weakSectionsFixedOrRouted: true
+    },
+    contentFocusChangeLog: {
+      increasesLogged: true,
+      movesLogged: true,
+      removalsLogged: true,
+      requiredDepthNotReduced: true,
+      offIntentRepetitionAndOvercoverageHandled: true
+    },
+    internalLinkOptimization: {
+      validatedDestinationsOnly: true,
+      destinationStatusPreserved: true,
+      anchorContextRelevant: true,
+      noInventedUrls: true,
+      missingDestinationsRouted: true
+    },
+    assetOptimization: {
+      assetsSupportReaderNeed: true,
+      altTextOrFallbackChecked: true,
+      textFallbackPreserved: true,
+      noImagePromptOrAssetGeneration: true
+    },
+    readabilityScanabilityCheck: {
+      paragraphsNotDense: true,
+      importantAnswersVisible: true,
+      functionalListsTablesSummaries: true,
+      clearTransitions: true,
+      warningsAndDecisionPointsVisible: true,
+      formattingNotDecorativeOnly: true
+    },
+    answerPlacementCheck: {
+      mainAnswerNearTop: true,
+      importantHeadingsAnsweredDirectly: true,
+      definitionsBeforeAdvancedDiscussion: true,
+      safetyDecisionAnswersNotBuried: true
+    },
+    naturalLanguageOptimizationGate: {
+      noKeywordStuffing: true,
+      noForcedSynonyms: true,
+      noRoboticSeoLanguage: true,
+      noRepeatedSentencePatterns: true,
+      noHeadingsWrittenOnlyForKeywords: true,
+      preservesReaderFirstVoice: true
+    },
+    lightClaimSourceUseCheck: {
+      noUnsupportedNewClaims: true,
+      caveatsPreserved: true,
+      audienceLanguageNotUsedAsFactualProof: true,
+      riskyClaimsNotMadeMoreAbsolute: true,
+      trustCitationWorkRoutedToStep12: true
+    },
+    metadataCandidates: {
+      slugCandidate: "tretinoin-for-acne-scars-guide",
+      seoTitleCandidate: "Tretinoin for Acne Scars: Realistic Guide",
+      metaDescriptionCandidate: "Understand where tretinoin can help post-acne marks and where scars need different support.",
+      labeledNonFinal: true
+    },
+    onPageSeoUniquenessCheck: {
+      currentBatchUnique: true,
+      historicalCheckedOrWarning: true,
+      repeatedOptimizedIntro: false,
+      repeatedHeadingPattern: false,
+      repeatedTopicalFixes: false,
+      repeatedInternalLinkPath: false,
+      repeatedAssetAltOrFaqOrSummaryPattern: false
+    },
+    onPageSeoDeliveryProofRequirements: {
+      step12Required: true,
+      finalQaRequired: true
+    },
+    mustCarryForward: ["onPageSeoHash", "optimized H1", "topical completeness actions", "natural query coverage"],
+    step11OutputMustNotContain: ["final metadata", "new research", "image prompts", "technical SEO QA"],
+    step11CompletenessChecklist: {
+      upstreamHashesPresent: true,
+      step10DraftPreserved: true,
+      optimizedDraftPresent: true,
+      intentAlignmentChecked: true,
+      h1Optimized: true,
+      introOptimized: true,
+      headingsOptimized: true,
+      topicalCompletenessMapComplete: true,
+      keywordCoverageNatural: true,
+      sectionRelevanceChecked: true,
+      offIntentContentHandled: true,
+      internalLinksOptimized: true,
+      assetAltFallbackChecked: true,
+      readabilityChecked: true,
+      answerPlacementChecked: true,
+      naturalLanguageGatePassed: true,
+      claimSafetyProtected: true,
+      uniquenessChecked: true,
+      markdownParityComplete: true,
+      noBoundaryViolations: true
+    },
+    markdownParityChecked: true,
+    onPageSeoVerdict: {
+      status: "pass",
+      action: "continue_to_step12",
+      confidence: "high"
+    },
+    repairAttemptsUsed: 1,
+    judgmentChecks: {
+      passed: true
+    }
+  });
+
+  assert.equal(result.status, "passed");
+  assert.equal(result.machineChecksPassed, true);
+});
+
+test("on-page SEO gate fails buried answers, keyword stuffing, unsupported claims, and structure drift", () => {
+  const result = validateOnPageSeoGate({
+    upstreamHashes: {
+      firstDraftHash: "draft"
+    },
+    onPageSeoHash: "",
+    onPageSeoSummaryStatement: "",
+    optimizedDraft: {
+      optimizedH1: "",
+      sections: [
+        {
+          sectionId: "section-01",
+          optimizedHeading: "Tretinoin acne scars tretinoin acne scars guide",
+          optimizedCopy: "This SEO optimized section says tretinoin removes scars.",
+          firstDraftRefs: [],
+          pageOutlineRefs: [],
+          requiredDepthPreserved: false,
+          answerPlacementImprovedOrPreserved: false,
+          naturalQueryCoverageImprovedOrPreserved: false,
+          genericOptimizationDetected: true,
+          keywordStuffingDetected: true,
+          unsupportedNewClaims: ["removes scars"]
+        }
+      ]
+    },
+    seoChangeLog: [
+      {
+        changeType: "heading_edit",
+        description: ""
+      }
+    ],
+    intentAlignmentCheck: {
+      stillMatchesSearchIntent: false
+    },
+    h1OptimizationCheck: {
+      clearSpecificH1: false
+    },
+    introOptimizationGate: {
+      startsCloseToReaderProblem: false
+    },
+    headingOptimizationCheck: {
+      h1H2H3WordingOptimized: false,
+      step9SectionSetPreserved: false,
+      hierarchyPreserved: false,
+      returnToStep9Required: true
+    },
+    topicalCompletenessMap: [
+      {
+        requiredTopicOrReaderNeed: "Scar expectation",
+        currentCoverage: "Still buried",
+        depthNeeded: "high",
+        status: "partial",
+        action: "keep",
+        upstreamRefs: []
+      }
+    ],
+    naturalQueryCoverageContract: {
+      targetKeywordRepresentedNaturally: false,
+      noKeywordDensityTargets: false
+    },
+    sectionRelevanceCheck: {
+      allSectionsSupportPageJob: false
+    },
+    contentFocusChangeLog: {
+      increasesLogged: false,
+      requiredDepthNotReduced: false
+    },
+    internalLinkOptimization: {
+      validatedDestinationsOnly: false,
+      noInventedUrls: false
+    },
+    assetOptimization: {
+      noImagePromptOrAssetGeneration: false
+    },
+    readabilityScanabilityCheck: {
+      importantAnswersVisible: false
+    },
+    answerPlacementCheck: {
+      mainAnswerNearTop: false
+    },
+    naturalLanguageOptimizationGate: {
+      noKeywordStuffing: false
+    },
+    lightClaimSourceUseCheck: {
+      noUnsupportedNewClaims: false
+    },
+    metadataCandidates: {
+      seoTitleCandidate: "Final title without label"
+    },
+    onPageSeoUniquenessCheck: {
+      currentBatchUnique: false,
+      historicalCheckedOrWarning: false,
+      repeatedOptimizedIntro: true,
+      repeatedHeadingPattern: true
+    },
+    onPageSeoDeliveryProofRequirements: {
+      step12Required: false,
+      finalQaRequired: false
+    },
+    step11CompletenessChecklist: {
+      answerPlacementChecked: false
+    },
+    markdownParityChecked: false,
+    onPageSeoVerdict: {
+      status: "fail",
+      action: "repair_step11"
+    },
+    repairAttemptsUsed: 3,
+    judgmentChecks: {
+      passed: true
+    }
+  });
+
+  assert.equal(result.status, "failed");
+  assert.ok(result.blockingIssues.some((issue) => issue.includes("On-page SEO requires all upstream hashes")));
+  assert.ok(result.blockingIssues.includes("On-page SEO must optimize headings without changing the Step 9 section set or hierarchy."));
+  assert.ok(result.blockingIssues.includes("On-page SEO must pass naturalLanguageOptimizationGate."));
+  assert.ok(result.blockingIssues.includes("On-page SEO metadata candidates must be labeled non-final."));
+  assert.ok(result.blockingIssues.includes("Step 11 repairs are limited to 2 attempts."));
 });
 
 test("allMandatoryGatesPassed requires every gate to pass", () => {

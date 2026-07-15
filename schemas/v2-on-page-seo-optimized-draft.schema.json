@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/v2-on-page-seo-optimized-draft.schema.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "on-page-seo-optimized-draft.v2"
+    },
+    "upstreamHashes": {
+      "type": "object",
+      "required": [
+        "step0AHash",
+        "step0BHash",
+        "pageJobHash",
+        "searchIntentHash",
+        "pageFormatHash",
+        "nextActionHash",
+        "serpCompetitorHash",
+        "topicResearchHash",
+        "uniqueAngleHash",
+        "contentBriefHash",
+        "pageOutlineHash",
+        "firstDraftHash"
+      ]
+    },
+    "onPageSeoHash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "onPageSeoSummaryStatement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "optimizedDraft": {
+      "type": "object"
+    },
+    "seoChangeLog": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "unresolvedOwnerStepItems": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "intentAlignmentCheck": {
+      "type": "object"
+    },
+    "h1OptimizationCheck": {
+      "type": "object"
+    },
+    "introOptimizationGate": {
+      "type": "object"
+    },
+    "headingOptimizationCheck": {
+      "type": "object"
+    },
+    "topicalCompletenessMap": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "naturalQueryCoverageContract": {
+      "type": "object"
+    },
+    "sectionRelevanceCheck": {
+      "type": "object"
+    },
+    "contentFocusChangeLog": {
+      "type": "object"
+    },
+    "internalLinkOptimization": {
+      "type": "object"
+    },
+    "assetOptimization": {
+      "type": "object"
+    },
+    "readabilityScanabilityCheck": {
+      "type": "object"
+    },
+    "answerPlacementCheck": {
+      "type": "object"
+    },
+    "naturalLanguageOptimizationGate": {
+      "type": "object"
+    },
+    "lightClaimSourceUseCheck": {
+      "type": "object"
+    },
+    "metadataCandidates": {
+      "type": "object"
+    },
+    "onPageSeoUniquenessCheck": {
+      "type": "object"
+    },
+    "onPageSeoDeliveryProofRequirements": {
+      "type": "object"
+    },
+    "mustCarryForward": {
+      "type": "array"
+    },
+    "step11OutputMustNotContain": {
+      "type": "array"
+    },
+    "step11CompletenessChecklist": {
+      "type": "object"
+    },
+    "onPageSeoVerdict": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "upstreamHashes",
+    "onPageSeoHash",
+    "onPageSeoSummaryStatement",
+    "optimizedDraft",
+    "seoChangeLog",
+    "unresolvedOwnerStepItems",
+    "intentAlignmentCheck",
+    "h1OptimizationCheck",
+    "introOptimizationGate",
+    "headingOptimizationCheck",
+    "topicalCompletenessMap",
+    "naturalQueryCoverageContract",
+    "sectionRelevanceCheck",
+    "contentFocusChangeLog",
+    "internalLinkOptimization",
+    "assetOptimization",
+    "readabilityScanabilityCheck",
+    "answerPlacementCheck",
+    "naturalLanguageOptimizationGate",
+    "lightClaimSourceUseCheck",
+    "metadataCandidates",
+    "onPageSeoUniquenessCheck",
+    "onPageSeoDeliveryProofRequirements",
+    "mustCarryForward",
+    "step11OutputMustNotContain",
+    "step11CompletenessChecklist",
+    "onPageSeoVerdict"
+  ]
+}

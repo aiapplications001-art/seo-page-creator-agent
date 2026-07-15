@@ -63,7 +63,8 @@ test("V2 schema files expose expected schema ids", () => {
     ["schemas/v2-claim-first-section-plan.schema.json", "claim-first-section-plan.v2"],
     ["schemas/v2-seo-content-brief.schema.json", "seo-content-brief.v2"],
     ["schemas/v2-seo-page-outline.schema.json", "seo-page-outline.v2"],
-    ["schemas/v2-seo-first-draft.schema.json", "seo-first-draft.v2"]
+    ["schemas/v2-seo-first-draft.schema.json", "seo-first-draft.v2"],
+    ["schemas/v2-on-page-seo-optimized-draft.schema.json", "on-page-seo-optimized-draft.v2"]
   ];
 
   for (const [path, schemaVersion] of schemaIds) {

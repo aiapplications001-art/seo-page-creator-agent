@@ -594,11 +594,46 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /Step 11|on-page SEO|SEO optimization/i);
   }
 
+  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+    assert.match(doc, /Step 11|On-Page SEO Optimized Draft|on-page SEO/i);
+    assert.match(doc, /onPageSeoOptimizedDraft/);
+    assert.match(doc, /onPageSeoHash/);
+    assert.match(doc, /on-page-seo-optimized-draft\.json/);
+    assert.match(doc, /on-page-seo-optimized-draft\.md/);
+    assert.match(doc, /onPageSeoSummaryStatement/);
+    assert.match(doc, /optimizedDraft/);
+    assert.match(doc, /seoChangeLog/);
+    assert.match(doc, /unresolvedOwnerStepItems/);
+    assert.match(doc, /intentAlignmentCheck/);
+    assert.match(doc, /h1OptimizationCheck/);
+    assert.match(doc, /introOptimizationGate/);
+    assert.match(doc, /headingOptimizationCheck/);
+    assert.match(doc, /topicalCompletenessMap/);
+    assert.match(doc, /naturalQueryCoverageContract/);
+    assert.match(doc, /internalLinkOptimization/);
+    assert.match(doc, /assetOptimization/);
+    assert.match(doc, /answerPlacementCheck/);
+    assert.match(doc, /naturalLanguageOptimizationGate/);
+    assert.match(doc, /lightClaimSourceUseCheck/);
+    assert.match(doc, /metadataCandidates/);
+    assert.match(doc, /onPageSeoUniquenessCheck/);
+    assert.match(doc, /onPageSeoDeliveryProofRequirements|onPageSeoDeliveryProof/);
+    assert.match(doc, /step11OutputMustNotContain/);
+    assert.match(doc, /step11CompletenessChecklist/);
+    assert.match(doc, /onPageSeoVerdict/);
+    assert.match(doc, /continue_to_step12/);
+    assert.match(doc, /Markdown parity|Markdown.*parity|markdownParity/i);
+    assert.match(doc, /2 repairs|up to 2|two/i);
+    assert.match(doc, /keyword-density|keyword stuffing|density targets/i);
+    assert.match(doc, /non-final|non final/i);
+  }
+
   assert.equal(existsSync("docs/superpowers/specs/2026-07-11-step-5-serp-competitor-analysis-design.md"), true);
   assert.equal(existsSync("docs/superpowers/specs/2026-07-11-step-6-topic-research-bank-design.md"), true);
   assert.equal(existsSync("docs/superpowers/specs/2026-07-12-step-7-unique-angle-information-gain-design.md"), true);
   assert.equal(existsSync("docs/superpowers/specs/2026-07-12-step-8-seo-content-brief-design.md"), true);
   assert.equal(existsSync("docs/superpowers/specs/2026-07-12-step-9-seo-page-outline-design.md"), true);
   assert.equal(existsSync("docs/superpowers/specs/2026-07-13-step-10-first-draft-design.md"), true);
+  assert.equal(existsSync("docs/superpowers/specs/2026-07-15-step-11-on-page-seo-optimized-draft-design.md"), true);
   assert.equal(existsSync("config/step8-practical-device-baselines.json"), true);
 });

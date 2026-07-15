@@ -418,6 +418,188 @@ export interface FirstDraftGateInput {
   judgmentChecks?: JudgmentChecks;
 }
 
+export interface OnPageSeoGateInput {
+  upstreamHashes: {
+    step0AHash?: string;
+    step0BHash?: string;
+    pageJobHash?: string;
+    searchIntentHash?: string;
+    pageFormatHash?: string;
+    nextActionHash?: string;
+    serpCompetitorHash?: string;
+    topicResearchHash?: string;
+    uniqueAngleHash?: string;
+    contentBriefHash?: string;
+    pageOutlineHash?: string;
+    firstDraftHash?: string;
+  };
+  onPageSeoHash?: string;
+  onPageSeoSummaryStatement?: string;
+  optimizedDraft?: {
+    optimizedH1?: string;
+    sections?: Array<{
+      sectionId?: string;
+      optimizedHeading?: string;
+      optimizedCopy?: string;
+      firstDraftRefs?: string[];
+      pageOutlineRefs?: string[];
+      changeRefs?: string[];
+      requiredDepthPreserved?: boolean;
+      answerPlacementImprovedOrPreserved?: boolean;
+      naturalQueryCoverageImprovedOrPreserved?: boolean;
+      genericOptimizationDetected?: boolean;
+      keywordStuffingDetected?: boolean;
+      unsupportedNewClaims?: string[];
+    }>;
+  };
+  seoChangeLog?: Array<{
+    changeType?: "increase" | "move" | "remove" | "heading_edit" | "intro_edit" | "keyword_adjustment" | "internal_link" | "asset_alt" | "readability" | "metadata_candidate" | "other";
+    description?: string;
+    whyItImprovesIntentOrFocus?: string;
+    protectedUpstreamRefs?: string[];
+  }>;
+  unresolvedOwnerStepItems?: Array<{
+    issue?: string;
+    ownerStep?: "step5" | "step6" | "step8" | "step9" | "step10" | "step12" | "metadata" | "asset_execution" | "technical_qa" | "publishing" | "ask_user";
+    action?: string;
+    reason?: string;
+  }>;
+  intentAlignmentCheck?: {
+    stillMatchesSearchIntent?: boolean;
+    pageJobStillSatisfied?: boolean;
+    expectedDepthPreserved?: boolean;
+    pageTypeFormatPreserved?: boolean;
+    noIntentDrift?: boolean;
+  };
+  h1OptimizationCheck?: {
+    clearSpecificH1?: boolean;
+    naturalKeywordOrVariation?: boolean;
+    matchesPageJobIntentAndScope?: boolean;
+    avoidsVagueCleverWording?: boolean;
+  };
+  introOptimizationGate?: {
+    startsCloseToReaderProblem?: boolean;
+    confirmsQueryIntent?: boolean;
+    naturalTopicOrKeywordMention?: boolean;
+    setsScope?: boolean;
+    previewsUsefulOutcome?: boolean;
+    avoidsGenericFiller?: boolean;
+    leadsIntoFirstSection?: boolean;
+  };
+  headingOptimizationCheck?: {
+    h1H2H3WordingOptimized?: boolean;
+    step9SectionSetPreserved?: boolean;
+    hierarchyPreserved?: boolean;
+    headingsScannable?: boolean;
+    noKeywordOnlyHeadings?: boolean;
+    returnToStep9Required?: boolean;
+  };
+  topicalCompletenessMap?: Array<{
+    requiredTopicOrReaderNeed?: string;
+    currentCoverage?: string;
+    depthNeeded?: "brief" | "moderate" | "high";
+    status?: "complete" | "partial" | "missing" | "overcovered" | "off_intent";
+    action?: "add" | "expand" | "increase" | "move" | "remove" | "link" | "keep" | "return_to_step6" | "return_to_step8" | "return_to_step9";
+    upstreamRefs?: string[];
+    evidenceRefs?: string[];
+    deliveryProof?: string;
+  }>;
+  naturalQueryCoverageContract?: {
+    targetKeywordRepresentedNaturally?: boolean;
+    supportingQueriesMappedToReaderNeeds?: boolean;
+    highSignalPlacementAppropriate?: boolean;
+    noKeywordDensityTargets?: boolean;
+    noAwkwardExactMatchRepetition?: boolean;
+    noForcedSynonyms?: boolean;
+    noScopeExpansionForKeywords?: boolean;
+  };
+  sectionRelevanceCheck?: {
+    allSectionsSupportPageJob?: boolean;
+    noGenericSections?: boolean;
+    noOffIntentSections?: boolean;
+    weakSectionsFixedOrRouted?: boolean;
+  };
+  contentFocusChangeLog?: {
+    increasesLogged?: boolean;
+    movesLogged?: boolean;
+    removalsLogged?: boolean;
+    requiredDepthNotReduced?: boolean;
+    offIntentRepetitionAndOvercoverageHandled?: boolean;
+  };
+  internalLinkOptimization?: {
+    validatedDestinationsOnly?: boolean;
+    destinationStatusPreserved?: boolean;
+    anchorContextRelevant?: boolean;
+    noInventedUrls?: boolean;
+    missingDestinationsRouted?: boolean;
+  };
+  assetOptimization?: {
+    assetsSupportReaderNeed?: boolean;
+    altTextOrFallbackChecked?: boolean;
+    textFallbackPreserved?: boolean;
+    noImagePromptOrAssetGeneration?: boolean;
+  };
+  readabilityScanabilityCheck?: {
+    paragraphsNotDense?: boolean;
+    importantAnswersVisible?: boolean;
+    functionalListsTablesSummaries?: boolean;
+    clearTransitions?: boolean;
+    warningsAndDecisionPointsVisible?: boolean;
+    formattingNotDecorativeOnly?: boolean;
+  };
+  answerPlacementCheck?: {
+    mainAnswerNearTop?: boolean;
+    importantHeadingsAnsweredDirectly?: boolean;
+    definitionsBeforeAdvancedDiscussion?: boolean;
+    safetyDecisionAnswersNotBuried?: boolean;
+  };
+  naturalLanguageOptimizationGate?: {
+    noKeywordStuffing?: boolean;
+    noForcedSynonyms?: boolean;
+    noRoboticSeoLanguage?: boolean;
+    noRepeatedSentencePatterns?: boolean;
+    noHeadingsWrittenOnlyForKeywords?: boolean;
+    preservesReaderFirstVoice?: boolean;
+  };
+  lightClaimSourceUseCheck?: {
+    noUnsupportedNewClaims?: boolean;
+    caveatsPreserved?: boolean;
+    audienceLanguageNotUsedAsFactualProof?: boolean;
+    riskyClaimsNotMadeMoreAbsolute?: boolean;
+    trustCitationWorkRoutedToStep12?: boolean;
+  };
+  metadataCandidates?: {
+    slugCandidate?: string;
+    seoTitleCandidate?: string;
+    metaDescriptionCandidate?: string;
+    labeledNonFinal?: boolean;
+  };
+  onPageSeoUniquenessCheck?: {
+    currentBatchUnique?: boolean;
+    historicalCheckedOrWarning?: boolean;
+    repeatedOptimizedIntro?: boolean;
+    repeatedHeadingPattern?: boolean;
+    repeatedTopicalFixes?: boolean;
+    repeatedInternalLinkPath?: boolean;
+    repeatedAssetAltOrFaqOrSummaryPattern?: boolean;
+  };
+  onPageSeoDeliveryProofRequirements?: {
+    step12Required?: boolean;
+    finalQaRequired?: boolean;
+  };
+  mustCarryForward?: unknown[];
+  step11OutputMustNotContain?: string[];
+  step11CompletenessChecklist?: Record<string, boolean>;
+  markdownParityChecked?: boolean;
+  onPageSeoVerdict?: {
+    status?: "pass" | "pass_with_warnings" | "fail" | "ask_user";
+    action?: string;
+    confidence?: "low" | "medium" | "high";
+  };
+  repairAttemptsUsed?: number;
+  judgmentChecks?: JudgmentChecks;
+}
+
 interface JudgmentChecks {
   passed: boolean;
   notes?: string;
@@ -979,6 +1161,235 @@ export function validateFirstDraftGate(draft: FirstDraftGateInput): V2GateValida
   if ((draft.repairAttemptsUsed ?? 0) > 3) machineIssues.push("Step 10 repairs are limited to 3 attempts.");
 
   return buildGateResult(machineIssues, draft.judgmentChecks);
+}
+
+export function validateOnPageSeoGate(seo: OnPageSeoGateInput): V2GateValidationResult {
+  const machineIssues: string[] = [];
+  const requiredHashes: Array<keyof OnPageSeoGateInput["upstreamHashes"]> = [
+    "step0AHash",
+    "step0BHash",
+    "pageJobHash",
+    "searchIntentHash",
+    "pageFormatHash",
+    "nextActionHash",
+    "serpCompetitorHash",
+    "topicResearchHash",
+    "uniqueAngleHash",
+    "contentBriefHash",
+    "pageOutlineHash",
+    "firstDraftHash"
+  ];
+  const missingHashes = requiredHashes.filter((hashName) => !hasText(seo.upstreamHashes?.[hashName]));
+
+  if (missingHashes.length > 0) {
+    machineIssues.push(`On-page SEO requires all upstream hashes before Step 12: ${missingHashes.join(", ")}.`);
+  }
+  if (!hasText(seo.onPageSeoHash)) machineIssues.push("On-page SEO must include onPageSeoHash.");
+  if (!hasText(seo.onPageSeoSummaryStatement)) {
+    machineIssues.push("On-page SEO must include onPageSeoSummaryStatement.");
+  }
+  if (!hasText(seo.optimizedDraft?.optimizedH1)) machineIssues.push("On-page SEO must include optimizedDraft.optimizedH1.");
+
+  const optimizedSections = seo.optimizedDraft?.sections ?? [];
+  if (optimizedSections.length === 0) machineIssues.push("On-page SEO must include optimized draft sections.");
+  optimizedSections.forEach((section, index) => {
+    const sectionLabel = section.sectionId || `section-${index + 1}`;
+    if (!hasText(section.sectionId)) machineIssues.push(`Optimized section ${sectionLabel} must include sectionId.`);
+    if (!hasText(section.optimizedHeading)) machineIssues.push(`Optimized section ${sectionLabel} must include optimizedHeading.`);
+    if (!hasText(section.optimizedCopy)) machineIssues.push(`Optimized section ${sectionLabel} must include optimizedCopy.`);
+    if (!section.firstDraftRefs?.length) machineIssues.push(`Optimized section ${sectionLabel} must reference the Step 10 draft.`);
+    if (!section.pageOutlineRefs?.length) machineIssues.push(`Optimized section ${sectionLabel} must reference the Step 9 outline.`);
+    if (section.requiredDepthPreserved !== true) {
+      machineIssues.push(`Optimized section ${sectionLabel} must preserve required depth.`);
+    }
+    if (section.answerPlacementImprovedOrPreserved !== true) {
+      machineIssues.push(`Optimized section ${sectionLabel} must prove answer placement was improved or preserved.`);
+    }
+    if (section.naturalQueryCoverageImprovedOrPreserved !== true) {
+      machineIssues.push(`Optimized section ${sectionLabel} must prove natural query coverage was improved or preserved.`);
+    }
+    if (section.genericOptimizationDetected === true) {
+      machineIssues.push(`Optimized section ${sectionLabel} must not contain generic optimization.`);
+    }
+    if (section.keywordStuffingDetected === true) {
+      machineIssues.push(`Optimized section ${sectionLabel} must not contain keyword stuffing.`);
+    }
+    if ((section.unsupportedNewClaims?.length ?? 0) > 0) {
+      machineIssues.push(`Optimized section ${sectionLabel} must not introduce unsupported new claims.`);
+    }
+  });
+
+  if (!seo.seoChangeLog?.length) {
+    machineIssues.push("On-page SEO must include seoChangeLog.");
+  } else {
+    const incompleteChange = seo.seoChangeLog.some((change) =>
+      !change.changeType ||
+      !hasText(change.description) ||
+      !hasText(change.whyItImprovesIntentOrFocus) ||
+      !change.protectedUpstreamRefs?.length
+    );
+    if (incompleteChange) {
+      machineIssues.push("Every on-page SEO change must include type, description, intent/focus reason, and protected upstream refs.");
+    }
+  }
+
+  if (seo.intentAlignmentCheck?.stillMatchesSearchIntent !== true ||
+    seo.intentAlignmentCheck.pageJobStillSatisfied !== true ||
+    seo.intentAlignmentCheck.expectedDepthPreserved !== true ||
+    seo.intentAlignmentCheck.pageTypeFormatPreserved !== true ||
+    seo.intentAlignmentCheck.noIntentDrift !== true) {
+    machineIssues.push("On-page SEO must pass intentAlignmentCheck.");
+  }
+  if (seo.h1OptimizationCheck?.clearSpecificH1 !== true ||
+    seo.h1OptimizationCheck.naturalKeywordOrVariation !== true ||
+    seo.h1OptimizationCheck.matchesPageJobIntentAndScope !== true ||
+    seo.h1OptimizationCheck.avoidsVagueCleverWording !== true) {
+    machineIssues.push("On-page SEO must pass h1OptimizationCheck.");
+  }
+  if (seo.introOptimizationGate?.startsCloseToReaderProblem !== true ||
+    seo.introOptimizationGate.confirmsQueryIntent !== true ||
+    seo.introOptimizationGate.naturalTopicOrKeywordMention !== true ||
+    seo.introOptimizationGate.setsScope !== true ||
+    seo.introOptimizationGate.previewsUsefulOutcome !== true ||
+    seo.introOptimizationGate.avoidsGenericFiller !== true ||
+    seo.introOptimizationGate.leadsIntoFirstSection !== true) {
+    machineIssues.push("On-page SEO must pass introOptimizationGate.");
+  }
+  if (seo.headingOptimizationCheck?.h1H2H3WordingOptimized !== true ||
+    seo.headingOptimizationCheck.step9SectionSetPreserved !== true ||
+    seo.headingOptimizationCheck.hierarchyPreserved !== true ||
+    seo.headingOptimizationCheck.headingsScannable !== true ||
+    seo.headingOptimizationCheck.noKeywordOnlyHeadings !== true ||
+    seo.headingOptimizationCheck.returnToStep9Required === true) {
+    machineIssues.push("On-page SEO must optimize headings without changing the Step 9 section set or hierarchy.");
+  }
+
+  const topicalMap = seo.topicalCompletenessMap ?? [];
+  if (topicalMap.length === 0) {
+    machineIssues.push("On-page SEO must include topicalCompletenessMap.");
+  }
+  topicalMap.forEach((item, index) => {
+    const itemLabel = item.requiredTopicOrReaderNeed || `topical-item-${index + 1}`;
+    if (!hasText(item.requiredTopicOrReaderNeed)) {
+      machineIssues.push(`Topical completeness item ${itemLabel} must include requiredTopicOrReaderNeed.`);
+    }
+    if (!hasText(item.currentCoverage)) machineIssues.push(`Topical completeness item ${itemLabel} must include currentCoverage.`);
+    if (!item.depthNeeded) machineIssues.push(`Topical completeness item ${itemLabel} must include depthNeeded.`);
+    if (!item.status) machineIssues.push(`Topical completeness item ${itemLabel} must include status.`);
+    if (!item.action) machineIssues.push(`Topical completeness item ${itemLabel} must include action.`);
+    if (!item.upstreamRefs?.length) machineIssues.push(`Topical completeness item ${itemLabel} must include upstreamRefs.`);
+    if (!hasText(item.deliveryProof)) machineIssues.push(`Topical completeness item ${itemLabel} must include deliveryProof.`);
+    if (item.status !== "complete" && item.action === "keep") {
+      machineIssues.push(`Topical completeness item ${itemLabel} cannot keep incomplete or off-intent coverage without action.`);
+    }
+  });
+
+  if (seo.naturalQueryCoverageContract?.targetKeywordRepresentedNaturally !== true ||
+    seo.naturalQueryCoverageContract.supportingQueriesMappedToReaderNeeds !== true ||
+    seo.naturalQueryCoverageContract.highSignalPlacementAppropriate !== true ||
+    seo.naturalQueryCoverageContract.noKeywordDensityTargets !== true ||
+    seo.naturalQueryCoverageContract.noAwkwardExactMatchRepetition !== true ||
+    seo.naturalQueryCoverageContract.noForcedSynonyms !== true ||
+    seo.naturalQueryCoverageContract.noScopeExpansionForKeywords !== true) {
+    machineIssues.push("On-page SEO must pass naturalQueryCoverageContract.");
+  }
+  if (seo.sectionRelevanceCheck?.allSectionsSupportPageJob !== true ||
+    seo.sectionRelevanceCheck.noGenericSections !== true ||
+    seo.sectionRelevanceCheck.noOffIntentSections !== true ||
+    seo.sectionRelevanceCheck.weakSectionsFixedOrRouted !== true) {
+    machineIssues.push("On-page SEO must pass sectionRelevanceCheck.");
+  }
+  if (seo.contentFocusChangeLog?.increasesLogged !== true ||
+    seo.contentFocusChangeLog.movesLogged !== true ||
+    seo.contentFocusChangeLog.removalsLogged !== true ||
+    seo.contentFocusChangeLog.requiredDepthNotReduced !== true ||
+    seo.contentFocusChangeLog.offIntentRepetitionAndOvercoverageHandled !== true) {
+    machineIssues.push("On-page SEO must log increases, moves, removals, and prove required depth was not reduced.");
+  }
+  if (seo.internalLinkOptimization?.validatedDestinationsOnly !== true ||
+    seo.internalLinkOptimization.destinationStatusPreserved !== true ||
+    seo.internalLinkOptimization.anchorContextRelevant !== true ||
+    seo.internalLinkOptimization.noInventedUrls !== true ||
+    seo.internalLinkOptimization.missingDestinationsRouted !== true) {
+    machineIssues.push("On-page SEO must pass internalLinkOptimization.");
+  }
+  if (seo.assetOptimization?.assetsSupportReaderNeed !== true ||
+    seo.assetOptimization.altTextOrFallbackChecked !== true ||
+    seo.assetOptimization.textFallbackPreserved !== true ||
+    seo.assetOptimization.noImagePromptOrAssetGeneration !== true) {
+    machineIssues.push("On-page SEO must pass assetOptimization.");
+  }
+  if (seo.readabilityScanabilityCheck?.paragraphsNotDense !== true ||
+    seo.readabilityScanabilityCheck.importantAnswersVisible !== true ||
+    seo.readabilityScanabilityCheck.functionalListsTablesSummaries !== true ||
+    seo.readabilityScanabilityCheck.clearTransitions !== true ||
+    seo.readabilityScanabilityCheck.warningsAndDecisionPointsVisible !== true ||
+    seo.readabilityScanabilityCheck.formattingNotDecorativeOnly !== true) {
+    machineIssues.push("On-page SEO must pass readabilityScanabilityCheck.");
+  }
+  if (seo.answerPlacementCheck?.mainAnswerNearTop !== true ||
+    seo.answerPlacementCheck.importantHeadingsAnsweredDirectly !== true ||
+    seo.answerPlacementCheck.definitionsBeforeAdvancedDiscussion !== true ||
+    seo.answerPlacementCheck.safetyDecisionAnswersNotBuried !== true) {
+    machineIssues.push("On-page SEO must pass answerPlacementCheck.");
+  }
+  if (seo.naturalLanguageOptimizationGate?.noKeywordStuffing !== true ||
+    seo.naturalLanguageOptimizationGate.noForcedSynonyms !== true ||
+    seo.naturalLanguageOptimizationGate.noRoboticSeoLanguage !== true ||
+    seo.naturalLanguageOptimizationGate.noRepeatedSentencePatterns !== true ||
+    seo.naturalLanguageOptimizationGate.noHeadingsWrittenOnlyForKeywords !== true ||
+    seo.naturalLanguageOptimizationGate.preservesReaderFirstVoice !== true) {
+    machineIssues.push("On-page SEO must pass naturalLanguageOptimizationGate.");
+  }
+  if (seo.lightClaimSourceUseCheck?.noUnsupportedNewClaims !== true ||
+    seo.lightClaimSourceUseCheck.caveatsPreserved !== true ||
+    seo.lightClaimSourceUseCheck.audienceLanguageNotUsedAsFactualProof !== true ||
+    seo.lightClaimSourceUseCheck.riskyClaimsNotMadeMoreAbsolute !== true ||
+    seo.lightClaimSourceUseCheck.trustCitationWorkRoutedToStep12 !== true) {
+    machineIssues.push("On-page SEO must pass lightClaimSourceUseCheck.");
+  }
+  if ((hasText(seo.metadataCandidates?.slugCandidate) ||
+    hasText(seo.metadataCandidates?.seoTitleCandidate) ||
+    hasText(seo.metadataCandidates?.metaDescriptionCandidate)) &&
+    seo.metadataCandidates?.labeledNonFinal !== true) {
+    machineIssues.push("On-page SEO metadata candidates must be labeled non-final.");
+  }
+  if (seo.onPageSeoUniquenessCheck?.currentBatchUnique !== true ||
+    seo.onPageSeoUniquenessCheck.historicalCheckedOrWarning !== true ||
+    seo.onPageSeoUniquenessCheck.repeatedOptimizedIntro === true ||
+    seo.onPageSeoUniquenessCheck.repeatedHeadingPattern === true ||
+    seo.onPageSeoUniquenessCheck.repeatedTopicalFixes === true ||
+    seo.onPageSeoUniquenessCheck.repeatedInternalLinkPath === true ||
+    seo.onPageSeoUniquenessCheck.repeatedAssetAltOrFaqOrSummaryPattern === true) {
+    machineIssues.push("On-page SEO must pass onPageSeoUniquenessCheck.");
+  }
+  if (!seo.onPageSeoDeliveryProofRequirements?.step12Required ||
+    !seo.onPageSeoDeliveryProofRequirements.finalQaRequired) {
+    machineIssues.push("On-page SEO must require Step 12 and final QA delivery proof.");
+  }
+  if (!seo.mustCarryForward?.length) machineIssues.push("On-page SEO must include mustCarryForward.");
+  if (!seo.step11OutputMustNotContain?.length) machineIssues.push("On-page SEO must include step11OutputMustNotContain.");
+  if (!seo.step11CompletenessChecklist || Object.keys(seo.step11CompletenessChecklist).length === 0) {
+    machineIssues.push("On-page SEO must include step11CompletenessChecklist.");
+  } else {
+    const failedChecklistItems = Object.entries(seo.step11CompletenessChecklist)
+      .filter(([, passed]) => passed !== true)
+      .map(([key]) => key);
+    if (failedChecklistItems.length > 0) {
+      machineIssues.push(`On-page SEO completeness checklist failed: ${failedChecklistItems.join(", ")}.`);
+    }
+  }
+  if (seo.markdownParityChecked !== true) machineIssues.push("On-page SEO Markdown parity must be checked.");
+  if (seo.onPageSeoVerdict?.status !== "pass" && seo.onPageSeoVerdict?.status !== "pass_with_warnings") {
+    machineIssues.push("On-page SEO verdict must be pass or pass_with_warnings before Step 12.");
+  }
+  if (seo.onPageSeoVerdict?.action !== "continue_to_step12") {
+    machineIssues.push("On-page SEO verdict action must be continue_to_step12 before Step 12.");
+  }
+  if (!seo.onPageSeoVerdict?.confidence) machineIssues.push("On-page SEO verdict must include confidence.");
+  if ((seo.repairAttemptsUsed ?? 0) > 2) machineIssues.push("Step 11 repairs are limited to 2 attempts.");
+
+  return buildGateResult(machineIssues, seo.judgmentChecks);
 }
 
 export function allMandatoryGatesPassed(results: V2GateValidationResult[]): boolean {

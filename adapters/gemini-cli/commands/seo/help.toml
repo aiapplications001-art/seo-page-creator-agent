@@ -4,7 +4,7 @@ Read AGENT.md and summarize the recommended SEO Page Creator Agent flow:
 onboard -> optional site scan -> cluster -> page -> edit-section -> rescore -> watcher.
 Explain prerequisites for each command and where artifacts are stored.
 
-For `/seo:page`, explain that Step 0A, Step 0B, Step 1, Step 2, Step 3, Step 4, Step 5, Step 6, Step 7, Step 8, Step 9, and Step 10 from
+For `/seo:page`, explain that Step 0A, Step 0B, Step 1, Step 2, Step 3, Step 4, Step 5, Step 6, Step 7, Step 8, Step 9, Step 10, and Step 11 from
 `workflows/13-cluster-strategy.md` must pass before page generation.
 
 Step 0A Foundation must create the compact search-opportunity artifact with
@@ -262,6 +262,33 @@ narrow `pass_with_warnings`, `fail`, or `ask_user`.
 `return_to_0B`, `return_to_onboarding`, `ask_user`, or `skip_page`.
 Downstream QA must include `contentBriefDeliveryProof` and every Step 9 or later
 artifact must carry `contentBriefHash`.
+
+Step 11 must freeze the On-Page SEO Optimized Draft as
+`onPageSeoOptimizedDraft` before Step 12 trust/authority work, final copy,
+images, commit, deploy, or publish. It must save
+`on-page-seo-optimized-draft.json` and `on-page-seo-optimized-draft.md`, freeze
+`onPageSeoHash`, carry `pageOutlineHash` and `firstDraftHash`, and include
+`onPageSeoSummaryStatement`, `optimizedDraft`, `seoChangeLog`,
+`unresolvedOwnerStepItems`, `intentAlignmentCheck`, `h1OptimizationCheck`,
+`introOptimizationGate`, `headingOptimizationCheck`,
+`topicalCompletenessMap`, `naturalQueryCoverageContract`,
+`sectionRelevanceCheck`, `contentFocusChangeLog`, `internalLinkOptimization`,
+`assetOptimization`, `readabilityScanabilityCheck`, `answerPlacementCheck`,
+`naturalLanguageOptimizationGate`, `lightClaimSourceUseCheck`,
+`metadataCandidates`, `onPageSeoUniquenessCheck`,
+`onPageSeoDeliveryProofRequirements`, `step11OutputMustNotContain`,
+`step11CompletenessChecklist`, Markdown parity, and `onPageSeoVerdict`.
+
+Explain that Step 11 optimizes H1, intro, headings, section copy, answer
+placement, readability, natural query coverage, validated internal-link
+context, asset alt/fallback notes, and topical coverage already required by
+Steps 5, 6, 8, 9, or 10. It must preserve the Step 9 section set and hierarchy,
+avoid keyword-density targets, avoid keyword stuffing, label metadata candidates
+as non-final, and return to the owner step for structure, research, brief, or
+draft failures. Step 11 returns `continue_to_step12`, `repair_step11`,
+`return_to_step10`, `return_to_step9`, `return_to_step8`, `return_to_step6`,
+`return_to_step5`, `ask_user`, or `skip_page`. Downstream QA must include
+`onPageSeoDeliveryProof`.
 
 Step 9 must freeze the SEO Page Outline as `seoPageOutline` before Step 10,
 final copy, images, commit, deploy, or publish. It saves

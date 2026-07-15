@@ -8,7 +8,7 @@ V2.1 adds a human editorial layer before final copy. The Human Editorial Brief a
 
 ## Required Upstream Contract
 
-Before downstream V2 research, drafting, final copy, image, commit, deploy, or publishing work begins, the cluster must have passing Step 0A through Step 10 contracts from `workflows/13-cluster-strategy.md`, ending with Step 10 SEO First Draft before Step 11 optimization begins.
+Before downstream V2 research, trust/authority work, final copy, image, commit, deploy, or publishing work begins, the cluster must have passing Step 0A through Step 11 contracts from `workflows/13-cluster-strategy.md`, ending with Step 11 On-Page SEO Optimized Draft before Step 12 begins.
 
 The Step 0A foundation artifact must include:
 
@@ -418,6 +418,49 @@ Required assets must be visibly delivered as text, table, checklist, flow, matri
 `firstDraftVerdict.status` may be `pass`, narrow `pass_with_warnings`, `fail`, or `ask_user`; the only onward action is `continue_to_step11`. Step 10 may repair weak draft fields up to 3 times. Missing evidence, unsupported risky claims, unsafe advice, structural conflicts, missing hashes, below-floor word count, current-batch duplication, or required assets undefined upstream return to the owner step, ask, or skip.
 
 Step 11 and final QA must include `firstDraftDeliveryProof`, proving section content, required assets, claim handling, FAQ, CTA/internal links, intro promise, high-depth substance, anti-generic rules, and completeness were preserved or intentionally improved.
+
+## Step 11 On-Page SEO Optimized Draft Gate
+
+Before Step 12 trust/authority work, final-copy expansion, images, commit, deploy, or publishing, the host adapter must create `onPageSeoOptimizedDraft` as `on-page-seo-optimized-draft.json` and `on-page-seo-optimized-draft.md`, freeze `onPageSeoHash`, and prove the optimized draft preserves `pageOutlineHash` and `firstDraftHash`.
+
+Step 11 is the on-page optimization step, not a new strategy, research, metadata, citation-display, technical SEO, image-generation, or publishing step. It may improve H1, intro, H2/H3 wording, section copy, answer placement, readability, natural query coverage, validated internal-link context, asset alt/fallback notes, and missing topical coverage already required or implied by Steps 5, 6, 8, 9, or 10. It may increase, move, or remove off-intent, repetitive, over-covered, generic, or scope-drifting content, but it must not reduce required depth.
+
+Every on-page SEO optimized draft must include:
+
+- `onPageSeoSummaryStatement`
+- `optimizedDraft` with optimized H1 and optimized sections
+- `seoChangeLog`
+- `unresolvedOwnerStepItems`
+- `intentAlignmentCheck`
+- `h1OptimizationCheck`
+- `introOptimizationGate`
+- `headingOptimizationCheck`
+- `topicalCompletenessMap`
+- `naturalQueryCoverageContract`
+- `sectionRelevanceCheck`
+- `contentFocusChangeLog`
+- `internalLinkOptimization`
+- `assetOptimization`
+- `readabilityScanabilityCheck`
+- `answerPlacementCheck`
+- `naturalLanguageOptimizationGate`
+- `lightClaimSourceUseCheck`
+- `metadataCandidates`
+- `onPageSeoUniquenessCheck`
+- `onPageSeoDeliveryProofRequirements`
+- `step11OutputMustNotContain`
+- `step11CompletenessChecklist`
+- `onPageSeoVerdict`
+
+`topicalCompletenessMap` must make topical completeness concrete. Each item needs required topic or reader need, current coverage, depth needed, status, action, upstream refs, evidence refs when relevant, and optimized-draft delivery proof. Allowed actions are `add`, `expand`, `increase`, `move`, `remove`, `link`, `keep`, `return_to_step6`, `return_to_step8`, and `return_to_step9`.
+
+`naturalQueryCoverageContract` must prove natural target keyword and supporting-query coverage without density targets, awkward exact-match repetition, forced synonyms, robotic SEO language, or scope expansion. `headingOptimizationCheck` must preserve the Step 9 section set and hierarchy. `introOptimizationGate` must prove the optimized intro starts close to the reader problem, confirms query intent, mentions the topic/keyword naturally, sets scope, previews the useful outcome, avoids generic filler, and leads into the first section.
+
+`internalLinkOptimization` can use only validated Step 4/8/site-inventory destinations, preserve destination status, improve anchor context, and route missing destinations. `assetOptimization` can improve asset support, alt text, captions, and text fallbacks, but must not create image prompts or generated images.
+
+`onPageSeoVerdict.status` may be `pass`, narrow `pass_with_warnings`, `fail`, or `ask_user`; the only onward action is `continue_to_step12`. Step 11 may repair weak Step 11 fields up to 2 times. True intent mismatch, structural conflicts, new research needs, missing Step 8/10 obligations, unsupported risky claims, current-batch duplication, keyword stuffing, buried main answer, missing topical map, or missing Markdown parity return to the owner step, ask, or skip.
+
+Step 12 and final QA must include `onPageSeoDeliveryProof`, proving optimized H1/heading logic, answer placement, topical-completeness fixes, natural query coverage, internal-link context, asset alt/fallback notes, and anti-over-optimization rules were preserved or intentionally improved.
 
 ## Final Copy Draft Gate
 
