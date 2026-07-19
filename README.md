@@ -8,9 +8,21 @@ It combines search-intent validation, keyword clustering, SERP research, competi
 
 Built for teams that want more control, evidence, and repeatability than a single-prompt AI writing tool can provide.
 
+[![CI](https://github.com/aiapplications001-art/seo-page-creator-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/aiapplications001-art/seo-page-creator-agent/actions/workflows/ci.yml)
+[![Tests](https://github.com/aiapplications001-art/seo-page-creator-agent/actions/workflows/tests.yml/badge.svg)](https://github.com/aiapplications001-art/seo-page-creator-agent/actions/workflows/tests.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-22%2B-green.svg)](https://nodejs.org/)
+
+## Project Status
+
+- Runtime: Node.js 22 or later.
+- Validation command: `npm run validate`, which runs TypeScript build plus the full Node test suite.
+- Test command: `npm test`.
+- License: Apache-2.0.
+- npm package: not published yet. An npm version badge should be added only after the first public npm release.
+- Security policy: see [SECURITY.md](SECURITY.md).
+- Contribution guide: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Workflow Overview
 
@@ -26,6 +38,30 @@ flowchart LR
   H --> I[Editorial QA and repair]
   I --> J[Page packet and image manifest]
 ```
+
+## Architecture
+
+```mermaid
+flowchart TB
+  CLI[TypeScript CLI<br/>seo-agent] --> Workflows[Workflow contracts<br/>Steps 0A-11]
+  Workflows --> Gates[Validators and schemas]
+  Gates --> Artifacts[Markdown and JSON artifacts]
+  Artifacts --> QA[Editorial QA and repair]
+  Artifacts --> Images[Image manifest and prompts]
+  Artifacts --> Debug[Debug bundles and version history]
+  Adapters[Codex, Gemini, Antigravity adapters] --> Workflows
+  Sources[Google data, sitemap, CSV/XLSX, SERP, audience sources] --> Workflows
+```
+
+Core directories:
+
+- `src/cli/`: command-line entry points.
+- `src/lib/`: workflow logic, validators, renderers, and helpers.
+- `schemas/`: machine-readable artifact schemas.
+- `workflows/`: human-readable workflow contracts.
+- `adapters/`: Codex, Gemini, and Antigravity adapter instructions.
+- `tests/`: Node test suite for CLI behavior, validators, docs, and adapters.
+- `.seo-agent-workspace/`: ignored local workspace for generated project artifacts.
 
 ## What It Does
 
@@ -49,6 +85,31 @@ The normal editor-facing output includes:
 - Source and citation references
 
 Research ledgers, contracts, page state, version history, and debug artifacts remain available for troubleshooting without cluttering the editorial review process.
+
+## Example Output
+
+A completed page workflow produces an inspectable bundle rather than one opaque AI response:
+
+```text
+.seo-agent-workspace/
+  page-packets/<cluster>/<page-id>/
+    page-packet.md
+    page-packet.json
+    page-packet.expanded.md
+    page-packet.expanded.json
+    image-manifest.json
+    image-prompts.md
+  v2/page-packets/<cluster>/<page-id>/
+    page-state.json
+    editorial-qa-report.md
+    debug-bundle.md
+```
+
+Typical editor-facing deliverables:
+
+- `page-packet.expanded.md`: publish-ready page packet for review.
+- `editorial-qa-report.md`: gate status, content risks, and repair notes.
+- `image-manifest.json`: required and optional image assets with SEO-safe filenames.
 
 ## Who It Is For
 
@@ -345,6 +406,22 @@ When a V2 page workspace exists, `seo-agent final-copy expand` and `seo-agent im
 For V2.1 pages, `seo-agent final-copy expand` does not author final prose. The host adapter must fill `final-copy-draft.json` with evidence-backed section markdown first; the CLI validates and merges that adapter-written copy into the expanded page packet.
 
 When `--email-to` or an adapter-level recipient is configured, the batch runner should send a completion email after the run finishes. The email must use the deterministic batch completion packet: final batch QA report, batch score, confidence label, live URLs, QA report paths, failed/skipped attempts, failure reasons, and recommended fixes. Do not send interim per-page emails unless the user explicitly asks.
+
+## Roadmap
+
+- Complete the remaining post-draft gates after Step 11, including trust/authority handling, metadata finalization, final QA, and publishing readiness.
+- Add richer examples for page refreshes, comparison pages, product category pages, and batch page runs.
+- Add optional npm publishing after the CLI package is stable for external users.
+- Expand adapter parity tests for Codex, Gemini, and Antigravity as new workflow steps are added.
+- Add more sample artifact fixtures that show high-quality completed page packets without exposing private workspace data.
+
+## Contributing
+
+Contributions are welcome when they preserve the project's evidence, safety, and repeatability standards. Start with [CONTRIBUTING.md](CONTRIBUTING.md), run `npm run validate` before opening a pull request, and update tests/docs/adapters when changing workflow behavior.
+
+## Security
+
+Do not open public issues for vulnerabilities or accidentally exposed credentials. Read [SECURITY.md](SECURITY.md) for reporting guidance and sensitive-data rules.
 
 ## Out Of Scope For V1
 
