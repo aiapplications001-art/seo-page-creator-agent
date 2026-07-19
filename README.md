@@ -1,8 +1,123 @@
 # SEO Page Creator Agent
 
-A portable open-source agent framework for creating company-specific SEO pages that are structured, source-backed, design-aware, and ready for editorial review.
+**An open-source TypeScript agent for researching, planning, writing, optimizing, and validating brand-aware SEO pages.**
 
-The agent produces publish-ready page packets for guide/blog pages, comparison pages, and product category pages. It supports company onboarding, product/category cluster strategy, Google read-only data inputs, image workflows, and CMS-friendly Markdown plus JSON outputs.
+SEO Page Creator Agent turns a company, product category, content cluster, or existing-page refresh opportunity into an evidence-backed SEO page packet ready for editorial review.
+
+It combines search-intent validation, keyword clustering, SERP research, competitor analysis, audience-language research, topic research, content brief generation, source-backed drafting, on-page SEO optimization, editorial QA, and image planning in one structured workflow.
+
+Built for teams that want more control, evidence, and repeatability than a single-prompt AI writing tool can provide.
+
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-22%2B-green.svg)](https://nodejs.org/)
+
+## Workflow Overview
+
+```mermaid
+flowchart LR
+  A[Company, topic, or page input] --> B[Opportunity and intent validation]
+  B --> C[SERP, competitor, and audience research]
+  C --> D[Topic research and unique angle]
+  D --> E[SEO content brief]
+  E --> F[Page outline]
+  F --> G[Source-backed first draft]
+  G --> H[On-page SEO optimization]
+  H --> I[Editorial QA and repair]
+  I --> J[Page packet and image manifest]
+```
+
+## What It Does
+
+The agent creates structured SEO content workflows for:
+
+- Guide and blog pages
+- Comparison and alternatives pages
+- Product category pages
+- Content clusters
+- Existing-page refreshes
+- Batch page-production projects
+
+Instead of drafting immediately, it validates the opportunity first. The workflow defines the search problem, page scope, audience, intent, format, reader journey, evidence requirements, differentiation strategy, and on-page optimization plan before treating a page as ready for review.
+
+The normal editor-facing output includes:
+
+- A publish-ready Markdown page packet
+- Structured JSON artifacts
+- An editorial QA report
+- An image manifest
+- Source and citation references
+
+Research ledgers, contracts, page state, version history, and debug artifacts remain available for troubleshooting without cluttering the editorial review process.
+
+## Who It Is For
+
+SEO Page Creator Agent is designed for:
+
+- SEO agencies producing client content
+- In-house SEO and content teams
+- Programmatic SEO teams
+- Developers building AI content workflows
+- Editorial teams that require source-backed drafts
+- Brands operating in sensitive, local, or evidence-heavy categories
+
+It is particularly useful when content must remain aligned with a specific company, market, product category, audience, and conversion journey.
+
+## Key Features
+
+### Search Strategy
+
+- Company and product-category profiling
+- Search-opportunity validation
+- Keyword and query-cluster scoping
+- Search-intent analysis
+- Page-type and content-format selection
+- Cannibalization and page-overlap checks
+- User-journey and next-action planning
+
+### Research And Differentiation
+
+- Primary and supporting-query SERP analysis
+- Direct competitor-page review
+- Audience-language research from search surfaces, forums, Reddit, video, and social sources
+- Topic research banks with source roles and claim sensitivity
+- Market-specific evidence requirements
+- Source conflict and unsupported-claim tracking
+- Unique-angle and information-gain planning
+
+### Content Production
+
+- SEO content brief generation
+- Intent-aware page outlines
+- Source-backed first drafts
+- Natural query coverage
+- On-page SEO optimization
+- Internal-link and CTA guidance
+- CMS-friendly Markdown and JSON output
+
+### Quality Assurance
+
+- Mandatory workflow gates
+- Frozen contract hashes between stages
+- Claim and citation checks
+- Anti-generic content checks
+- Minimum depth and completeness requirements
+- Editorial QA and repair workflows
+- Debug bundles and version history
+
+### Integrations And Adapters
+
+- Google Search Console read-only integration
+- Google Ads Keyword Planner read-only policy
+- CSV and XLSX fallback imports
+- Sitemap and URL metadata extraction
+- Image planning and prompt fallback
+- Codex, Gemini, and Antigravity adapter-ready architecture
+- TypeScript CLI tools
+
+## Keywords
+
+AI SEO content generator, SEO page creator, programmatic SEO agent, SERP research agent, SEO content brief generator, AI content workflow, on-page SEO optimizer, source-backed content drafting, editorial QA for SEO, keyword clustering, search intent analysis, content refresh automation, product category SEO, comparison page generator, E-E-A-T content workflow.
 
 ## V1 Scope
 
