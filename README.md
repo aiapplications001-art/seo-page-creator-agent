@@ -2,11 +2,11 @@
 
 **An open-source TypeScript agent for researching, planning, writing, optimizing, and validating brand-aware SEO pages.**
 
-SEO Page Creator Agent turns a company, product category, content cluster, or existing-page refresh opportunity into an evidence-backed SEO page packet ready for editorial review.
+SEO Page Creator Agent turns a company, product category, comparison page, content cluster, or existing-page refresh opportunity into an evidence-backed SEO page packet ready for editorial review.
 
-It combines search-intent validation, keyword clustering, SERP research, competitor analysis, audience-language research, topic research, content brief generation, source-backed drafting, on-page SEO optimization, editorial QA, and image planning in one structured workflow.
+It combines search-intent validation, keyword clustering, SERP research, competitor analysis, audience-language research, topic research, SEO content brief generation, source-backed drafting, on-page SEO optimization, editorial QA, and image planning in one structured workflow.
 
-Built for teams that want more control, evidence, and repeatability than a single-prompt AI writing tool can provide.
+Built for teams that want more control, evidence, and repeatability than a single-prompt AI SEO content generator can provide.
 
 [![CI](https://github.com/aiapplications001-art/seo-page-creator-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/aiapplications001-art/seo-page-creator-agent/actions/workflows/ci.yml)
 [![Tests](https://github.com/aiapplications001-art/seo-page-creator-agent/actions/workflows/tests.yml/badge.svg)](https://github.com/aiapplications001-art/seo-page-creator-agent/actions/workflows/tests.yml)
@@ -117,7 +117,7 @@ SEO Page Creator Agent is designed for:
 
 - SEO agencies producing client content
 - In-house SEO and content teams
-- Programmatic SEO teams
+- Programmatic SEO teams building repeatable AI content workflows
 - Developers building AI content workflows
 - Editorial teams that require source-backed drafts
 - Brands operating in sensitive, local, or evidence-heavy categories
@@ -132,6 +132,7 @@ It is particularly useful when content must remain aligned with a specific compa
 - Search-opportunity validation
 - Keyword and query-cluster scoping
 - Search-intent analysis
+- Long-tail keyword and content refresh planning
 - Page-type and content-format selection
 - Cannibalization and page-overlap checks
 - User-journey and next-action planning
@@ -145,6 +146,7 @@ It is particularly useful when content must remain aligned with a specific compa
 - Market-specific evidence requirements
 - Source conflict and unsupported-claim tracking
 - Unique-angle and information-gain planning
+- E-E-A-T-oriented evidence and trust boundaries
 
 ### Content Production
 
@@ -154,7 +156,7 @@ It is particularly useful when content must remain aligned with a specific compa
 - Natural query coverage
 - On-page SEO optimization
 - Internal-link and CTA guidance
-- CMS-friendly Markdown and JSON output
+- CMS-friendly Markdown and JSON output for guide, product category, and comparison page workflows
 
 ### Quality Assurance
 
@@ -175,10 +177,6 @@ It is particularly useful when content must remain aligned with a specific compa
 - Image planning and prompt fallback
 - Codex, Gemini, and Antigravity adapter-ready architecture
 - TypeScript CLI tools
-
-## Keywords
-
-AI SEO content generator, SEO page creator, programmatic SEO agent, SERP research agent, SEO content brief generator, AI content workflow, on-page SEO optimizer, source-backed content drafting, editorial QA for SEO, keyword clustering, search intent analysis, content refresh automation, product category SEO, comparison page generator, E-E-A-T content workflow.
 
 ## V1 Scope
 
