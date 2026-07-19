@@ -1,0 +1,9 @@
+.DS_Store
+**/.DS_Store
+.seo-agent-workspace/
+.seo-agent.config.json
+.env
+*.credentials.json
+*token*.json
+coverage/
+node_modules/

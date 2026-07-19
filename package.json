@@ -1,9 +1,49 @@
 {
   "name": "seo-page-creator-agent",
   "version": "0.1.0",
-  "description": "Portable SEO page creator agent framework for brand-aware page packets, Google data inputs, and image workflows.",
+  "description": "TypeScript CLI agent for SERP research, SEO content briefs, source-backed drafts, on-page SEO optimization, and editorial QA.",
   "type": "module",
   "license": "Apache-2.0",
+  "author": "aiapplications001-art",
+  "homepage": "https://github.com/aiapplications001-art/seo-page-creator-agent#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aiapplications001-art/seo-page-creator-agent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aiapplications001-art/seo-page-creator-agent/issues"
+  },
+  "keywords": [
+    "seo",
+    "seo-tools",
+    "seo-automation",
+    "ai-agent",
+    "content-generation",
+    "content-optimization",
+    "programmatic-seo",
+    "serp-analysis",
+    "keyword-research",
+    "content-marketing",
+    "typescript",
+    "cli",
+    "google-search-console",
+    "generative-ai",
+    "content-workflow"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "dist/**/*.js",
+    "config/**/*.json",
+    "schemas/**/*.json",
+    "workflows/**/*.md",
+    "adapters/**/*.md",
+    "adapters/**/*.toml",
+    "policies/**/*.md",
+    "templates/**/*.md",
+    ".seo-agent.config.example.json"
+  ],
   "bin": {
     "seo-agent": "dist/cli/index.js"
   },
@@ -14,7 +54,11 @@
     "auth:google": "tsx src/cli/index.ts auth google",
     "test": "node --test --import tsx tests/*.test.ts",
     "validate": "npm run build && npm test",
-    "ci": "npm run validate"
+    "ci": "npm run validate",
+    "prepack": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
