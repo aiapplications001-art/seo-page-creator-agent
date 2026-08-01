@@ -17,6 +17,7 @@ export interface GenerateClusterStrategyInput {
   market: string;
   metadata: PageMetadata[];
   seedKeywords?: string[];
+  discoverySeed?: CategoryDiscoveryStrategySeed;
 }
 
 export interface ExistingUrlCandidate {
@@ -46,6 +47,35 @@ export interface InternalLinkSuggestion {
   placement: "header" | "body" | "breadcrumb" | "faq";
   anchorText: string;
   reason: string;
+}
+
+export interface CategoryDiscoveryStrategySeed {
+  categoryDiscovery: {
+    runId: string;
+    seedUniverseHash: string;
+    clusterPortfolioHash: string;
+    clusterBoundaryHash: string;
+    selectedSeedUniverse: string;
+    selectedClusterCategory: string;
+    clusterSearchProblem: string;
+    clusterPositioningStatement: string;
+    clusterViabilityStatement: string;
+    boundarySummary: string;
+    warnings: string[];
+  };
+  pageOpportunities: Array<{
+    opportunityName: string;
+    distinctSearchProblem: string;
+    distinctnessReason: string;
+    evidenceRefs: string[];
+    rawToNormalizedEvidence: unknown[];
+    route: string;
+    pageTypeHint?: string;
+  }>;
+  needsMoreDiscoveryBeforeStep0B: unknown[];
+  needsStep0BDecision: unknown[];
+  siteEvidenceSummary: unknown;
+  batchSuitability: unknown;
 }
 
 export interface ClusterQualityIssue {
@@ -84,27 +114,35 @@ export interface ClusterStrategy {
     instruction: string;
     recommendedPageId: string;
   };
+  categoryDiscovery?: CategoryDiscoveryStrategySeed["categoryDiscovery"];
+  needsMoreDiscoveryBeforeStep0B?: unknown[];
+  needsStep0BDecision?: unknown[];
+  siteEvidenceSummary?: unknown;
+  batchSuitability?: unknown;
 }
 
 export function generateClusterStrategy(input: GenerateClusterStrategyInput): ClusterStrategy {
-  const categorySlug = slugify(input.categoryName);
+  const categoryName = input.discoverySeed?.categoryDiscovery.selectedClusterCategory ?? input.categoryName;
+  const categorySlug = slugify(categoryName);
   const seedKeywords = input.seedKeywords ?? [];
   const matched = input.metadata
-    .filter((page) => pageMatchesCategory(page, input.categoryName, seedKeywords))
+    .filter((page) => pageMatchesCategory(page, categoryName, seedKeywords))
     .slice(0, 12);
   const existingUrlCandidates = matched.map(toExistingUrlCandidate);
   const primaryCategoryUrl = matched.find((page) => page.pageType === "product_category" || page.pageType === "product")?.url;
-  const pageOpportunities = buildPageOpportunities(input, matched);
-  const internalLinkSuggestions = buildInternalLinks(matched, primaryCategoryUrl, input.categoryName);
+  const pageOpportunities = input.discoverySeed
+    ? buildDiscoveredPageOpportunities(input.discoverySeed)
+    : buildPageOpportunities({ ...input, categoryName }, matched);
+  const internalLinkSuggestions = input.discoverySeed ? [] : buildInternalLinks(matched, primaryCategoryUrl, categoryName);
   const topIssues = buildQualityIssues(matched, pageOpportunities);
   const score = scoreCluster(matched, pageOpportunities, internalLinkSuggestions, topIssues);
-  const assumptions = buildAssumptions(input, matched);
+  const assumptions = buildAssumptions({ ...input, categoryName }, matched);
 
   return {
     companyName: input.companyName,
     market: input.market,
     category: {
-      name: input.categoryName,
+      name: categoryName,
       slug: categorySlug
     },
     sourceMetadata: {
@@ -124,7 +162,14 @@ export function generateClusterStrategy(input: GenerateClusterStrategyInput): Cl
     nextPageSelection: {
       instruction: "User should select one page opportunity to generate next. V1 generates one publish-ready page packet at a time.",
       recommendedPageId: pageOpportunities[0]?.id ?? "P1"
-    }
+    },
+    ...(input.discoverySeed ? {
+      categoryDiscovery: input.discoverySeed.categoryDiscovery,
+      needsMoreDiscoveryBeforeStep0B: input.discoverySeed.needsMoreDiscoveryBeforeStep0B,
+      needsStep0BDecision: input.discoverySeed.needsStep0BDecision,
+      siteEvidenceSummary: input.discoverySeed.siteEvidenceSummary,
+      batchSuitability: input.discoverySeed.batchSuitability
+    } : {})
   };
 }
 
@@ -205,6 +250,26 @@ function buildPageOpportunities(input: GenerateClusterStrategyInput, matched: Pa
       evidenceStrength: comparisonPage ? "high" : hasEvidence ? "medium" : "low"
     }
   ];
+}
+
+function buildDiscoveredPageOpportunities(seed: CategoryDiscoveryStrategySeed): PageOpportunity[] {
+  return seed.pageOpportunities.map((proof, index) => ({
+    id: `P${index + 1}`,
+    title: proof.opportunityName,
+    pageType: normalizePageTypeHint(proof.pageTypeHint),
+    strategyCategory: "first_organic_wins",
+    targetIntent: proof.distinctSearchProblem,
+    primaryCtaGoal: "Step 4 must define the page-specific next action after Step 0B locks the page scope.",
+    suggestedUrlSlug: slugify(proof.opportunityName),
+    evidenceStrength: proof.evidenceRefs.length >= 2 ? "high" : "medium"
+  }));
+}
+
+function normalizePageTypeHint(pageTypeHint: string | undefined): Extract<PageType, "product_category" | "guide_blog" | "comparison"> {
+  const normalized = pageTypeHint?.toLowerCase() ?? "";
+  if (normalized.includes("comparison")) return "comparison";
+  if (normalized.includes("product")) return "product_category";
+  return "guide_blog";
 }
 
 function buildInternalLinks(
