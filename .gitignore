@@ -7,3 +7,4 @@ dist/
 *token*.json
 coverage/
 .DS_Store
+.worktrees/
