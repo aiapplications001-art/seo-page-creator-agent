@@ -64,7 +64,12 @@ test("V2 schema files expose expected schema ids", () => {
     ["schemas/v2-seo-content-brief.schema.json", "seo-content-brief.v2"],
     ["schemas/v2-seo-page-outline.schema.json", "seo-page-outline.v2"],
     ["schemas/v2-seo-first-draft.schema.json", "seo-first-draft.v2"],
-    ["schemas/v2-on-page-seo-optimized-draft.schema.json", "on-page-seo-optimized-draft.v2"]
+    ["schemas/v2-on-page-seo-optimized-draft.schema.json", "on-page-seo-optimized-draft.v2"],
+    ["schemas/category-seed-universe-contract.schema.json", "category-seed-universe-contract.v1"],
+    ["schemas/category-cluster-portfolio-discovery.schema.json", "category-cluster-portfolio-discovery.v1"],
+    ["schemas/category-cluster-boundary-contract.schema.json", "category-cluster-boundary-contract.v1"],
+    ["schemas/category-discovery-validation.schema.json", "category-discovery-validation.v1"],
+    ["schemas/category-discovery-lock.schema.json", "category-discovery-lock.v1"]
   ];
 
   for (const [path, schemaVersion] of schemaIds) {
