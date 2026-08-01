@@ -18,12 +18,48 @@ Cluster strategy is created after company setup, product/category profiling, and
 seo-agent cluster plan --category "Acne Treatment" --company "ClearNest" --market India --keywords "acne treatment,acne marks treatment"
 ```
 
+When the cluster/category is missing, broad, vague, stale, or inferred from only a business description, use category discovery first:
+
+```bash
+seo-agent category init --business "AI skincare guidance for Indian acne users" --company "MyMirror" --market India --seed "acne, acne scars"
+seo-agent category validate --run-id cat-20260801-101500
+seo-agent cluster plan --auto-discover --run-id cat-20260801-101500 --company "MyMirror"
+```
+
 Generated files:
 
 ```text
 .seo-agent-workspace/clusters/<category-slug>/strategy.json
 .seo-agent-workspace/clusters/<category-slug>/strategy.md
 ```
+
+## Category Discovery Gate
+
+Category Discovery is the hard gate before cluster strategy when the user omits `--cluster`, gives only a business description, gives a broad/vague category such as "acne", asks the runner to auto-select a batch cluster, asks for new opportunities beyond the current cluster, or when an existing `clusterBoundaryHash` is missing, stale, or mismatched with the requested market/language/mode.
+
+Category Discovery creates JSON-only artifacts in `.seo-agent-workspace/category-discovery/<run-id>/`:
+
+- `seed-universe-contract.json`
+- `cluster-portfolio-discovery.json`
+- `cluster-boundary-contract.json`
+- `category-discovery-validation.json`
+- `category-discovery.lock.json`
+
+Adapters perform the live research and fill the artifacts; the deterministic CLI initializes templates, validates contracts, writes the validation report/lock, and creates strategy only after the combined verdict is `pass` or non-critical `pass_with_warnings`.
+
+The gate separates three levels:
+
+- Seed universe: broad business/search universe, such as acne skincare.
+- SEO cluster category: selected active cluster, such as acne scar treatment.
+- Discovered opportunity proofs: lightweight page-opportunity seeds that stay inside the selected cluster boundary.
+
+The selected cluster must include `selectedSeedUniverse`, `selectedClusterCategory`, `parentCategory`, `clusterType`, `clusterSearchProblem`, `sharedAudience`, `clusterPositioningStatement`, `includedSubareas`, `excludedSubareas`, `adjacentClusters`, `clusterContentPromises`, `pageOpportunitySignals`, `needsStep0BDecision`, `batchSuitability`, `siteEvidenceSummary`, `clusterViabilityStatement`, `categoryDiscoverySummaryStatement`, `mustCarryForward`, and a passing boundary verdict.
+
+discovered opportunity proofs seed `strategy.json`, but they do not become frozen page decisions. Any plausibly connected but ambiguous opportunity must be routed to `needsStep0BDecision`; Step 0B later decides exact target keyword, query cluster, page scope, exclusions, and whether the opportunity belongs on the current page.
+
+All page-level artifacts must carry `clusterBoundaryHash` once category discovery is used. If Step 0A or Step 0B drifts outside `includedSubareas`, enters `excludedSubareas`, or changes the selected cluster, return to category discovery or route the idea as a future/adjacent cluster.
+
+Category Discovery must not create final target keywords, final query clusters, page outlines, page copy, image prompts, final superiority components, CTA strategy, metadata, exact page titles, final Step 0A/0B contracts, internal-link plans, or copied competitor category architecture. It may produce candidate cluster categories, raw-to-normalized discovery mappings, lightweight opportunity proofs, source-role evidence, cluster boundaries, and a compact strategy seed.
 
 ## Foundation Gates
 

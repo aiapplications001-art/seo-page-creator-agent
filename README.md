@@ -211,6 +211,20 @@ seo-agent images plan --cluster acne-treatment --page-id P1
 
 Read the full flow in `workflows/19-v2-content-quality.md`.
 
+## Category Discovery
+
+When the cluster is missing, broad, vague, stale, or inferred from only a business description, start with category discovery instead of forcing a category slug too early.
+
+```bash
+seo-agent category init --business "AI skincare guidance for Indian acne users" --company "MyMirror" --market India --seed "acne, acne scars"
+seo-agent category validate --run-id cat-20260801-101500
+seo-agent cluster plan --auto-discover --run-id cat-20260801-101500 --company "MyMirror"
+```
+
+Adapters fill `seed-universe-contract.json`, `cluster-portfolio-discovery.json`, and `cluster-boundary-contract.json` with live evidence from business/site inputs, search-demand surfaces, SERP/competitor surfaces, and audience-language surfaces. The CLI validates the artifacts, writes `category-discovery-validation.json` and `category-discovery.lock.json`, then uses discovered opportunity proofs to seed cluster strategy.
+
+Category discovery selects the SEO cluster category and boundary only. It does not create final target keywords, final query clusters, outlines, copy, image prompts, CTA strategy, metadata, or exact page titles. Ambiguous opportunities are preserved in `needsStep0BDecision` for Step 0B.
+
 ## Step 0A Foundation Gate
 
 Before choosing keywords or page opportunities, the agent must complete Step 0A from `workflows/13-cluster-strategy.md`. Step 0A defines the search opportunity: the broad topic, the real search problem, and the natural problem-language users use before keyword targeting begins.
@@ -450,6 +464,9 @@ Useful CLI helpers:
 ```bash
 seo-agent sitemap fetch https://example.com/sitemap.xml
 seo-agent metadata extract --limit 500
+seo-agent category init --business "AI skincare guidance for Indian acne users" --company "MyMirror" --market India --seed "acne, acne scars"
+seo-agent category validate --run-id cat-20260801-101500
+seo-agent cluster plan --auto-discover --run-id cat-20260801-101500 --company "MyMirror"
 seo-agent cluster plan --category "Acne Treatment" --company "ClearNest" --market India --keywords "acne treatment,acne marks treatment"
 seo-agent prewriting plan --cluster acne-treatment --page-id P1 --audience "Indian adults with visible acne" --tone "professional compact"
 seo-agent page-packet build --cluster acne-treatment --page-id P1 --author "ClearNest Editorial Team"

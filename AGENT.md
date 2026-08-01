@@ -14,19 +14,20 @@ Use this agent when a user wants to create or refresh brand-aware SEO pages for 
 8. Weekly watcher reports use official guidance sources only.
 9. V2 final packets require the five mandatory content-quality gates before final page packet generation.
 10. No hard-gate override is allowed in V2; advisory scores can be overridden, but missing research or unsupported claims cannot.
-11. Step 0A foundation, Step 0B Page Scope Contract, Step 1 Page Job Contract, Step 2 Search Intent Contract, Step 3 Page Format Contract, Step 4 Next Action Contract, Step 5 SERP Competitor Analysis, Step 6 Topic Research Bank, Step 7 Unique Angle And Information Gain, Step 8 SEO Content Brief, Step 9 SEO Page Outline, Step 10 SEO First Draft, and Step 11 On-Page SEO Optimized Draft are hard gates before Step 12 trust/authority work, page packet, prewriting, final copy, images, batch publishing, commit, deploy, or live publish work.
-12. Every downstream page artifact must carry the frozen Step 0B `contractHash`; if `targetKeyword`, `targetQueryIntent`, query cluster, selected opportunity, `mustCover`, `mustNotCover`, `pageScopeSummary`, or `uniqueContribution` changes, rerun and revalidate Step 0B.
-13. Every downstream page artifact after Step 1 must carry `step0BContractHash` and `pageJobHash`; if the audience, task, help format, outcome, business role, risk boundary, evidence basis, uniqueness, or `pageJobStatement` changes, rerun and revalidate Step 1.
-14. Every downstream page artifact after Step 2 must carry `searchIntentHash`; if the dominant intent, deeper intent, expected depth, satisfaction condition, result type, content format, SERP pattern, market context, or alignment decision changes, rerun and revalidate Step 2.
-15. Every downstream page artifact after Step 3 must carry `pageFormatHash`; if the page type, internal content format, supporting elements, format boundaries, adjacent routing, or format decision changes, rerun and revalidate Step 3.
-16. Every downstream page artifact after Step 4 must carry `nextActionHash`; if the user journey stage, primary next action, secondary next action, CTA strength, internal journey path, or next-action statement changes, rerun and revalidate Step 4.
-17. Every downstream page artifact after Step 5 must carry `serpCompetitorHash`; if the SERP context, competitor set, SERP strength, minimum bar, opportunity gaps, cannibalization result, differentiation requirement, or direction validation changes, rerun and revalidate Step 5.
-18. Every downstream page artifact after Step 6 must carry `topicResearchHash`; if the research depth tier, research agenda, source registry, extracted facts, agenda coverage, Step 5 carry-forward coverage, source conflicts, local-market evidence, `doNotUse`, or `mustCarryForward` changes, rerun and revalidate Step 6.
-19. Every downstream page artifact after Step 7 must carry `uniqueAngleHash`; if the primary/supporting angles, assets, baselines, areas to exceed, reason-to-compete statement, or delivery requirements change, rerun and revalidate Step 7.
-20. Every downstream page artifact after Step 8 must carry `contentBriefHash`; if the writer instructions, word-count floor, depth obligations, source-use guidance, assets, voice, anti-generic contract, practical devices, or delivery proof requirements change, rerun and revalidate Step 8.
-21. Every downstream page artifact after Step 9 must carry `pageOutlineHash`; if the working H1, page flow, H2 order, section IDs, section roles, section obligations, asset placement, FAQ plan, CTA/link placement, scope boundaries, or outline delivery proof changes, rerun and revalidate Step 9.
-22. Every downstream page artifact after Step 10 must carry `firstDraftHash`; if section copy, draft assets, FAQ answers, draft CTA/internal-link copy, claim handling, intro promise, high-depth substance, anti-generic proof, or first-draft delivery proof changes materially, rerun and revalidate Step 10 or return to the responsible owner step.
-23. Every downstream page artifact after Step 11 must carry `onPageSeoHash`; if optimized H1, optimized headings, answer placement, topical-completeness fixes, natural query coverage, internal-link context, asset alt/fallback notes, anti-over-optimization proof, or on-page SEO delivery proof changes materially, rerun and revalidate Step 11 or return to the responsible owner step.
+11. Category Discovery Gate is required before cluster strategy when cluster/category is missing, broad, vague, stale, inferred from business description only, or when `clusterBoundaryHash` is missing/stale.
+12. Step 0A foundation, Step 0B Page Scope Contract, Step 1 Page Job Contract, Step 2 Search Intent Contract, Step 3 Page Format Contract, Step 4 Next Action Contract, Step 5 SERP Competitor Analysis, Step 6 Topic Research Bank, Step 7 Unique Angle And Information Gain, Step 8 SEO Content Brief, Step 9 SEO Page Outline, Step 10 SEO First Draft, and Step 11 On-Page SEO Optimized Draft are hard gates before Step 12 trust/authority work, page packet, prewriting, final copy, images, batch publishing, commit, deploy, or live publish work.
+13. Every downstream page artifact must carry the frozen Step 0B `contractHash`; if `targetKeyword`, `targetQueryIntent`, query cluster, selected opportunity, `mustCover`, `mustNotCover`, `pageScopeSummary`, or `uniqueContribution` changes, rerun and revalidate Step 0B.
+14. Every downstream page artifact after Step 1 must carry `step0BContractHash` and `pageJobHash`; if the audience, task, help format, outcome, business role, risk boundary, evidence basis, uniqueness, or `pageJobStatement` changes, rerun and revalidate Step 1.
+15. Every downstream page artifact after Step 2 must carry `searchIntentHash`; if the dominant intent, deeper intent, expected depth, satisfaction condition, result type, content format, SERP pattern, market context, or alignment decision changes, rerun and revalidate Step 2.
+16. Every downstream page artifact after Step 3 must carry `pageFormatHash`; if the page type, internal content format, supporting elements, format boundaries, adjacent routing, or format decision changes, rerun and revalidate Step 3.
+17. Every downstream page artifact after Step 4 must carry `nextActionHash`; if the user journey stage, primary next action, secondary next action, CTA strength, internal journey path, or next-action statement changes, rerun and revalidate Step 4.
+18. Every downstream page artifact after Step 5 must carry `serpCompetitorHash`; if the SERP context, competitor set, SERP strength, minimum bar, opportunity gaps, cannibalization result, differentiation requirement, or direction validation changes, rerun and revalidate Step 5.
+19. Every downstream page artifact after Step 6 must carry `topicResearchHash`; if the research depth tier, research agenda, source registry, extracted facts, agenda coverage, Step 5 carry-forward coverage, source conflicts, local-market evidence, `doNotUse`, or `mustCarryForward` changes, rerun and revalidate Step 6.
+20. Every downstream page artifact after Step 7 must carry `uniqueAngleHash`; if the primary/supporting angles, assets, baselines, areas to exceed, reason-to-compete statement, or delivery requirements change, rerun and revalidate Step 7.
+21. Every downstream page artifact after Step 8 must carry `contentBriefHash`; if the writer instructions, word-count floor, depth obligations, source-use guidance, assets, voice, anti-generic contract, practical devices, or delivery proof requirements change, rerun and revalidate Step 8.
+22. Every downstream page artifact after Step 9 must carry `pageOutlineHash`; if the working H1, page flow, H2 order, section IDs, section roles, section obligations, asset placement, FAQ plan, CTA/link placement, scope boundaries, or outline delivery proof changes, rerun and revalidate Step 9.
+23. Every downstream page artifact after Step 10 must carry `firstDraftHash`; if section copy, draft assets, FAQ answers, draft CTA/internal-link copy, claim handling, intro promise, high-depth substance, anti-generic proof, or first-draft delivery proof changes materially, rerun and revalidate Step 10 or return to the responsible owner step.
+24. Every downstream page artifact after Step 11 must carry `onPageSeoHash`; if optimized H1, optimized headings, answer placement, topical-completeness fixes, natural query coverage, internal-link context, asset alt/fallback notes, anti-over-optimization proof, or on-page SEO delivery proof changes materially, rerun and revalidate Step 11 or return to the responsible owner step.
 
 ## Workflow Order
 
@@ -34,6 +35,7 @@ Use this agent when a user wants to create or refresh brand-aware SEO pages for 
 Company onboarding
 -> Product/category profile
 -> Optional sitewide SEO scan
+-> Category Discovery Gate when cluster/category is missing, broad, vague, stale, or business-description-only
 -> Cluster strategy
 -> Step 0A foundation: topic, search problem, problem-language
 -> Step 0B Page Scope Contract: targetKeyword, targetQueryIntent, query cluster, selected page scope, contractHash
@@ -53,6 +55,18 @@ Company onboarding
 -> Publish-ready page packet or refresh packet
 -> Section-level edits and version history
 ```
+
+## Category Discovery Gate
+
+Run Category Discovery before cluster strategy when the user gives no cluster, gives a broad/vague category, gives only business context, requests automatic cluster selection, asks for new opportunities beyond an existing cluster, or when the existing `clusterBoundaryHash` is stale or missing.
+
+Category Discovery uses `.seo-agent-workspace/category-discovery/<run-id>/seed-universe-contract.json`, `cluster-portfolio-discovery.json`, and `cluster-boundary-contract.json`, then validates into `category-discovery-validation.json` and `category-discovery.lock.json`.
+
+Adapters fill these artifacts from live business/site/search/SERP/competitor/audience evidence. The CLI validates them and may seed cluster strategy from discovered opportunity proofs. Keep ambiguous opportunities in `needsStep0BDecision`; Step 0B owns final keyword, query cluster, page scope, and exclusions.
+
+Every downstream page artifact created from a discovered cluster must carry `clusterBoundaryHash`. If a page idea drifts outside the selected cluster boundary, return to category discovery or route it as an adjacent/future cluster.
+
+Category Discovery must not produce final target keywords, final query clusters, page outlines, page copy, image prompts, final superiority components, CTA strategy, metadata, exact page titles, final Step 0A/0B contracts, or copied competitor category architecture.
 
 ## Step 0A Foundation Gate
 
