@@ -50,6 +50,13 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
   assert.match(workflow, /Top 10 meaningful SERP body extractions/);
   assert.match(workflow, /content_ready/);
   assert.match(workflow, /publish_ready/);
+  assert.match(clusterWorkflow, /Category Discovery Gate/);
+  assert.match(clusterWorkflow, /seed-universe-contract\.json/);
+  assert.match(clusterWorkflow, /cluster-portfolio-discovery\.json/);
+  assert.match(clusterWorkflow, /cluster-boundary-contract\.json/);
+  assert.match(clusterWorkflow, /clusterBoundaryHash/);
+  assert.match(clusterWorkflow, /needsStep0BDecision/);
+  assert.match(clusterWorkflow, /discovered opportunity proofs/);
 
   assert.match(readme, /seo-agent v2 prepare-page/);
   assert.match(readme, /seo-agent v2 validate-depth/);
@@ -79,6 +86,9 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
   assert.match(readme, /shared HTML body template/);
   assert.match(readme, /same body section pattern/);
   assert.match(readme, /SERP, PAA, Reddit\/forum\/video, AI Overview, audience-language, and competitor-gap research/);
+  assert.match(readme, /seo-agent category init/);
+  assert.match(readme, /seo-agent category validate/);
+  assert.match(readme, /cluster plan --auto-discover/);
 
   assert.match(agent, /workflows\/19-v2-content-quality\.md/);
   assert.match(agent, /No hard-gate override/);
@@ -136,6 +146,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
   assert.match(codexSkill, /historical pages from previous runs/);
   assert.match(codexSkill, /shared body section patterns are forbidden/i);
   assert.match(codexSkill, /CTA placement, and CTA body must be page-specific and research-derived/);
+  assert.match(codexSkill, /Category Discovery Gate/);
   assert.match(gemini, /validate-depth/);
   assert.match(gemini, /final-copy-draft\.json/);
   assert.match(gemini, /pageStructure\.structureVariant/);
@@ -160,6 +171,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
   assert.match(gemini, /historical pages from previous runs/);
   assert.match(gemini, /shared body section patterns are forbidden/i);
   assert.match(gemini, /CTA placement, and CTA body copy must be distinct/);
+  assert.match(gemini, /Category Discovery Gate/);
 
   assert.match(antigravity, /Antigravity Adapter/);
   assert.match(antigravity, /AGENT\.md/);
@@ -198,6 +210,8 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
   assert.match(antigravity, /shared body section patterns are forbidden/i);
   assert.match(antigravity, /CTA placement, and CTA body must be page-specific and research-derived/);
   assert.match(antigravity, /future-page research, copy, images, assets, page packets, QA, commits, deploys, or manifests/);
+  assert.match(antigravity, /Category Discovery Gate/);
+  assert.match(antigravity, /Do not create final target keywords during category discovery/);
   assert.match(antigravity, /commit, push\/deploy, and verify HTTP 200 OK/);
   assert.match(antigravity, /Only after the current page is live or terminally skipped may you select the next page/);
 

@@ -14,7 +14,8 @@ export const workspaceFolders = [
   "images",
   "watcher-reports",
   "imports",
-  "watcher-state"
+  "watcher-state",
+  "category-discovery"
 ] as const;
 
 export async function initWorkspace(cwd = process.cwd()): Promise<string[]> {

@@ -4,6 +4,16 @@ Read AGENT.md and summarize the recommended SEO Page Creator Agent flow:
 onboard -> optional site scan -> cluster -> page -> edit-section -> rescore -> watcher.
 Explain prerequisites for each command and where artifacts are stored.
 
+Explain Category Discovery Gate before cluster strategy. Mention:
+`seo-agent category init --business "..." --company "..." --market India`,
+`seo-agent category validate --run-id <run-id>`, and
+`seo-agent cluster plan --auto-discover --run-id <run-id> --company "..."`.
+Explain that adapters fill `seed-universe-contract.json`,
+`cluster-portfolio-discovery.json`, and `cluster-boundary-contract.json` with
+live evidence, validation writes `category-discovery-validation.json` and
+`category-discovery.lock.json`, strategy uses discovered opportunity proofs, and
+ambiguous opportunities are preserved in `needsStep0BDecision`.
+
 For `/seo:page`, explain that Step 0A, Step 0B, Step 1, Step 2, Step 3, Step 4, Step 5, Step 6, Step 7, Step 8, Step 9, Step 10, and Step 11 from
 `workflows/13-cluster-strategy.md` must pass before page generation.
 

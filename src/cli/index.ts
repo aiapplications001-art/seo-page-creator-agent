@@ -2,6 +2,7 @@
 
 import { runGoogleAuth } from "./auth-google.js";
 import { runBatchCommand } from "./batch.js";
+import { runCategoryCommand } from "./category.js";
 import { runClusterCommand } from "./cluster.js";
 import { runFinalCopyCommand } from "./final-copy.js";
 import { runImagesCommand } from "./images.js";
@@ -22,7 +23,10 @@ Usage:
   seo-agent auth google --code <AUTH_CODE>
   seo-agent sitemap fetch <sitemap-url>
   seo-agent metadata extract [--limit <number>]
+  seo-agent category init --business <description> --company <name> [--market India] [--seed acne,acne scars]
+  seo-agent category validate --run-id <id>
   seo-agent cluster plan --category <name> --company <name> [--market India] [--keywords <comma-separated>]
+  seo-agent cluster plan --auto-discover --run-id <id> --company <name>
   seo-agent prewriting plan --cluster <slug> --page-id <P1> --audience <cohort> [--tone <tone>]
   seo-agent page-packet build --cluster <slug> --page-id <P1> [--author <name>]
   seo-agent final-copy expand --cluster <slug> --page-id <P1>
@@ -68,6 +72,11 @@ async function main(): Promise<void> {
 
   if (command === "metadata") {
     await runMetadataCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
+    return;
+  }
+
+  if (command === "category") {
+    await runCategoryCommand([subcommand, ...args].filter((item): item is string => Boolean(item)));
     return;
   }
 

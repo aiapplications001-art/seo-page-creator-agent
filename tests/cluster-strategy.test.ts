@@ -103,3 +103,56 @@ test("uses low confidence assumptions when no matching metadata exists", () => {
   assert.equal(strategy.pageOpportunities[0].strategyCategory, "startup_conversion");
   assert.ok(strategy.assumptions.every((assumption) => assumption.evidenceStrength === "low"));
 });
+
+test("uses discovered opportunity proofs when discovery seed is provided", () => {
+  const strategy = generateClusterStrategy({
+    companyName: "MyMirror",
+    categoryName: "Acne Scar Treatment",
+    market: "India",
+    metadata,
+    seedKeywords: [],
+    discoverySeed: {
+      categoryDiscovery: {
+        runId: "cat-test",
+        seedUniverseHash: "seed-hash",
+        clusterPortfolioHash: "portfolio-hash",
+        clusterBoundaryHash: "boundary-hash",
+        selectedSeedUniverse: "acne skincare",
+        selectedClusterCategory: "acne scar treatment",
+        clusterSearchProblem: "People want realistic help improving acne scars.",
+        clusterPositioningStatement: "Realistic scar guidance without miracle claims.",
+        clusterViabilityStatement: "The cluster has distinct prevention, myth, treatment, and scar-type opportunities.",
+        boundarySummary: "Includes scar treatment and prevention; excludes general acne care.",
+        warnings: []
+      },
+      pageOpportunities: [
+        {
+          opportunityName: "acne scar prevention",
+          distinctSearchProblem: "User wants to stop active acne from becoming long-term scarring.",
+          distinctnessReason: "Different from treating existing scars.",
+          evidenceRefs: ["paa-1"],
+          rawToNormalizedEvidence: [],
+          route: "ready_for_step0B"
+        }
+      ],
+      needsMoreDiscoveryBeforeStep0B: [],
+      needsStep0BDecision: [],
+      siteEvidenceSummary: {
+        evidenceRefs: ["site-1"],
+        businessSiteFitReason: "Existing acne content supports this cluster.",
+        cannibalizationRoute: "continue"
+      },
+      batchSuitability: {
+        suitableForBatch: true,
+        maxConfidentPageCount: 8,
+        reason: "Enough distinct proofs."
+      }
+    }
+  });
+
+  assert.equal(strategy.categoryDiscovery?.clusterBoundaryHash, "boundary-hash");
+  assert.equal(strategy.pageOpportunities.length, 1);
+  assert.equal(strategy.pageOpportunities[0].title, "acne scar prevention");
+  assert.equal(strategy.pageOpportunities[0].targetIntent, "User wants to stop active acne from becoming long-term scarring.");
+  assert.equal(strategy.internalLinkSuggestions.length, 0);
+});

@@ -12,7 +12,19 @@ Use the SEO Page Creator Agent core files as the source of truth:
 
 For one SEO page, run the full V2.1 workflow for the current page only.
 
-Before the V2.1 workflow starts, enforce Step 0A, Step 0B, Step 1, Step 2, Step 3, Step 4, Step 5, Step 6, Step 7, Step 8, Step 9, and Step 10 from `workflows/13-cluster-strategy.md`.
+Before the V2.1 workflow starts, enforce Category Discovery Gate when needed, then Step 0A, Step 0B, Step 1, Step 2, Step 3, Step 4, Step 5, Step 6, Step 7, Step 8, Step 9, Step 10, and Step 11 from `workflows/13-cluster-strategy.md`.
+
+## Category Discovery Gate
+
+Run Category Discovery Gate before cluster strategy when cluster/category is omitted, broad, vague, stale, inferred from business description only, auto-selected for batch, requested for new opportunities beyond an existing cluster, or missing a valid `clusterBoundaryHash`.
+
+Use `.seo-agent-workspace/category-discovery/<run-id>/seed-universe-contract.json`, `cluster-portfolio-discovery.json`, and `cluster-boundary-contract.json`. Fill them with live evidence from business/site inputs, search-demand surfaces, SERP competitors, competitor sitemaps/navigation, broader category leaders, PAA/autocomplete/related searches, Reddit/forum/video audience-language sources when available, and optional imports. Run `seo-agent category validate --run-id <run-id>` and require `category-discovery-validation.json` plus `category-discovery.lock.json` before `seo-agent cluster plan --auto-discover --run-id <run-id> --company <company>`.
+
+Use discovered opportunity proofs as strategy seeds only. Preserve uncertain but plausible opportunities in `needsStep0BDecision`; Step 0B owns exact target keyword, query cluster, page scope, and exclusions.
+
+Do not create final target keywords during category discovery. Do not create final query clusters, outlines, copy, image prompts, final superiority components, CTA strategy, metadata, exact page titles, final Step 0A/0B contracts, internal-link plans, or copied competitor category architecture during category discovery.
+
+After category discovery is used, carry `clusterBoundaryHash` into Step 0A, Step 0B, and all downstream page artifacts. If a page idea drifts outside the selected cluster boundary, return to category discovery or route it as adjacent/future instead of pulling it into the current batch.
 
 Step 0A Foundation must define the search opportunity before keyword targeting. It must include `selectedTopic`, `topicBoundarySummary`, included/excluded subareas, `candidateTopics`, `businessSideRelevance`, `deferredKeywordCandidates`, `deferredIntentSignals`, `primarySearchProblem`, `searchProblemBoundarySummary`, `wrongPageRisk`, `desiredOutcome`, `readerState`, `problemLanguage`, `relationshipCheck`, `foundationVerdict`, and `mustCarryForward`.
 
@@ -106,7 +118,7 @@ Do not batch by workflow stage.
 Required batch sequence:
 
 1. Stop before starting if the target project repo has uncommitted changes.
-2. Identify the cluster during preflight. Use an existing cluster plan when suitable, or create/discover the cluster plan if needed.
+2. Identify the cluster during preflight. Use an existing cluster plan when suitable, or run Category Discovery Gate before cluster planning when cluster/category is missing, broad, vague, stale, business-description-only, or missing `clusterBoundaryHash`.
 3. Do not create page packets, final copy, images, or image manifests during cluster identification.
 4. Select exactly one page opportunity.
 5. Run Step 0A and freeze the Foundation artifact before selecting or locking page work.
