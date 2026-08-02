@@ -141,25 +141,62 @@ A completed local run can produce the following artifacts for side reference:
 ```
 
 
-Example content shape:
+Example locally hosted HTML shape:
 
-```md
-# Best Forex Card For Indian Students Going Abroad From India
+```html
+<article>
+  <h1>Best Forex Card For Indian Students Going Abroad From India</h1>
 
-## Quick Answer
+  <section>
+    <h2>Quick Answer</h2>
+    <p>
+      For most Indian students going abroad, the best forex card is not simply
+      the card with the lowest joining fee. A safer choice is usually the card
+      that fits the destination currency, reload urgency, ATM-use pattern,
+      university payment needs, emergency support expectations, and refund
+      process for unused balance.
+    </p>
+    <p>
+      Compare the total cost of ownership: issuance fee, reload fee,
+      exchange-rate markup, ATM withdrawal charges, inactivity rules, unload
+      fee, and customer-support access from the destination country.
+    </p>
+  </section>
 
-For most Indian students going abroad, the best forex card is not simply the card with the lowest joining fee. A safer choice is usually the card that fits the destination currency, reload urgency, ATM-use pattern, university payment needs, emergency support expectations, and refund process for unused balance.
-
-If you are comparing cards, check the total cost of ownership: issuance fee, reload fee, exchange-rate markup, ATM withdrawal charges, inactivity rules, unload fee, and customer-support access from the destination country.
-
-## Student Forex Card Fit Matrix
-
-| Student situation | What matters most | What to compare before choosing | Safer next step |
-|---|---|---|---|
-| Going to the US, UK, Canada, Europe, or Australia | Destination-currency support and reload reliability | Supported currency, reload time, exchange-rate markup, and ATM withdrawal fee | Shortlist cards around your destination currency first, then compare fees |
-| Parent will reload money from India | Reload convenience and emergency access | Online reload process, support hours, reload fee, and documentation needed | Choose a card with a clear reload workflow before departure |
-| Unsure how much money will remain after the trip | Refund and unload clarity | Unload fee, refund timeline, inactive balance rules, and account closure process | Avoid judging only by upfront fee; check end-of-trip costs too |
-| Planning to use ATMs frequently abroad | Cash withdrawal cost and safety | ATM fee, daily withdrawal limit, replacement support, and backup payment options | Estimate likely ATM use before picking a low-fee card |
+  <section>
+    <h2>Student Forex Card Fit Matrix</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Student situation</th>
+          <th>What matters most</th>
+          <th>What to compare before choosing</th>
+          <th>Safer next step</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Going to the US, UK, Canada, Europe, or Australia</td>
+          <td>Destination-currency support and reload reliability</td>
+          <td>Currency support, reload time, markup, and ATM withdrawal fee</td>
+          <td>Shortlist cards around your destination currency first</td>
+        </tr>
+        <tr>
+          <td>Parent will reload money from India</td>
+          <td>Reload convenience and emergency access</td>
+          <td>Online reload process, support hours, reload fee, and documents</td>
+          <td>Choose a card with a clear reload workflow before departure</td>
+        </tr>
+        <tr>
+          <td>Unsure how much money will remain after the trip</td>
+          <td>Refund and unload clarity</td>
+          <td>Unload fee, refund timeline, inactive balance, and closure rules</td>
+          <td>Check end-of-trip costs, not only the upfront fee</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
 ```
 
 ## Who Is It For?
