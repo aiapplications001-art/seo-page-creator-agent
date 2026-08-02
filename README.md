@@ -66,6 +66,15 @@ The goal is to create pages that are useful for readers and competitive in searc
 
 ## How To Use It
 
+The simple version:
+
+1. Open your AI agent chat window, such as Codex, Gemini CLI, Antigravity, or a similar coding-agent environment.
+2. Ask it to install SEO Page Creator Agent.
+3. Ask it to run `seo-agent init`.
+4. Give it your website URL.
+5. Let the agent research, plan, draft, optimize, and validate the page in the background.
+6. Review the local HTML preview URL and the generated content files.
+
 Install the package:
 
 ```bash
