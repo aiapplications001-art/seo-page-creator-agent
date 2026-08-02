@@ -1,10 +1,8 @@
 # SEO Page Creator Agent
 
-**Get production ready new SEO pages, no AI slop** 
+**Create production-ready SEO HTML pages from a website URL, without generic AI copy.**
 
-**SEO Page Creator Agent is an end to end one stop solution to generate production ready new SEO HTML pages from scratch. Input just your website URL and it does the rest**
-
-`seo-page-creator-agent` performs deeper SERP research, source-backed drafting, content briefs, on-page SEO optimization, editorial QA, and page-specific structure instead of generic AI copy.
+`seo-page-creator-agent` helps teams create pages that are researched, structured, source-aware, and easier to review before publishing. Instead of asking an AI tool for a one-shot blog draft, this agent guides the page through research, planning, drafting, SEO optimization, and quality checks.
 
 Canonical repository: https://github.com/aiapplications001-art/seo-page-creator-agent
 
@@ -28,61 +26,67 @@ Use the canonical repository URL when linking to this project from docs, article
 
 ## What Is The SEO Page Creator Agent?
 
-SEO Page Creator Agent is a workflow system for creating research-backed SEO pages with AI coding agents such as Codex, Gemini CLI, Antigravity, and Claude-style coding environments.
+SEO Page Creator Agent is an open-source AI SEO content generator and workflow system for creating research-backed SEO pages with AI coding agents such as Codex, Gemini CLI, Antigravity, and Claude-style coding environments.
 
-The workflow can start from **just a website URL**. From that site, the agent can infer the business context, inspect visible site structure, discover SEO clusters, identify page opportunities, and create SEO content artifacts for review.
+You can start with **just a website URL**. The agent can inspect the site, understand the business, identify possible SEO page opportunities, research the search results, create a content brief, write the draft, optimize it, and produce a local HTML preview for review.
 
-The final output is not only a prompt response. A run can **produce SEO-ready content and a locally hosted HTML preview**, along with a content brief, an outline, source-backed draft, on-page SEO optimized copy, editorial QA report, image/content manifest, and structured JSON/Markdown artifacts.
+The final output is not only a prompt response. A run can produce:
+
+- SEO-ready page content;
+- a locally hosted HTML preview;
+- a content brief;
+- a page outline;
+- a researched first draft;
+- an on-page SEO optimized draft;
+- an editorial QA report;
+- source and claim-handling notes;
+- image/content planning notes when relevant.
+
+The local HTML preview can be opened in a browser, reviewed like a normal web page, and then adapted into your CMS, website theme, or frontend.
 
 ## What It Does
 
-SEO Page Creator Agent helps you create SEO pages by:
+SEO Page Creator Agent helps create stronger SEO pages by doing the work in stages:
 
-- analyzing a website, sitemap, business context, category, keyword, or existing URL;
-- discovering SEO cluster categories from search, site, competitor, and audience-language evidence;
-- identifying page opportunities from SERP, People Also Ask, autocomplete, related searches, Reddit/forums/videos, and long-tail queries;
-- validating topic, search problem, target keyword, query cluster, page scope, search intent, page type, and next action;
-- reviewing SERP competitors before drafting;
-- researching trustworthy topic sources with source roles and claim-sensitivity checks;
-- creating a unique angle and information-gain asset for each page;
-- producing an SEO content brief, outline, first draft, and on-page SEO optimized draft;
-- generating editorial QA reports, image/content manifests, debug bundles, and local preview artifacts.
+- understands your website and business context;
+- identifies the broad SEO category or cluster;
+- finds page opportunities from search results, competitor pages, People Also Ask, related searches, Reddit/forums/videos, and long-tail queries;
+- chooses one page opportunity at a time;
+- defines what the page should help the reader do;
+- checks the real search intent behind the query;
+- studies top-ranking competitor pages;
+- researches trustworthy topic sources;
+- creates a unique angle or useful information-gain asset;
+- writes a content brief and page outline;
+- drafts the page;
+- improves the draft for on-page SEO;
+- checks whether the page is specific, useful, evidence-backed, and not generic.
 
-The goal is to create pages that are differentiated, evidence-backed, and useful for readers, not just keyword-filled AI content.
+The goal is to create pages that are useful for readers and competitive in search, not thin AI copy with keywords added later.
 
 ## How To Use It
 
-Install SEO Page Creator Agent globally:
+Install the package:
 
 ```bash
 npm install -g seo-page-creator-agent
 seo-agent init
 ```
 
-Then provide your website URL as the starting input:
+Then give the agent your website URL.
 
 ```text
-Website:
-https://bookmyforex.com
+Website: https://bookmyforex.com
 ```
 
+That is enough to begin. If the agent needs more information, it can ask follow-up questions such as:
+
+- Which country or market should the page target?
+- Are we creating a new page or improving an existing page?
+- Is there a specific topic, product, service, or category to focus on?
+- Should the output be a local HTML preview, a content packet, or a batch plan?
+
 SEO Page Creator Agent can start from just a website URL. From the site, the agent can infer the brand, business category, visible products or services, sitemap structure, existing content, conversion paths, and possible SEO cluster opportunities.
-
-The final output is SEO-ready content and a locally hosted HTML preview, along with structured research and QA artifacts.
-
-Typical outputs include:
-
-- SEO-ready page content;
-- locally hosted HTML preview;
-- SEO content brief;
-- page outline;
-- source-backed draft;
-- on-page SEO optimized copy;
-- editorial QA report;
-- image/content manifest;
-- structured JSON and Markdown artifacts.
-
-The local HTML preview can be reviewed in your browser and then adapted into your website theme, CMS, or frontend framework.
 
 ### Minimum Input
 
@@ -104,11 +108,12 @@ Useful optional inputs:
 
 - target market;
 - language;
-- seed topic;
-- seed keyword;
+- topic;
+- keyword;
 - competitor URLs;
 - existing page URL to refresh;
-- desired output: local SEO content, HTML preview, page packet, batch plan, or live publishing.
+- number of pages to create;
+- desired output format.
 
 ### Example Input
 
@@ -121,8 +126,44 @@ Goal: create one local SEO page and HTML preview
 
 ### Example Output
 
-The **Markdown and local HTML preview** can be reviewed in a browser and then adapted into your website theme, CMS, or frontend framework.
-A completed local run can produce the following artifacts for side reference:
+At the end, you can review a local HTML page in your browser.
+
+The preview may include:
+
+- a clear page title;
+- a quick answer near the top;
+- detailed researched sections;
+- comparison tables or decision matrices;
+- examples;
+- mistakes to avoid;
+- FAQs;
+- next-step guidance;
+- source-aware claim handling.
+
+Example page shape:
+
+```text
+Best Forex Card For Indian Students Going Abroad From India
+
+Quick Answer
+For most Indian students going abroad, the best forex card is not simply the card with the lowest joining fee. A safer choice depends on destination currency, reload speed, ATM-use pattern, university payment needs, emergency support, and refund rules.
+
+Student Forex Card Fit Matrix
+
+Student situation:
+Going to the US, UK, Canada, Europe, or Australia
+
+What matters most:
+Destination-currency support and reload reliability
+
+What to compare:
+Currency support, reload time, exchange-rate markup, and ATM withdrawal fee
+
+Safer next step:
+Shortlist cards around your destination currency first, then compare fees.
+```
+
+Behind the scenes, a completed local run can save supporting files such as the content brief, outline, draft, SEO-optimized copy, QA report, source notes, and local preview:
 
 ```text
 .seo-agent-workspace/
@@ -142,65 +183,6 @@ A completed local run can produce the following artifacts for side reference:
     debug-bundle.md
 ```
 
-
-Example locally hosted HTML shape:
-
-```html
-<article>
-  <h1>Best Forex Card For Indian Students Going Abroad From India</h1>
-
-  <section>
-    <h2>Quick Answer</h2>
-    <p>
-      For most Indian students going abroad, the best forex card is not simply
-      the card with the lowest joining fee. A safer choice is usually the card
-      that fits the destination currency, reload urgency, ATM-use pattern,
-      university payment needs, emergency support expectations, and refund
-      process for unused balance.
-    </p>
-    <p>
-      Compare the total cost of ownership: issuance fee, reload fee,
-      exchange-rate markup, ATM withdrawal charges, inactivity rules, unload
-      fee, and customer-support access from the destination country.
-    </p>
-  </section>
-
-  <section>
-    <h2>Student Forex Card Fit Matrix</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Student situation</th>
-          <th>What matters most</th>
-          <th>What to compare before choosing</th>
-          <th>Safer next step</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Going to the US, UK, Canada, Europe, or Australia</td>
-          <td>Destination-currency support and reload reliability</td>
-          <td>Currency support, reload time, markup, and ATM withdrawal fee</td>
-          <td>Shortlist cards around your destination currency first</td>
-        </tr>
-        <tr>
-          <td>Parent will reload money from India</td>
-          <td>Reload convenience and emergency access</td>
-          <td>Online reload process, support hours, reload fee, and documents</td>
-          <td>Choose a card with a clear reload workflow before departure</td>
-        </tr>
-        <tr>
-          <td>Unsure how much money will remain after the trip</td>
-          <td>Refund and unload clarity</td>
-          <td>Unload fee, refund timeline, inactive balance, and closure rules</td>
-          <td>Check end-of-trip costs, not only the upfront fee</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-</article>
-```
-
 ## Who Is It For?
 
 SEO Page Creator Agent is for:
@@ -216,7 +198,7 @@ It is especially useful when pages must stay aligned with a specific business, m
 
 ## Project Status
 
-SEO Page Creator Agent is in early public release.
+SEO Page Creator Agent is in early public release and currently supports the workflow from category discovery through on-page SEO optimization.
 
 - Current package version: `0.1.0`
 - Runtime: Node.js 22+
@@ -230,7 +212,7 @@ SEO Page Creator Agent is in early public release.
 - Current workflow coverage: category discovery through Step 11 on-page SEO optimization
 - Remaining roadmap: Step 12 trust/authority, metadata finalization, final QA, publishing readiness, richer examples, and broader adapter parity
 
-## Inside the Agent (Internal Architecture) - not for user's consumption
+## Inside The Agent: What Happens Behind The Scenes
 
 ```mermaid
 flowchart LR
