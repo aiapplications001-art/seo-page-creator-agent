@@ -32,8 +32,8 @@ You can start with **just a website URL**. The agent can inspect the site, under
 
 The final output is not only a prompt response. A run can produce:
 
-- SEO-ready page content;
-- a locally hosted HTML preview;
+- **SEO-ready page content**;
+- **a locally hosted HTML preview**;
 - a content brief;
 - a page outline;
 - a researched first draft;
@@ -42,7 +42,7 @@ The final output is not only a prompt response. A run can produce:
 - source and claim-handling notes;
 - image/content planning notes when relevant.
 
-The local HTML preview can be opened in a browser, reviewed like a normal web page, and then adapted into your CMS, website theme, or frontend.
+The **local HTML preview can be opened in a browser, reviewed like a normal web page**, and then adapted into your CMS, website theme, or frontend.
 
 ## What It Does
 
