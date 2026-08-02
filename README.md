@@ -1,14 +1,28 @@
 # SEO Page Creator Agent
 
-**SEO Page Creator Agent is an open-source AI workflow that can start from just a website URL and generate research-backed SEO content, and a locally hosted HTML preview for you to productionize.**
+**SEO Page Creator Agent is an open-source AI SEO content generator that can start from just a website URL and generate research-backed SEO content plus a locally hosted HTML preview for you to productionize.**
 
-It is an AI SEO content generator and SEO page creator for teams that want deeper SERP research, source-backed drafting, content briefs, on-page SEO optimization, editorial QA, and page-specific structure instead of generic AI copy.
+`seo-page-creator-agent` is an SEO page creator for teams that want deeper SERP research, source-backed drafting, content briefs, on-page SEO optimization, editorial QA, and page-specific structure instead of generic AI copy.
+
+Canonical repository: https://github.com/aiapplications001-art/seo-page-creator-agent
 
 [![CI](https://github.com/aiapplications001-art/seo-page-creator-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/aiapplications001-art/seo-page-creator-agent/actions/workflows/ci.yml)
 [![Tests](https://github.com/aiapplications001-art/seo-page-creator-agent/actions/workflows/tests.yml/badge.svg)](https://github.com/aiapplications001-art/seo-page-creator-agent/actions/workflows/tests.yml)
 [![npm version](https://img.shields.io/npm/v/seo-page-creator-agent.svg)](https://www.npmjs.com/package/seo-page-creator-agent)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-22%2B-green.svg)](https://nodejs.org/)
+
+## Canonical Repository
+
+The canonical source for SEO Page Creator Agent is:
+
+https://github.com/aiapplications001-art/seo-page-creator-agent
+
+Package:
+
+https://www.npmjs.com/package/seo-page-creator-agent
+
+Use the canonical repository URL when linking to this project from docs, articles, social posts, package pages, or AI/SEO tool roundups.
 
 ## What Is The SEO Page Creator Agent?
 

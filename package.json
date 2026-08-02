@@ -1,7 +1,7 @@
 {
   "name": "seo-page-creator-agent",
   "version": "0.1.0",
-  "description": "TypeScript CLI agent for SERP research, SEO content briefs, source-backed drafts, on-page SEO optimization, and editorial QA.",
+  "description": "AI SEO content generator that turns a website URL into SEO-ready content, structured QA artifacts, and a locally hosted HTML preview.",
   "type": "module",
   "license": "Apache-2.0",
   "author": "aiapplications001-art",
