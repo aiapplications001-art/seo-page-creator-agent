@@ -1,8 +1,10 @@
 # SEO Page Creator Agent
 
-**SEO Page Creator Agent is an open-source AI SEO content generator that can start from just a website URL and generate research-backed SEO content plus a locally hosted HTML preview for you to productionize.**
+**Get production ready new SEO pages, no AI slop** 
 
-`seo-page-creator-agent` is an SEO page creator for teams that want deeper SERP research, source-backed drafting, content briefs, on-page SEO optimization, editorial QA, and page-specific structure instead of generic AI copy.
+**SEO Page Creator Agent is an end to end one stop solution to generate production ready new SEO HTML pages from scratch. Input just your website URL and it does the rest**
+
+`seo-page-creator-agent` performs deeper SERP research, source-backed drafting, content briefs, on-page SEO optimization, editorial QA, and page-specific structure instead of generic AI copy.
 
 Canonical repository: https://github.com/aiapplications001-art/seo-page-creator-agent
 
@@ -26,7 +28,7 @@ Use the canonical repository URL when linking to this project from docs, article
 
 ## What Is The SEO Page Creator Agent?
 
-SEO Page Creator Agent is a simple AI-based workflow system for creating research-backed SEO pages with AI coding agents such as Codex, Gemini CLI, Antigravity, and Claude-style coding environments.
+SEO Page Creator Agent is a workflow system for creating research-backed SEO pages with AI coding agents such as Codex, Gemini CLI, Antigravity, and Claude-style coding environments.
 
 The workflow can start from **just a website URL**. From that site, the agent can infer the business context, inspect visible site structure, discover SEO clusters, identify page opportunities, and create SEO content artifacts for review.
 
