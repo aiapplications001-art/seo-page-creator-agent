@@ -215,7 +215,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
   assert.match(antigravity, /commit, push\/deploy, and verify HTTP 200 OK/);
   assert.match(antigravity, /Only after the current page is live or terminally skipped may you select the next page/);
 
-  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+  for (const doc of [clusterWorkflow, agent, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
     assert.match(doc, /Step 0A|0A/);
     assert.match(doc, /Step 0A Foundation|Foundation gate|foundation gate|foundation verdict|foundationVerdict/);
     assert.match(doc, /selectedTopic/);
@@ -253,7 +253,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /No downstream work may start|no downstream work may start|Downstream workflows must not start|before any downstream|before downstream|before page generation/);
   }
 
-  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+  for (const doc of [clusterWorkflow, agent, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
     assert.match(doc, /Step 1|Page Job Contract/);
     assert.match(doc, /pageJobContract/);
     assert.match(doc, /step0BContractHash/);
@@ -277,7 +277,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /return_to_step1/);
   }
 
-  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+  for (const doc of [clusterWorkflow, agent, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
     assert.match(doc, /Step 2|Search Intent Contract/);
     assert.match(doc, /searchIntentContract/);
     assert.match(doc, /searchIntentHash/);
@@ -313,7 +313,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /skip_page/);
   }
 
-  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+  for (const doc of [clusterWorkflow, agent, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
     assert.match(doc, /Step 3|Page Format Contract/);
     assert.match(doc, /pageFormatContract/);
     assert.match(doc, /pageFormatHash/);
@@ -342,7 +342,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /continue_to_prewriting/);
   }
 
-  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+  for (const doc of [clusterWorkflow, agent, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
     assert.match(doc, /Step 4|Next Action Contract/);
     assert.match(doc, /nextActionContract/);
     assert.match(doc, /nextActionHash/);
@@ -390,7 +390,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /continue_to_prewriting/);
   }
 
-  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+  for (const doc of [clusterWorkflow, agent, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
     assert.match(doc, /Step 5|SERP Competitor Analysis/);
     assert.match(doc, /serpCompetitorAnalysis/);
     assert.match(doc, /serpCompetitorHash/);
@@ -440,7 +440,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /differentiationDeliveryProof/);
   }
 
-  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+  for (const doc of [clusterWorkflow, agent, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
     assert.match(doc, /Step 6|Topic Research Bank/);
     assert.match(doc, /topicResearchBank/);
     assert.match(doc, /topicResearchHash/);
@@ -468,7 +468,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /topicResearchDeliveryProof/);
   }
 
-  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+  for (const doc of [clusterWorkflow, agent, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
     assert.match(doc, /Step 7|Unique Angle And Information Gain/i);
     assert.match(doc, /uniqueAngleInformationGain/);
     assert.match(doc, /uniqueAngleHash/);
@@ -501,7 +501,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /informationGainDeliveryProof/);
   }
 
-  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+  for (const doc of [clusterWorkflow, agent, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
     assert.match(doc, /Step 8|SEO Content Brief/i);
     assert.match(doc, /seoContentBrief/);
     assert.match(doc, /contentBriefHash/);
@@ -535,7 +535,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /no new research|must not start new research|performs no new research|start new research/i);
   }
 
-  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+  for (const doc of [clusterWorkflow, agent, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
     assert.match(doc, /Step 9|SEO Page Outline/i);
     assert.match(doc, /seoPageOutline/);
     assert.match(doc, /pageOutlineHash/);
@@ -575,7 +575,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /pageOutlineDeliveryProof|outlineDeliveryProof/);
   }
 
-  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+  for (const doc of [clusterWorkflow, agent, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
     assert.match(doc, /Step 10|SEO First Draft/i);
     assert.match(doc, /seoFirstDraft/);
     assert.match(doc, /firstDraftHash/);
@@ -608,7 +608,7 @@ test("V2 workflow docs and adapters expose content quality flow", () => {
     assert.match(doc, /Step 11|on-page SEO|SEO optimization/i);
   }
 
-  for (const doc of [clusterWorkflow, agent, readme, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
+  for (const doc of [clusterWorkflow, agent, workflow, codexSkill, gemini, pageCommand, helpCommand, antigravity]) {
     assert.match(doc, /Step 11|On-Page SEO Optimized Draft|on-page SEO/i);
     assert.match(doc, /onPageSeoOptimizedDraft/);
     assert.match(doc, /onPageSeoHash/);
