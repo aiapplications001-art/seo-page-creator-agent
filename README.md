@@ -69,10 +69,10 @@ The goal is to create pages that are useful for readers and competitive in searc
 The simple version:
 
 1. Open your AI agent chat window, such as Codex, Gemini CLI, Antigravity, or a similar coding-agent environment.
-2. Ask it to install SEO Page Creator Agent.
+2. Ask it to install SEO Page Creator Agent. Give it the GitHub URL (`https://github.com/aiapplications001-art/seo-page-creator-agent`) or npm package URL (`https://www.npmjs.com/package/seo-page-creator-agent`) if needed.
 3. Ask it to run `seo-agent init`.
 4. Give it your website URL.
-5. Let the agent research, plan, draft, optimize, and validate the page in the background.
+5. <span style="color:#6b7280;">Let the agent research, plan, draft, optimize, and validate the page. (behind the scenes)</span>
 6. Review the local HTML preview URL and the generated content files.
 
 Install the package:
