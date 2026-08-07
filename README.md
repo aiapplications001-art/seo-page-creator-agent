@@ -1,6 +1,6 @@
 # SEO Page Creator Agent
 
-**AI SEO page creator agent for Codex, Claude, Gemini CLI, Antigravity, and agent IDEs.**
+**AI SEO page creator agent workflow for Codex, Claude, Gemini CLI, Antigravity, and agent IDEs.**
 
 `seo-page-creator-agent` helps teams create production-ready SEO HTML pages and page packets from a website URL, without generic AI copy. Instead of asking an AI tool for a one-shot blog draft, this agent guides the page through research, planning, drafting, SEO optimization, quality checks, and local HTML preview workflows.
 
