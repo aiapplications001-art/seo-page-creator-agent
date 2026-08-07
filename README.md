@@ -1,8 +1,8 @@
 # SEO Page Creator Agent
 
-**Create production-ready SEO HTML pages from a website URL, without generic AI copy.**
+**AI SEO page creator agent for Codex, Claude, Gemini CLI, Antigravity, and agent IDEs.**
 
-`seo-page-creator-agent` helps teams create pages that are researched, structured, source-aware, and easier to review before publishing. Instead of asking an AI tool for a one-shot blog draft, this agent guides the page through research, planning, drafting, SEO optimization, and quality checks.
+`seo-page-creator-agent` helps teams create production-ready SEO HTML pages and page packets from a website URL, without generic AI copy. Instead of asking an AI tool for a one-shot blog draft, this agent guides the page through research, planning, drafting, SEO optimization, quality checks, and local HTML preview workflows.
 
 Canonical repository: https://github.com/aiapplications001-art/seo-page-creator-agent
 
@@ -11,6 +11,41 @@ Canonical repository: https://github.com/aiapplications001-art/seo-page-creator-
 [![npm version](https://img.shields.io/npm/v/seo-page-creator-agent.svg)](https://www.npmjs.com/package/seo-page-creator-agent)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-22%2B-green.svg)](https://nodejs.org/)
+[![GitHub stars](https://img.shields.io/github/stars/aiapplications001-art/seo-page-creator-agent?style=social)](https://github.com/aiapplications001-art/seo-page-creator-agent)
+
+```text
+Website: https://example.com
+Market: United States
+Topic: best accounting software for contractors
+Goal: create one SEO page packet and HTML preview
+```
+
+## GitHub Visibility Metadata
+
+Recommended GitHub About description:
+
+```text
+AI SEO page creator agent for Codex, Claude, Gemini CLI, and agent IDEs. Generates research-backed, E-E-A-T-ready SEO page packets, HTML previews, keyword clusters, briefs, outlines, QA reports, and publishable content workflows.
+```
+
+Recommended GitHub topics:
+
+```text
+ai-seo, seo, seo-agent, seo-automation, seo-tools, agent-skills, codex-skill, claude-code, gemini-cli, ai-agent, content-generation, content-optimization, keyword-research, programmatic-seo, serp-analysis, google-search-console, aeo, geo, answer-engine-optimization, generative-engine-optimization
+```
+
+## Why This Exists
+
+Search is shifting from blue links to AI answers, AI Overviews, AI Mode, ChatGPT, Perplexity, and agent-driven research. Pages now need to be useful to humans, search crawlers, and AI systems that extract passages, compare entities, and cite sources.
+
+SEO Page Creator Agent helps create pages with:
+
+- clear answer blocks for AI search and featured snippets;
+- source-aware claims and citation-ready notes;
+- SERP, competitor, forum, and video research inputs;
+- E-E-A-T and editorial QA checks;
+- original information-gain requirements;
+- local HTML previews before publishing.
 
 ## Canonical Repository
 

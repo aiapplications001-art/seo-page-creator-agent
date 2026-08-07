@@ -1,0 +1,65 @@
+# SEO Page Creator Agent
+
+> AI SEO page creator agent for Codex, Claude, Gemini CLI, and agent IDEs. Generates research-backed, E-E-A-T-ready SEO page packets, HTML previews, keyword clusters, briefs, outlines, QA reports, and publishable content workflows.
+
+Repository: https://github.com/aiapplications001-art/seo-page-creator-agent
+Package: seo-page-creator-agent
+CLI: seo-agent
+License: Apache-2.0
+
+## What It Does
+
+SEO Page Creator Agent creates structured SEO page packets for guide/blog pages, comparison pages, and product category pages. It is designed for agentic coding tools and AI-assisted content operations that need source-backed, editorially reviewable SEO assets rather than generic AI drafts.
+
+Core outputs include:
+
+- keyword and cluster strategy
+- SERP-informed prewriting plans
+- page packets in Markdown and JSON
+- expanded final copy drafts
+- editorial QA reports
+- image manifests and image prompts
+- local HTML publishing workflows
+
+## Primary Use Cases
+
+- AI SEO page creation
+- AEO and GEO content preparation
+- SEO landing page generation
+- programmatic SEO quality control
+- product category page planning
+- comparison page planning
+- SEO content brief generation
+- agent-friendly editorial QA
+
+## Install
+
+```bash
+npm install -g seo-page-creator-agent
+seo-agent init
+```
+
+For local development:
+
+```bash
+npm install
+npm run build
+npm test
+npm run dev -- help
+```
+
+## Important Files
+
+- `README.md`: public overview, setup, commands, and GitHub visibility metadata
+- `AGENTS.md`: short agent-facing repository guide
+- `AGENT.md`: detailed workflow contract and hard rules
+- `workflows/`: workflow documentation
+- `policies/`: data access and image policy rules
+- `src/`: TypeScript CLI and library code
+- `schemas/`: JSON schemas for generated artifacts
+- `tests/`: Node test suite
+
+## Keywords
+
+AI SEO, AEO, GEO, answer engine optimization, generative engine optimization, SEO agent, SEO automation, SEO tools, agent skills, Codex skill, Claude Code, Gemini CLI, keyword research, content optimization, programmatic SEO, SERP analysis, Google Search Console, E-E-A-T, SEO page packet, AI content workflow.
+

@@ -1,7 +1,7 @@
 {
   "name": "seo-page-creator-agent",
   "version": "0.1.0",
-  "description": "AI SEO content generator that turns a website URL into SEO-ready content, structured QA artifacts, and a locally hosted HTML preview.",
+  "description": "AI SEO page creator agent for Codex, Claude, Gemini CLI, and agent IDEs with research-backed SEO page packets, briefs, QA reports, and HTML preview workflows.",
   "type": "module",
   "license": "Apache-2.0",
   "author": "aiapplications001-art",
