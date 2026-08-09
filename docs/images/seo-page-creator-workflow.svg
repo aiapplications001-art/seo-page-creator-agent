@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">SEO Page Creator Agent workflow</title>
+  <desc id="desc">Thirteen numbered steps from website onboarding and keyword research to quality assurance and live web page publishing.</desc>
+  <style>
+    :root { color-scheme: light; }
+    .canvas { fill: #f8fafc; }
+    .title { font: 600 34px Arial, sans-serif; fill: #111827; }
+    .subtitle { font: 400 17px Arial, sans-serif; fill: #475569; }
+    .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+    .card-label { font: 600 13px Arial, sans-serif; letter-spacing: 1.5px; fill: #64748b; }
+    .card-title { font: 600 20px Arial, sans-serif; fill: #111827; }
+    .card-body { font: 400 15px Arial, sans-serif; fill: #475569; }
+    .step-number { font: 700 18px Arial, sans-serif; fill: #ffffff; text-anchor: middle; dominant-baseline: central; }
+    .connector { fill: none; stroke: #94a3b8; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 8 10; animation: flow 1.8s linear infinite; }
+    .step { opacity: 0; transform-box: fill-box; transform-origin: center; animation: reveal 0.7s ease-out forwards; }
+    .step-1 { animation-delay: 0.1s; }
+    .step-2 { animation-delay: 0.45s; }
+    .step-3 { animation-delay: 0.8s; }
+    .step-4 { animation-delay: 1.15s; }
+    .step-5 { animation-delay: 1.5s; }
+    .step-6 { animation-delay: 1.85s; }
+    .step-7 { animation-delay: 2.2s; }
+    .step-8 { animation-delay: 2.55s; }
+    .step-9 { animation-delay: 2.9s; }
+    .step-10 { animation-delay: 3.25s; }
+    .step-11 { animation-delay: 3.6s; }
+    .step-12 { animation-delay: 3.95s; }
+    .step-13 { animation-delay: 4.3s; }
+    .accent-blue { fill: #2563eb; }
+    .accent-green { fill: #059669; }
+    .accent-orange { fill: #ea580c; }
+    .accent-purple { fill: #7c3aed; }
+    .accent-red { fill: #dc2626; }
+    .accent-teal { fill: #0f766e; }
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes flow {
+      to { stroke-dashoffset: -36; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .step { opacity: 1; animation: none; }
+      .connector { animation: none; }
+    }
+  </style>
+
+  <rect class="canvas" width="1600" height="900" />
+  <text class="title" x="70" y="64">Inside SEO Page Creator Agent</text>
+  <text class="subtitle" x="70" y="96">From website context and keyword research to a live web page ready for review and publishing</text>
+
+  <path class="connector" d="M360 190 H420" />
+  <path class="connector" d="M760 190 H820" />
+  <path class="connector" d="M1160 190 H1220" />
+  <path class="connector" d="M1400 260 V345 H1260" />
+  <path class="connector" d="M970 415 H860" />
+  <path class="connector" d="M570 415 H460" />
+    <path class="connector" d="M315 480 V535 H470 V635" />
+    <path class="connector" d="M760 635 H870" />
+    <path class="connector" d="M1160 635 H1270" />
+  <path class="connector" d="M1400 700 V785 H1260" />
+  <path class="connector" d="M970 785 H860" />
+  <path class="connector" d="M570 785 H460" />
+
+  <g class="step step-1">
+    <rect class="card" x="70" y="130" width="290" height="130" rx="8" />
+    <circle class="accent-blue" cx="105" cy="165" r="22" /><text class="step-number" x="105" y="165">1</text>
+    <text class="card-label" x="140" y="162">STEP 1</text>
+    <text class="card-title" x="92" y="202">Website onboarding</text>
+    <text class="card-body" x="92" y="226">Business, audience, market, brand</text>
+    <text class="card-body" x="92" y="247">and conversion context</text>
+  </g>
+
+  <g class="step step-2">
+    <rect class="card" x="470" y="130" width="290" height="130" rx="8" />
+    <circle class="accent-teal" cx="505" cy="165" r="22" /><text class="step-number" x="505" y="165">2</text>
+    <text class="card-label" x="540" y="162">STEP 2</text>
+    <text class="card-title" x="492" y="202">Site intelligence</text>
+    <text class="card-body" x="492" y="226">Sitemap, existing pages, metadata</text>
+    <text class="card-body" x="492" y="247">and content coverage</text>
+  </g>
+
+  <g class="step step-3">
+    <rect class="card" x="870" y="130" width="290" height="130" rx="8" />
+    <circle class="accent-green" cx="905" cy="165" r="22" /><text class="step-number" x="905" y="165">3</text>
+    <text class="card-label" x="940" y="162">STEP 3</text>
+    <text class="card-title" x="892" y="202">Keyword research</text>
+    <text class="card-body" x="892" y="226">Demand, queries, clusters and</text>
+    <text class="card-body" x="892" y="247">business-fit opportunities</text>
+  </g>
+
+  <g class="step step-4">
+    <rect class="card" x="1270" y="130" width="260" height="130" rx="8" />
+    <circle class="accent-orange" cx="1305" cy="165" r="22" /><text class="step-number" x="1305" y="165">4</text>
+    <text class="card-label" x="1340" y="162">STEP 4</text>
+    <text class="card-title" x="1292" y="202">Page intent</text>
+    <text class="card-body" x="1292" y="226">Learning, evaluation or</text>
+    <text class="card-body" x="1292" y="247">action page format</text>
+  </g>
+
+  <g class="step step-5">
+    <rect class="card" x="970" y="350" width="290" height="130" rx="8" />
+    <circle class="accent-purple" cx="1005" cy="385" r="22" /><text class="step-number" x="1005" y="385">5</text>
+    <text class="card-label" x="1040" y="382">STEP 5</text>
+    <text class="card-title" x="992" y="422">SERP research</text>
+    <text class="card-body" x="992" y="446">Top results, competitors, PAA</text>
+    <text class="card-body" x="992" y="467">and search-feature patterns</text>
+  </g>
+
+  <g class="step step-6">
+    <rect class="card" x="570" y="350" width="290" height="130" rx="8" />
+    <circle class="accent-red" cx="605" cy="385" r="22" /><text class="step-number" x="605" y="385">6</text>
+    <text class="card-label" x="640" y="382">STEP 6</text>
+    <text class="card-title" x="592" y="422">Audience research</text>
+    <text class="card-body" x="592" y="446">YouTube, Reddit, forums, reviews</text>
+    <text class="card-body" x="592" y="467">and customer language</text>
+  </g>
+
+  <g class="step step-7">
+    <rect class="card" x="170" y="350" width="290" height="130" rx="8" />
+    <circle class="accent-blue" cx="205" cy="385" r="22" /><text class="step-number" x="205" y="385">7</text>
+    <text class="card-label" x="240" y="382">STEP 7</text>
+    <text class="card-title" x="192" y="422">Unique angle</text>
+    <text class="card-body" x="192" y="446">Information gain, gaps and</text>
+    <text class="card-body" x="192" y="467">differentiation from competitors</text>
+  </g>
+
+  <g class="step step-8">
+    <rect class="card" x="470" y="570" width="290" height="130" rx="8" />
+    <circle class="accent-teal" cx="505" cy="605" r="22" /><text class="step-number" x="505" y="605">8</text>
+    <text class="card-label" x="540" y="602">STEP 8</text>
+    <text class="card-title" x="492" y="642">SEO content brief</text>
+    <text class="card-body" x="492" y="666">Depth, sources, voice, links</text>
+    <text class="card-body" x="492" y="687">and content requirements</text>
+  </g>
+
+  <g class="step step-9">
+    <rect class="card" x="870" y="570" width="290" height="130" rx="8" />
+    <circle class="accent-orange" cx="905" cy="605" r="22" /><text class="step-number" x="905" y="605">9</text>
+    <text class="card-label" x="940" y="602">STEP 9</text>
+    <text class="card-title" x="892" y="642">SEO page outline</text>
+    <text class="card-body" x="892" y="666">Page flow, sections, examples</text>
+    <text class="card-body" x="892" y="687">and reader journey</text>
+  </g>
+
+  <g class="step step-10">
+    <rect class="card" x="1270" y="570" width="260" height="130" rx="8" />
+    <circle class="accent-purple" cx="1305" cy="605" r="22" /><text class="step-number" x="1305" y="605">10</text>
+    <text class="card-label" x="1340" y="602">STEP 10</text>
+    <text class="card-title" x="1292" y="642">First draft</text>
+    <text class="card-body" x="1292" y="666">Human-readable content</text>
+    <text class="card-body" x="1292" y="687">with claims and assets</text>
+  </g>
+
+  <g class="step step-11">
+    <rect class="card" x="970" y="720" width="290" height="130" rx="8" />
+    <circle class="accent-green" cx="1005" cy="755" r="22" /><text class="step-number" x="1005" y="755">11</text>
+    <text class="card-label" x="1040" y="752">STEP 11</text>
+    <text class="card-title" x="1040" y="792">On-page SEO</text>
+    <text class="card-title" x="1040" y="817">optimization</text>
+  </g>
+
+  <g class="step step-12">
+    <rect class="card" x="570" y="720" width="290" height="130" rx="8" />
+    <circle class="accent-red" cx="605" cy="755" r="22" /><text class="step-number" x="605" y="755">12</text>
+    <text class="card-label" x="640" y="752">STEP 12</text>
+    <text class="card-title" x="640" y="792">QA, citations</text>
+    <text class="card-title" x="640" y="817">and AI visibility</text>
+  </g>
+
+  <g class="step step-13">
+    <rect class="card" x="170" y="720" width="290" height="130" rx="8" />
+    <circle class="accent-blue" cx="205" cy="755" r="22" /><text class="step-number" x="205" y="755">13</text>
+    <text class="card-label" x="240" y="752">STEP 13</text>
+    <text class="card-title" x="240" y="792">Live web page</text>
+    <text class="card-title" x="240" y="817">and publishing</text>
+  </g>
+</svg>
