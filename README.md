@@ -1,4 +1,4 @@
-# SEO PACMAN - SEO Page Creator Agent
+# SEO Page Creator Agent
 
 [![npm version](https://img.shields.io/npm/v/seo-page-creator-agent)](https://www.npmjs.com/package/seo-page-creator-agent)
 [![license](https://img.shields.io/github/license/aiapplications001-art/seo-page-creator-agent)](./LICENSE)
