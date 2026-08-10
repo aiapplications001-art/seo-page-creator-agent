@@ -492,6 +492,19 @@ seo-agent batch publish-push --batch-id saas-pages-001 --target-id website-main 
 
 Publishing remains approval-gated. The workflow does not silently push or deploy generated pages.
 
+### Batch State and Uniqueness
+
+Batch runs persist state under:
+
+```text
+.seo-agent-workspace/batch-runs/<run-id>/
+  batch-run.json
+  run-ledger.jsonl
+  current-page.lock
+```
+
+Content and structure uniqueness are required across the batch and across historical runs. A page must fail repair if it reuses one shared HTML body template, repeats a same body section pattern, or differs only by title, slug, hook, or paraphrase.
+
 ## Inside SEO Page Creator Agent: How the AI SEO Workflow Works
 
 ![Animated SEO Page Creator Agent workflow](docs/images/seo-page-creator-workflow.svg)
@@ -578,11 +591,45 @@ The agent records the missing evidence, failed check, content risk, or required 
 
 Hard failures such as missing research or unsupported claims must be resolved before the page can move forward. Advisory recommendations can be reviewed and overridden when an editor has a clear reason.
 
+### V2.1 Workflow Coverage
+
+The deeper V2.1 workflow covers the full path from opportunity discovery to on-page SEO:
+
+- **Category Discovery:** Infer the SEO cluster from website, business, SERP, competitor, and audience-language evidence.
+- **Step 0A:** Define the topic, search problem, and natural problem-language.
+- **Step 0B:** Freeze the target keyword, query cluster, and page scope.
+- **Step 1:** Define the page's job.
+- **Step 2:** Validate search intent and expected depth.
+- **Step 3:** Choose the page type and internal content format.
+- **Step 4:** Define the next reader action.
+- **Step 5:** Analyze SERP and competitors.
+- **Step 6:** Research the topic deeply.
+- **Step 7:** Define the unique angle and information gain.
+- **Step 8:** Create the SEO content brief.
+- **Step 9:** Build the outline.
+- **Step 10:** Write the first draft.
+- **Step 11:** Optimize on-page SEO.
+
+Each major gate creates structured JSON and Markdown artifacts with hashes, verdicts, blockers, warnings, repair logs, and must-carry-forward requirements.
+
 ## Advanced CLI Helpers
 
 The CLI provides focused helpers for site intelligence, keyword research, page planning, content creation, validation, image readiness, batch operations, and Google SEO guidance. See the complete [32-helper command list](#commands).
 
 Use these helpers when you want to inspect, prepare, validate, debug, or publish SEO work in a repeatable local workflow.
+
+Useful lower-level commands include:
+
+```bash
+seo-agent category init --site https://example.com --company "Example" --market India
+seo-agent category validate --run-id <run-id>
+seo-agent cluster plan --auto-discover --run-id <run-id> --company "Example"
+seo-agent v2 prepare-page --cluster <cluster-slug> --page-id P1 --page-type guide
+seo-agent v2 validate-depth --cluster <cluster-slug> --page-id P1
+seo-agent v2 qa --cluster <cluster-slug> --page-id P1
+```
+
+When a V2 workspace exists, the host adapter fills `final-copy-draft.json` with evidence-backed prose before final expansion. The editor-facing deliverables remain the final page packet, editorial QA report, and image manifest.
 
 ## Advanced Quality Contracts
 
@@ -633,6 +680,16 @@ Before a page can advance, the workflow checks:
 A page can be marked `content_ready` only after the mandatory research gates, human-like language checks, expanded page packet, and structured QA report pass.
 
 A page can be marked `publish_ready` only after the content is ready and required image assets or approved fallbacks are complete.
+
+### Intent-Aware Page Structure
+
+SEO Page Creator Agent includes an Intent-Aware Page Structure contract. Page sections must carry page-specific `sectionIntent` and `evidenceBudget` expectations instead of relying on one fixed body template.
+
+The `pre-draft-quality-brief.json` artifact checks publish-worthiness before prose is written. It includes the SERP Superiority Gate and the Research-Derived Structure Gate. The research-derived structure plan is stored as `researchDerivedStructurePlan`, and final copy must include `structurePlanDeliveryProof`.
+
+For competitive pages, the SERP Superiority Gate expects primary keyword top 5 SERP pages, a secondary keyword or long-tail top 3 SERP set, the top 4 intent dimensions, at least 1 required superiority component, and 5 differentiated visible improvements. Final prose must include `superiorityProof`, `whyThisDeservesToRank`, and traceable `sourceRefs`.
+
+Opportunity selection prioritizes unfocused and long-tail search opportunities where the page can add real information gain. The agent should use SERP, PAA, Reddit/forum/video, AI Overview, audience-language, and competitor-gap research to avoid generic page structures and shallow copy.
 
 ## Generated Artifacts
 
