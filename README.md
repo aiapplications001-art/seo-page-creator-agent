@@ -4,6 +4,12 @@
 [![license](https://img.shields.io/github/license/aiapplications001-art/seo-page-creator-agent)](./LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/aiapplications001-art/seo-page-creator-agent?style=social)](https://github.com/aiapplications001-art/seo-page-creator-agent)
 
+<p align="center">
+  <a href="https://github.com/aiapplications001-art/seo-page-creator-agent">
+    <img src="./assets/seo-pacman-banner.gif" alt="SEO Pacman — your open-source all-in-one AI SEO agent" width="100%">
+  </a>
+</p>
+
 **Your All-in-One AI SEO Agent for Ranking Everywhere Faster**
 
 **AI-powered SEO Page Creator Agent workflow for Codex, Claude Code, Gemini CLI, Antigravity, and agent IDEs.**
